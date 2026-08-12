@@ -28,6 +28,67 @@ Then open <http://localhost:5180>. (It's also wired up as the
 
 ---
 
+## Embedding in Webflow
+
+Live at <https://alex-psychoactive.github.io/burgerfuel-locations/> · working
+embed demo at
+<https://alex-psychoactive.github.io/burgerfuel-locations/embed-test.html>
+(that file is the Webflow setup, verbatim).
+
+**1 — Page Settings → Inside `<head>` tag**
+
+```html
+<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=1">
+```
+
+**2 — Drag an Embed element onto the canvas, paste just this**
+
+```html
+<div id="bf-locator"></div>
+```
+
+**3 — Page Settings → Before `</body>` tag**
+
+```html
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=1"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=1"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=1"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=1"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=1"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=1"></script>
+```
+
+Notes that will save you an hour each:
+
+* **Custom code only runs on the published site**, never on the Designer
+  canvas. Publish to the `.webflow.io` staging domain to see anything.
+* **Order matters** — `markup.js` injects the DOM and must run before `app.js`.
+* **Bump `?v=1` → `?v=2` after every push.** GitHub Pages sends
+  `Cache-Control: max-age=600`, so without it browsers can serve a stale file
+  for ten minutes.
+* `js/markup.js` is **generated from `index.html`** — regenerate it after
+  changing markup:
+
+  ```bash
+  python -c "import io,re,json; s=io.open('index.html',encoding='utf-8').read(); b=re.sub(r'<script[^>]*></script>\s*','',re.search(r'<body>(.*?)</body>',s,re.S).group(1)).strip(); io.open('js/markup.js','w',encoding='utf-8').write('(function(){var m=document.getElementById(\"bf-locator\");if(!m||m.getAttribute(\"data-bf-mounted\"))return;m.setAttribute(\"data-bf-mounted\",\"1\");m.innerHTML='+json.dumps(b)+';})();\n')"
+  ```
+
+* Asset URLs are **not** hardcoded — `config.js` derives `assetBase` from its
+  own `<script src>`, and `app.js` resolves every `<img data-bf-src>` against
+  it. Move the repo anywhere and the images follow.
+
+### Before this goes on the client site
+
+The stylesheet sets `html{font-size:clamp(…)}` and `body{overflow:hidden}`.
+Those are correct for a page the locator *owns*, but on a page with Webflow's
+own nav they will rescale its text and kill scrolling. Two ways out: put the
+locator in an `<iframe>`, or move the fluid scale off the root onto a scoped
+custom property (`.bf-locator{--u:clamp(…)}` with `calc(var(--u) * n)` in
+place of `rem`). The markup also ships its own BurgerFuel nav — drop that
+`<header class="nav">` when the host page already has one.
+
+---
+
 ## Responsive model (Webflow-style fluid rem)
 
 One knob, on the root:
