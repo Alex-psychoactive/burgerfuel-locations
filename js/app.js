@@ -396,8 +396,19 @@
     w.addEventListener('resize', function () { if (state.map) state.map.resize(); });
   }
 
+  /* Point <img data-bf-src="assets/…"> at wherever the scripts are served
+     from. Without this the images 404 when the markup is embedded in a
+     site whose own URL differs (Webflow). */
+  function resolveAssets() {
+    var base = (w.BF_CONFIG && w.BF_CONFIG.assetBase) || '';
+    $$('[data-bf-src]').forEach(function (img) {
+      img.src = base + img.getAttribute('data-bf-src');
+    });
+  }
+
   /* ── boot ─────────────────────────────────────────────────── */
   function init() {
+    resolveAssets();
     buildRegionMenu();
     bind();
     refresh();

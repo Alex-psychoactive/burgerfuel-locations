@@ -16,7 +16,7 @@
 (function (w) {
   'use strict';
 
-  var PIN = 'assets/map-pin.png';
+  var PIN = ((w.BF_CONFIG && w.BF_CONFIG.assetBase) || '') + 'assets/map-pin.png';
 
   /* ── Greyscale skin, Google styles[] format ────────────────────── */
   var GOOGLE_STYLE = [

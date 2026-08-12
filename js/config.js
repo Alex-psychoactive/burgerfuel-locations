@@ -12,7 +12,16 @@
      (MapLibre GL + CARTO vector tiles) recoloured to the same
      greyscale skin, so the build is always viewable.
    ------------------------------------------------------------------ */
+/* assetBase is derived from where this script itself is served, so images
+   and the map pin resolve correctly whether the page is opened directly,
+   run from a local server, or embedded in another site (Webflow) whose
+   own URL is completely different. */
 window.BF_CONFIG = {
+  assetBase: (function () {
+    var s = document.currentScript;
+    return s ? s.src.replace(/js\/config\.js(\?.*)?$/, '') : '';
+  })(),
+
   googleMapsApiKey: '',
 
   // Whole-of-New-Zealand starting view

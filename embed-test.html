@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embed test — simulates a Webflow page</title>
+
+<!-- ① HEAD CODE — this is what goes in Webflow's "Inside <head> tag" -->
+<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css">
+</head>
+<body>
+
+<!-- ② EMBED ELEMENT — this is the whole HTML Embed in Webflow -->
+<div id="bf-locator"></div>
+
+<!-- ③ FOOTER CODE — this is what goes in "Before </body> tag".
+     Order matters: markup.js must run before app.js. -->
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js"></script>
+</body>
+</html>
