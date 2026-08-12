@@ -1,0 +1,561 @@
+/* ============================================================
+   BurgerFuel — Store Locations
+   Fluid rem system. Authored at a 1920 design width (1rem = 16px).
+   Scales 1920 → 2560 (capped) and 1920 → tablet (floored).
+   No px values: the root clamp is the single scale knob.
+   ============================================================ */
+
+/* ── Fonts ─────────────────────────────────────────────── */
+@font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-DemiBold.otf') format('opentype');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Heavy.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+
+/* ── Tokens ────────────────────────────────────────────── */
+:root{
+  /* brand */
+  --bf-black:#121317;
+  --bf-white:#fff;
+  --bf-grey:#f2f2f4;
+  --bf-purple:#592c83;
+  --bf-dark-purple:#3d1e5c;
+  --bf-dark-grey:#2c2e35;
+  --bf-blue:#36a7e9;
+  --bf-pink:#f7b3c8;
+  --bf-yellow:#ffd449;
+  --grey-text:#676767;
+  --row-grey:#f8f8f8;
+  --hairline:#e4e4e8;
+  --track:#dedede;
+
+  --open-bg:#cfffd7;   --open-fg:#186411;
+  --closed-bg:#ffcfcf; --closed-fg:#3b0b0b;
+
+  /* type */
+  --font-body:'Instrument Sans',system-ui,Arial,sans-serif;
+  --font-display:'Vanguard CF','Instrument Sans',Arial,sans-serif;
+
+  /* layout */
+  --nav-h:5rem;          /* 80  */
+  --inset:1rem;          /* 16  */
+  --sidebar-w:39.375rem; /* 630 */
+  --ctrl-h:3.75rem;      /* 60  */
+  --radius-pill:4.6875rem;
+
+  --shadow-toolbar:0 1.0625rem 2.675rem 0 rgba(0,0,0,.11);
+  --shadow-float:0 .5rem 1.5rem 0 rgba(0,0,0,.10);
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+/* Root scale — the single knob the whole layout hangs off.
+   `rem` inside the root font-size (and in media queries) resolves against
+   the initial 16px, so 120rem == 1920px here.
+
+   Below 1920 : 1rem = 0.8333vw, i.e. exactly 16px at 1920, floored at 8px
+                (~960 viewport) so the tablet fallback stays legible.
+   Above 1920 : a much gentler slope — +2px across the next 640px, so 2560
+                lands on 18px rather than 21.33px. Elements grow ~12% from
+                1920→2560 instead of ~33%.
+
+   To retune: 0.003125 is the slope (px of root growth per px of viewport).
+   0.00625 would give 20px at 2560; raise the 1.125rem ceiling to match. */
+html{font-size:clamp(.5rem, .8333333vw, 1rem)}
+
+@media (min-width:120rem){
+  html{font-size:clamp(1rem, calc(1rem + (100vw - 120rem) * .003125), 1.125rem)}
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:1rem;
+  color:var(--bf-black);
+  background:var(--bf-grey);
+  /* the page never scrolls — the map owns the wheel */
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,dl,dd,dt,ul{margin:0;padding:0}
+ul{list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+input{font:inherit}
+/* Every inline icon is a stroke-only outline that inherits colour from its
+   button. Without this an SVG with no fill attribute paints solid black. */
+/* scoped to our own chrome so the map renderer's control icons keep their fills */
+.nav svg,.toolbar svg,.listview svg,.sidebar svg,.map-ctrl svg{fill:none}
+.icon{width:1.375rem;height:1.375rem;flex:none;display:block;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.icon--chev{width:1.5rem;height:1.5rem}
+
+/* smallest text on screen — spec'd 16px / 170% */
+.text-xs{font-size:1rem;font-weight:400;line-height:170%;color:var(--bf-black)}
+
+/* ── macOS-style scrollbar ─────────────────────────────────
+   No stepper arrows, invisible track, a rounded thumb inset from the edge
+   by a transparent border + background-clip so it reads as floating over
+   the content rather than sitting in a channel.
+
+   The thumb is visible at rest and darkens on hover / drag. Dragging is
+   native behaviour of ::-webkit-scrollbar-thumb — no JS needed.
+
+   Sizes are in rem to stay on the fluid scale, but floored via min() so
+   the thumb can't shrink into invisibility on small viewports. */
+.u-scroll{overflow-y:auto;overscroll-behavior:contain}
+.u-scroll::-webkit-scrollbar{width:max(.875rem, 14px);height:max(.875rem, 14px)}
+.u-scroll::-webkit-scrollbar-track{background:transparent;border:0}
+.u-scroll::-webkit-scrollbar-corner{background:transparent}
+/* kills the up/down stepper arrows */
+.u-scroll::-webkit-scrollbar-button{display:none;width:0;height:0}
+.u-scroll::-webkit-scrollbar-thumb{
+  background-color:rgba(0,0,0,.26);
+  border:max(.25rem, 4px) solid transparent;   /* → a 6px pill in a 14px strip */
+  background-clip:padding-box;
+  border-radius:max(.625rem, 10px);
+  min-height:2.5rem;
+}
+.u-scroll::-webkit-scrollbar-thumb:hover{background-color:rgba(0,0,0,.45)}
+.u-scroll::-webkit-scrollbar-thumb:active{background-color:rgba(0,0,0,.6)}
+
+/* Firefox (and any engine without the -webkit- pseudos) — declaring these
+   unconditionally would make Chrome ignore every rule above. */
+@supports not selector(::-webkit-scrollbar){
+  .u-scroll{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.32) transparent}
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:40;
+  height:var(--nav-h);
+  display:flex;align-items:center;
+  padding-inline:2.375rem;
+  background:var(--bf-white);
+  box-shadow:0 .375rem .625rem -.375rem rgba(0,0,0,.16);
+  overflow:hidden;              /* the neon sign hangs in from above, as designed */
+}
+.nav__logo img{height:2.25rem;width:auto}
+.nav__links{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:4.5rem;
+  font-size:1rem;font-weight:500;
+}
+.nav__links a{padding-block:.5rem;transition:opacity .2s var(--ease)}
+.nav__links a:hover{opacity:.55}
+.nav__links-drop{display:inline-flex;align-items:center;gap:.25rem}
+.nav__order{display:flex;align-items:flex-end;height:100%;margin-left:auto}
+.nav__order img{height:6rem;width:auto;transition:filter .25s var(--ease)}
+.nav__order:hover img{filter:brightness(1.12) saturate(1.1)}
+
+/* ============================================================
+   STAGE — the map is the page; everything else floats on it
+   ============================================================ */
+.stage{
+  position:fixed;
+  inset:var(--nav-h) 0 0 0;
+  overflow:hidden;
+  isolation:isolate;
+}
+/* id selector so the renderer's own stylesheet can't unseat the layout */
+#map.map{position:absolute;inset:0;z-index:0;background:var(--bf-grey)}
+.map canvas{outline:none}
+
+/* Google / MapLibre chrome trimmed back to a Google-Maps-like base */
+.map .gm-style-cc,
+.map .gmnoprint.gm-bundled-control{}
+.maplibregl-ctrl-bottom-left,.maplibregl-ctrl-bottom-right{font-size:.6875rem}
+
+/* zoom controls */
+.map-ctrl{
+  position:absolute;z-index:20;
+  right:var(--inset);bottom:var(--inset);
+  display:flex;flex-direction:column;
+  border-radius:.625rem;overflow:hidden;
+  background:var(--bf-white);
+  box-shadow:var(--shadow-float);
+  transition:right .45s var(--ease);
+}
+.map-ctrl__btn{
+  width:3rem;height:3rem;display:grid;place-items:center;color:var(--bf-black);
+  transition:background .15s var(--ease)
+}
+.map-ctrl__btn svg{width:1.5rem;height:1.5rem}
+.map-ctrl__btn:hover{background:var(--bf-grey)}
+.map-ctrl__btn+.map-ctrl__btn{border-top:.0625rem solid var(--hairline)}
+.is-sidebar-open .map-ctrl{right:calc(var(--sidebar-w) + var(--inset) * 2)}
+
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+.toolbar{
+  position:absolute;z-index:30;
+  top:var(--inset);left:var(--inset);
+  display:flex;align-items:center;gap:2.375rem;
+  padding:.8125rem 1rem;
+  border-radius:var(--radius-pill);
+  background:var(--bf-white);
+  box-shadow:var(--shadow-toolbar);
+}
+
+/* Map | List segmented switch */
+.segment{
+  display:flex;align-items:center;
+  background:var(--track);
+  border-radius:var(--radius-pill);
+  padding:.125rem;
+}
+.segment__btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+  height:3.5rem;padding-inline:2rem;
+  border-radius:var(--radius-pill);
+  font-size:1rem;font-weight:500;color:var(--bf-black);
+  transition:background .25s var(--ease),color .25s var(--ease);
+}
+.segment__btn:hover:not(.is-active){background:rgba(255,255,255,.55)}
+.segment__btn.is-active{background:var(--bf-purple);color:var(--bf-white)}
+
+/* search — flex row so the Clear pill can appear without the text
+   running underneath it */
+.search{
+  display:flex;align-items:center;gap:.5rem;
+  width:35rem;height:var(--ctrl-h);
+  padding-right:.25rem;
+  background:#e6e6e6;border-radius:var(--radius-pill);
+}
+.search__input{
+  flex:1;min-width:0;height:100%;
+  padding-inline:2.25rem .25rem;
+  border:0;background:none;outline:none;border-radius:inherit;
+  font-size:1rem;font-weight:500;color:rgba(0,0,0,.6);
+}
+.search__input::placeholder{color:rgba(0,0,0,.6);opacity:1}
+.search__input::-webkit-search-cancel-button{display:none}
+
+.search__clear{
+  flex:none;display:inline-flex;align-items:center;gap:.375rem;
+  height:2.5rem;padding-inline:.875rem 1.125rem;
+  border-radius:var(--radius-pill);
+  background:var(--bf-white);color:var(--bf-black);
+  font-size:1rem;font-weight:500;white-space:nowrap;
+  transition:background .18s var(--ease),color .18s var(--ease);
+}
+.search__clear[hidden]{display:none}
+.search__clear svg{width:1.125rem;height:1.125rem}
+.search__clear:hover{background:var(--bf-black);color:var(--bf-white)}
+
+.search__btn{
+  flex:none;
+  width:3.25rem;height:3.25rem;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--bf-white);color:var(--bf-black);
+  transition:background .18s var(--ease),transform .18s var(--ease);
+}
+.search__btn:hover{background:var(--bf-grey);transform:scale(1.05)}
+
+/* region selector */
+.region{position:relative}
+.region__btn{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  width:17.8125rem;height:var(--ctrl-h);
+  padding-inline:2.25rem 1.25rem;
+  border-radius:var(--radius-pill);
+  background:#e6e6e6;
+  font-size:1rem;font-weight:500;color:rgba(0,0,0,.6);
+  transition:background .18s var(--ease);
+}
+.region__btn:hover{background:#dcdcdc}
+.region__btn .icon--chev{transition:transform .25s var(--ease)}
+.region[data-open] .region__btn{background:#dcdcdc}
+.region[data-open] .region__btn .icon--chev{transform:rotate(180deg)}
+
+.region__menu{
+  position:absolute;z-index:5;
+  top:calc(100% + .75rem);left:0;
+  width:100%;max-height:26rem;
+  padding:.5rem;
+  border-radius:1.5rem;
+  background:var(--bf-white);
+  box-shadow:var(--shadow-toolbar);
+}
+.region__opt{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  width:100%;padding:.875rem 1.125rem;
+  border-radius:1rem;
+  font-size:1rem;font-weight:500;text-align:left;color:var(--bf-black);
+  transition:background .14s var(--ease),color .14s var(--ease);
+}
+/* ← the hover state the old build was missing */
+.region__opt:hover,.region__opt:focus-visible{background:var(--bf-grey);outline:none}
+.region__opt[aria-selected="true"]{background:var(--bf-purple);color:var(--bf-white)}
+.region__opt[aria-selected="true"]:hover{background:var(--bf-dark-purple)}
+
+/* ============================================================
+   LIST VIEW
+   ============================================================ */
+.listview{
+  position:absolute;inset:0;z-index:10;
+  background:var(--bf-white);
+}
+.listview[hidden]{display:none}
+.listview__scroll{
+  height:100%;
+  padding-top:calc(var(--ctrl-h) + 3.625rem);  /* clear the toolbar */
+  padding-bottom:4rem;
+  transition:padding-right .45s var(--ease);
+}
+.is-sidebar-open .listview__scroll{padding-right:calc(var(--sidebar-w) + var(--inset))}
+.listview__col{
+  width:min(59rem, 100% - 4rem);
+  margin-inline:auto;
+}
+
+.listview__head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;
+  padding-block:2.5rem 3.25rem;
+}
+.listview__title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:4rem;line-height:1.02;letter-spacing:-.01em;
+  text-transform:uppercase;
+}
+.listview__title span{color:var(--grey-text)}
+.listview__title em{font-style:normal;color:var(--bf-black)}
+.listview__count{margin-top:.75rem;font-size:1.25rem;color:var(--bf-black)}
+
+/* sort SWITCH */
+.sortswitch{
+  display:inline-flex;align-items:center;gap:1rem;
+  height:3.5rem;padding:.1875rem 2rem .1875rem .1875rem;
+  border-radius:var(--radius-pill);
+  background:#ededed;
+  transition:background .18s var(--ease);
+}
+.sortswitch:hover{background:#e2e2e2}
+.sortswitch__icon{
+  width:3.125rem;height:3.125rem;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--bf-white);color:var(--bf-black);
+  box-shadow:0 .125rem .375rem rgba(0,0,0,.08);
+}
+.sortswitch__icon svg{width:1.5rem;height:1.5rem}
+/* hard swap — no transition between the two states */
+.sortswitch__desc{display:none}
+.sortswitch[aria-pressed="true"] .sortswitch__asc{display:none}
+.sortswitch[aria-pressed="true"] .sortswitch__desc{display:block}
+.sortswitch__label{font-size:1rem;font-weight:500;color:rgba(0,0,0,.6);white-space:nowrap}
+
+/* store rows */
+.storelist{display:flex;flex-direction:column;gap:.625rem}
+.storerow{
+  display:flex;align-items:stretch;gap:1.75rem;
+  height:6.375rem;
+  padding-right:3rem;
+  background:var(--row-grey);
+  overflow:hidden;
+  cursor:pointer;
+  transition:background .2s var(--ease),color .2s var(--ease);
+}
+.storerow:hover{background:#ededed}
+.storerow:focus-visible{outline:.1875rem solid var(--bf-purple);outline-offset:.125rem}
+.storerow__thumb{width:13.5rem;flex:none;overflow:hidden;background:var(--bf-dark-grey)}
+.storerow__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.storerow:hover .storerow__thumb img{transform:scale(1.05)}
+.storerow__content{display:flex;flex-direction:column;justify-content:center;gap:.375rem;flex:1;min-width:0}
+.storerow__name{
+  font-family:var(--font-display);font-weight:700;
+  font-size:2rem;line-height:1;text-transform:uppercase;
+}
+.storerow__addr{display:flex;align-items:center;gap:.625rem;font-size:1.125rem;line-height:1.3}
+.storerow__addr .icon{opacity:.6}
+.storerow__addr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.storerow__radio{display:grid;place-items:center;align-self:center;flex:none}
+.storerow__radio svg{width:1.5rem;height:1.5rem;stroke-linecap:round;stroke-linejoin:round;fill:none;color:var(--bf-black)}
+.storerow__radio .dot{opacity:0;transition:opacity .18s var(--ease)}
+
+.storerow.is-active{background:var(--bf-purple);color:var(--bf-white)}
+.storerow.is-active .storerow__radio svg{color:var(--bf-white)}
+.storerow.is-active .storerow__radio .dot{opacity:1}
+.storerow.is-active .storerow__addr .icon{opacity:.85}
+
+/* empty state — explains *why* there are no results, not just that there aren't */
+.empty{max-width:44rem;padding-block:3rem 6rem}
+.empty[hidden]{display:none}
+.empty__title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:2.25rem;line-height:1.08;text-transform:uppercase;
+  color:var(--bf-black);
+}
+.empty__body{margin-top:1rem;font-size:1rem;font-weight:400;line-height:170%;color:var(--grey-text)}
+.empty__actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.empty__actions .btn--pill svg{width:1.25rem;height:1.25rem}
+.empty__actions .btn--pill[hidden]{display:none}
+
+/* ============================================================
+   SIDEBAR — full height of the stage, sticky order bar
+   ============================================================ */
+.sidebar{
+  position:absolute;z-index:35;
+  top:var(--inset);right:var(--inset);bottom:var(--inset);
+  width:var(--sidebar-w);
+  display:flex;flex-direction:column;   /* ← scroll area + sticky bar */
+  min-height:0;
+  background:var(--bf-grey);
+  box-shadow:var(--shadow-float);
+  overflow:hidden;
+}
+.sidebar[hidden]{display:none}
+.sidebar__scroll{
+  flex:1 1 auto;min-height:0;
+  /* leave room for the sticky order bar so nothing hides under it */
+  padding-bottom:9.5rem;
+}
+
+.sidebar__hero{position:relative;flex:none}
+.sidebar__img{width:100%;aspect-ratio:658/300;object-fit:cover;background:var(--bf-dark-grey)}
+.btn-close{
+  position:absolute;top:1.625rem;left:1.625rem;
+  display:inline-flex;align-items:center;gap:.5rem;
+  height:3.5rem;padding-inline:1.5rem 1.75rem;
+  border-radius:var(--radius-pill);
+  background:var(--bf-white);color:var(--bf-black);
+  font-size:1rem;font-weight:600;
+  box-shadow:var(--shadow-float);
+  transition:background .18s var(--ease),transform .18s var(--ease);
+}
+.btn-close:hover{background:var(--bf-grey);transform:translateY(-.0625rem)}
+
+.sidebar__top{padding:2.25rem 2.25rem 2rem;border-bottom:.0625rem solid #e2e2e6}
+.sidebar__name{
+  font-family:var(--font-display);font-weight:700;
+  font-size:4.25rem;line-height:.92;letter-spacing:-.005em;
+  text-transform:uppercase;
+}
+.statusline{display:flex;align-items:center;gap:1rem;margin-top:1.5rem}
+.status{
+  display:inline-flex;align-items:center;gap:.625rem;
+  height:2.75rem;padding-inline:1.125rem;
+  border-radius:var(--radius-pill);
+  font-size:1.25rem;font-weight:600;
+  background:var(--open-bg);color:var(--open-fg);
+}
+.status.is-closed{background:var(--closed-bg);color:var(--closed-fg)}
+.status .icon{width:1.25rem;height:1.25rem}
+.statusline__dot{width:.3125rem;height:.3125rem;border-radius:50%;background:#b6b6ba}
+.statusline__next{font-size:1.25rem;color:var(--grey-text)}
+.sidebar__viewstore{margin-top:1.75rem;width:100%}
+
+.sidebar__body{padding:2rem 2.25rem 2.5rem;display:flex;flex-direction:column;gap:2rem}
+.sidebar__desc{max-width:34rem}
+
+.inforow{
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  padding-top:1.75rem;border-top:.0625rem solid #e2e2e6;
+}
+.inforow:first-of-type{border-top:0;padding-top:0}
+.inforow--stack{flex-direction:column;align-items:stretch;gap:1.25rem}
+.inforow__main{display:flex;align-items:flex-start;gap:.875rem;min-width:0}
+.inforow__icon{margin-top:.125rem;width:1.5rem;height:1.5rem}
+.inforow__label{font-size:1.25rem;font-weight:600;line-height:1.4}
+.inforow__value{margin-top:.125rem}
+
+.hours{display:grid;grid-template-columns:auto 1fr;gap:.875rem 3.5rem;padding-left:2.375rem}
+.hours dt{font-size:1.125rem;font-weight:600;white-space:nowrap}
+.hours dd{font-size:1.125rem;font-weight:400;color:var(--bf-black)}
+
+/* buttons — Instrument Sans SemiBold throughout.
+   Primary actions (Order now / View store) 1.125rem, everything else 1rem. */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+  border-radius:var(--radius-pill);
+  font-size:1rem;font-weight:600;
+  transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+.btn--ghost{
+  height:4.125rem;background:var(--bf-white);color:var(--bf-black);
+  border:.0625rem solid #e2e2e6;
+  font-size:1.125rem;
+}
+.btn--ghost:hover{background:var(--bf-black);color:var(--bf-white);border-color:var(--bf-black)}
+.btn--pill{
+  flex:none;height:3.5rem;padding-inline:1.5rem;
+  background:var(--bf-white);color:var(--bf-black);
+  border:.0625rem solid #e2e2e6;white-space:nowrap;
+}
+.btn--pill:hover{background:var(--bf-black);color:var(--bf-white);border-color:var(--bf-black);transform:translateY(-.0625rem)}
+.btn--pill .icon{width:1.375rem;height:1.375rem}
+.btn__gicon{width:1.5rem;height:1.5rem}
+
+/* sticky order bar + gradient shadow */
+.sidebar__orderbar{
+  position:relative;flex:none;
+  padding:0 2.25rem 1.75rem;
+  pointer-events:none;
+}
+.sidebar__gradient{
+  position:absolute;left:0;right:0;bottom:0;
+  height:7.875rem;                     /* 126px */
+  background:linear-gradient(180deg, rgba(44,46,53,0.00) 0%, rgba(44,46,53,0.36) 100%);
+  pointer-events:none;
+}
+.btn--order{
+  position:relative;
+  width:100%;height:4.75rem;
+  padding-inline:2rem;
+  background:var(--bf-black);color:var(--bf-white);
+  font-size:1.125rem;
+  pointer-events:auto;
+}
+.btn--order span:first-child{margin-inline:auto}
+.btn--order:hover{background:var(--bf-purple);transform:translateY(-.125rem)}
+.btn--order__arrow{
+  position:absolute;right:.75rem;top:50%;transform:translateY(-50%);
+  width:3.25rem;height:3.25rem;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--bf-purple);color:var(--bf-white);
+  transition:background .18s var(--ease),transform .3s var(--ease);
+}
+.btn--order__arrow svg{width:1.25rem;height:1.25rem}
+.btn--order:hover .btn--order__arrow{background:var(--bf-white);color:var(--bf-purple);transform:translateY(-50%) rotate(45deg)}
+
+/* ============================================================
+   MAP MARKERS
+   ============================================================ */
+.bf-pin{
+  width:4.5rem;               /* 72px at 1920 */
+  cursor:pointer;
+  transform-origin:50% 100%;
+  transition:transform .22s var(--ease),filter .22s var(--ease);
+  will-change:transform;
+}
+.bf-pin img{width:100%;height:auto;pointer-events:none;
+  filter:drop-shadow(0 .1875rem .375rem rgba(0,0,0,.35))}
+.bf-pin:hover{transform:scale(1.12)}
+.bf-pin.is-active{transform:scale(1.28);z-index:5}
+.bf-pin.is-active img{filter:drop-shadow(0 .25rem .625rem rgba(89,44,131,.75))}
+
+/* only shown if the map fails to load outright */
+.map-note{
+  position:absolute;z-index:20;left:var(--inset);bottom:var(--inset);
+  max-width:32rem;padding:.75rem 1.125rem;
+  border-radius:1rem;background:rgba(255,255,255,.92);
+  font-size:.875rem;line-height:1.45;color:var(--bf-dark-grey);
+  box-shadow:var(--shadow-float);
+}
+.map-note a{text-decoration:underline}
+.map-note b{font-weight:600}
+
+/* ============================================================
+   Tablet floor — not a priority view, kept legible only
+   ============================================================ */
+@media (max-width:60rem){
+  :root{--sidebar-w:min(39.375rem, 92vw)}
+  .nav__links{display:none}
+  .toolbar{flex-wrap:wrap;gap:1rem;right:var(--inset);max-width:calc(100% - var(--inset)*2)}
+  .search{width:100%;min-width:14rem}
+}
