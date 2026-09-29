@@ -106,7 +106,7 @@
     }
     return runs.map(function (r) {
       return {
-        days: r.start === r.end ? SHORT[r.start] : SHORT[r.start] + ' – ' + SHORT[r.end],
+        days: r.start === r.end ? SHORT[r.start] : SHORT[r.start] + ' - ' + SHORT[r.end],
         time: prettyRange(r.value)
       };
     });

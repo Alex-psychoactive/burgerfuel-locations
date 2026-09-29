@@ -10,7 +10,8 @@
    rather than letting the page scroll.
 
      BFMap.create(el, opts) → Promise<{
-       addMarker, setActive, panTo, fitBounds, zoomBy, driver
+       addMarker, panTo, fitBounds, zoomBy, resize,
+       onClick, getZoom, onZoom, driver
      }>
    ------------------------------------------------------------------ */
 (function (w) {
@@ -132,7 +133,7 @@
             map.panTo({ lat: lat, lng: lng });
             if (zoom && map.getZoom() < zoom) map.setZoom(zoom);
           },
-          fitBounds: function (list, pad) {
+          fitBounds: function (list, pad) {   // Google jumps anyway; no instant flag needed
             if (!list.length) return;
             var b = new google.maps.LatLngBounds();
             list.forEach(function (s) { b.extend({ lat: s.lat, lng: s.lng }); });
@@ -141,7 +142,9 @@
           },
           zoomBy: function (d) { map.setZoom(map.getZoom() + d); },
           resize: function () { google.maps.event.trigger(map, 'resize'); },
-          onClick: function (cb) { map.addListener('click', cb); }
+          onClick: function (cb) { map.addListener('click', cb); },
+          getZoom: function () { return map.getZoom(); },
+          onZoom: function (cb) { map.addListener('zoom_changed', function () { cb(map.getZoom()); }); }
         };
       });
   }
@@ -187,19 +190,22 @@
                   duration: 700
                 });
               },
-              fitBounds: function (list, pad) {
+              fitBounds: function (list, pad, instant) {
                 if (!list.length) return;
+                var ms = instant ? 0 : 700;
                 if (list.length === 1) {
-                  map.easeTo({ center: [list[0].lng, list[0].lat], zoom: 13, duration: 700 });
+                  map.easeTo({ center: [list[0].lng, list[0].lat], zoom: 13, duration: ms });
                   return;
                 }
                 var b = new maplibregl.LngLatBounds();
                 list.forEach(function (s) { b.extend([s.lng, s.lat]); });
-                map.fitBounds(b, { padding: pad, duration: 700, maxZoom: 14 });
+                map.fitBounds(b, { padding: pad, duration: ms, maxZoom: 14 });
               },
               zoomBy: function (d) { map.zoomTo(map.getZoom() + d, { duration: 250 }); },
               resize: function () { map.resize(); },
-              onClick: function (cb) { map.on('click', cb); }
+              onClick: function (cb) { map.on('click', cb); },
+              getZoom: function () { return map.getZoom(); },
+              onZoom: function (cb) { map.on('zoom', function () { cb(map.getZoom()); }); }
             });
           });
         });

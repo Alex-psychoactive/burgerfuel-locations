@@ -38,7 +38,7 @@ embed demo at
 **1 — Page Settings → Inside `<head>` tag**
 
 ```html
-<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=1">
+<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=2">
 ```
 
 **2 — Drag an Embed element onto the canvas, paste just this**
@@ -50,12 +50,12 @@ embed demo at
 **3 — Page Settings → Before `</body>` tag**
 
 ```html
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=1"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=1"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=1"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=1"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=1"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=1"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=2"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=2"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=2"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=2"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=2"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=2"></script>
 ```
 
 Notes that will save you an hour each:
@@ -63,14 +63,14 @@ Notes that will save you an hour each:
 * **Custom code only runs on the published site**, never on the Designer
   canvas. Publish to the `.webflow.io` staging domain to see anything.
 * **Order matters** — `markup.js` injects the DOM and must run before `app.js`.
-* **Bump `?v=1` → `?v=2` after every push.** GitHub Pages sends
+* **Bump `?v=2` → `?v=2` after every push.** GitHub Pages sends
   `Cache-Control: max-age=600`, so without it browsers can serve a stale file
   for ten minutes.
 * `js/markup.js` is **generated from `index.html`** — regenerate it after
   changing markup:
 
   ```bash
-  python -c "import io,re,json; s=io.open('index.html',encoding='utf-8').read(); b=re.sub(r'<script[^>]*></script>\s*','',re.search(r'<body>(.*?)</body>',s,re.S).group(1)).strip(); io.open('js/markup.js','w',encoding='utf-8').write('(function(){var m=document.getElementById(\"bf-locator\");if(!m||m.getAttribute(\"data-bf-mounted\"))return;m.setAttribute(\"data-bf-mounted\",\"1\");m.innerHTML='+json.dumps(b)+';})();\n')"
+  python -c "import io,re,json; s=io.open('index.html',encoding='utf-8').read(); b=re.sub(r'<script[^>]*></script>\s*','',re.search(r'<body[^>]*>(.*?)</body>',s,re.S).group(1)).strip(); io.open('js/markup.js','w',encoding='utf-8').write('(function(){var m=document.getElementById(\"bf-locator\");if(!m||m.getAttribute(\"data-bf-mounted\"))return;m.setAttribute(\"data-bf-mounted\",\"1\");m.innerHTML='+json.dumps(b)+';})();\n')"
   ```
 
 * Asset URLs are **not** hardcoded — `config.js` derives `assetBase` from its
@@ -86,6 +86,46 @@ locator in an `<iframe>`, or move the fluid scale off the root onto a scoped
 custom property (`.bf-locator{--u:clamp(…)}` with `calc(var(--u) * n)` in
 place of `rem`). The markup also ships its own BurgerFuel nav — drop that
 `<header class="nav">` when the host page already has one.
+
+---
+
+## Mobile (below 768px)
+
+Built from the "Mobile Designs" Figma frames (393 wide). Same fluid-rem rule
+as desktop, just a different anchor: `1rem` = 16px at 393
+(`clamp(.8125rem, 4.0712468vw, 1.25rem)`, so 13px on a 320 phone, capped at 20px).
+
+* **The page scrolls on mobile.** Title → Map/List switch → search → region →
+  map or list. The map is sized to fill the screen under the sticky switch,
+  so once you've scrolled to it the whole view is map.
+* **Sticky switch.** The toolbar is `display:contents` on mobile so the switch
+  can stick for the full page length. The shadow only appears once it's stuck
+  (and the nav's own shadow hands off to it).
+* **Store sheet.** Tapping a store in either view slides the sheet up over a
+  70% black scrim: 450ms ease-out-quint in, 400ms ease-in-quad out. Close by
+  the × button, tapping the scrim, Esc, "Back to all stores", or swiping down
+  from the top of the sheet. The hero photo scrolls with parallax. The purple
+  "Order from this store" bar floats over the sheet, and its gradient is
+  click-through.
+* **Map nudges.** "Pinch to zoom", then "Tap a store for details", show once
+  as a toast the first time the map is on screen, and vanish on the first
+  touch. After 5s without any input, the pins on screen do a quick staggered
+  wiggle-and-grow, repeating every 5s while the visitor stays idle. Any touch,
+  scroll or key resets the 5s. Off when the OS asks for reduced motion.
+* **Pins** grow to the design's 103px once zoomed in (zoom ≥ 10.5) and have an
+  invisible padded tap target.
+* **Footer** appears under the list view only.
+
+The new status chips (green dot / red clock), the Location / Phone / Hours
+layout and the extra sections (store info, review links, photos, how it
+started, blog, next store) are shared with the **desktop sidebar** too.
+
+**Deep links:** `#ponsonby` opens that store's sheet, `#list` opens the list,
+and `#list&ponsonby` does both. The hash follows the open store, so a sheet
+can be shared.
+
+**`?demo`** turns on the event and blog blocks for every store using the
+Figma copy, because no live store has either right now.
 
 ---
 
@@ -142,6 +182,19 @@ Webflow CMS collection. Every record has:
 `name · slug · address · region · postal · lat · lng · image ·
 description · phone · gmaps (directions URL) · hours` (7 days)
 
+plus, from each store's own page (`python tools/scrape-store-details.py`
+re-pulls them and rewrites both data files):
+
+`photos[] · started ("How it started") · google · facebook · event · blog`
+
+**Events live in Webflow.** They're fields on each store's CMS item (title,
+body, image, "Learn more" link). The live store template has a purple event
+section that Webflow only shows when those fields are filled. The scraper
+picks them up the same way. No store had an event on 2026-09-29, so
+`event` is `null` everywhere (use `?demo` to preview the block). The "blog
+post from this store" is a CMS reference on the same item and is also empty
+today.
+
 `js/stores-data.js` is the same data as a plain `window.BF_DATA` global so
 the page also works straight off the filesystem. **Regenerate it after
 editing the JSON:**
@@ -195,7 +248,10 @@ Google/MapLibre instance.
 
 ## Known gaps
 
-* Tablet and mobile were explicitly out of scope — there's a minimal floor
-  at `max-width:60rem` so it degrades rather than breaks, nothing more.
+* Tablet (768–960px) is still the old minimal floor. It's the next job.
+* The mobile hamburger is visual only. On the client site the host nav
+  supplies the real menu.
+* The list view's sort switch and "In New Zealand · N stores" header aren't
+  in the mobile design, so they're hidden below 768px.
 * Store hero images are hot-linked to the Webflow CDN. Download them locally
   if you need this to work offline.

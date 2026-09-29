@@ -34,7 +34,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68002f0a65996af7be1fe6c8_BurgerFuel%20Store%20-%20Adelaide%20Road%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6810063eac4e2b64f16a9615_BurgerFuel%20Adelaide%20Road%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681006422572a44292af42d8_BurgerFuel%20Adelaide%20Road%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68100646752fce078c7a2df0_BurgerFuel%20Adelaide%20Road%20in-store%203.avif"
+   ],
+   "started": "BurgerFuel Adelaide Road opened its doors back in January 2013 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Adelaide+Road&stick=H4sIAAAAAAAA_-NgU1I1qDBLMbZITEs1NDE2SjYwtLS0MqgwtUw0SbY0MDGxNDc2SzFLXMQq4VRalJ5a5FaamqPgmJKak5iZkqoQlJ-YAgAQueuqRAAAAA&hl=en&mat=CZjHmsydERALElYBmzl_pckmMYZkAFgDyixrzZcz1_iYgH_ofQ7tC2f4VWpNg7oa-U88KKAk0NZdwUxvyyq3tOc7ndL-JsfNm_s89ndbynyTxmDsaB5LcSJzl3y71wJ6Xw&authuser=0",
+   "facebook": "https://www.facebook.com/BurgerFuelAdelaideRd",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Albany",
@@ -56,7 +67,18 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–12 am",
     "Sunday": "10 am–12 am"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68002f49d2f3d2f060994030_BurgerFuel%20Store%20-%20Albany%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68100f8a165c9323b1e0d6bb_BurgerFuel%20Albany%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68100f904a630f4908e3cf35_BurgerFuel%20Albany%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68100f944a630f4908e3d353_BurgerFuel%20Albany%20in-store%203.avif"
+   ],
+   "started": "Back in January 2005, a new BurgerFuel opened its doors in Albany, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Albany&stick=H4sIAAAAAAAA_-NgU1I1qDBLMUgxTkpNNE00NjC1NLK0MqhINLc0TExOMzUwMTAxNTQ1XMQq6FRalJ5a5FaamqPgmJOUmFcJAJgzSI09AAAA&hl=en&mat=Cf05gk9gnGWaElcBmzl_pY1G5IQvrgkELi7qrLei4u8Om9lXb9o-jsilhtIJv8Uq5fWeAlC8EySxr2DlGwlhkOSIOEBR59YWZAHIMsVLsaq8f1-QTl70jtEeBU_Gd3f1Buo&authuser=0",
+   "facebook": "https://www.facebook.com/profile.php?id=100063699865703",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Bethlehem",
@@ -78,7 +100,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6806e7c3797bf7a8febb85c0_BurgerFuel%20Store%20-%20Bethlehem%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681010bdf01b07c823ee6017_BurgerFuel%20Bethlehem%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681010c2f01b07c823ee6417_BurgerFuel%20Bethlehem%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681010c4d3ce1d74653ade97_BurgerFuel%20Bethlehem%20in-store%203.avif"
+   ],
+   "started": "Back in December 2016, a new BurgerFuel opened its doors in Bethlehem, Tauranga. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zrsquyMEAhS7QgHMXyNdjpBbGIY6w:1745282730152&kgmid=/g/11c5xcl12c&q=BurgerFuel+Bethlehem&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=735187b22a321639",
+   "facebook": "https://www.facebook.com/profile.php?id=100069106418887",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Botany Downs",
@@ -100,7 +133,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6806e87a8079f31d51508ea5_BurgerFuel%20Store%20-%20Botany%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681011ca7e0b9648aeeec9ff_BurgerFuel%20Botany%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681011cf8b041892652ed445_BurgerFuel%20Botany%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681011d35fdcf59276ffb465_BurgerFuel%20Botany%20in-store%203.avif"
+   ],
+   "started": "Back in May 2004, a new BurgerFuel opened its doors in Botany Down, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zqvmhJC7NGdSCoeba5BqyNVnyvJOg:1745283678469&kgmid=/g/1tdcx8jk&q=BurgerFuel+Botany+Downs&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=2a101f0608e4a3fc",
+   "facebook": "https://www.facebook.com/profile.php?id=100069321293029",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Bush Inn",
@@ -122,7 +166,18 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6806ec978ceefe2d1fb6d56b_BurgerFuel%20Store%20-%20Bush%20Inn%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681020804aecb9a08a556948_BurgerFuel%20Bush%20Inn%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6810208391e2569a304112f4_BurgerFuel%20Bush%20Inn%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6810208531bb85c9cfd34e16_BurgerFuel%20Bush%20Inn%20in-store%203.avif"
+   ],
+   "started": "BurgerFuel Bush Inn opened its doors back in January 2014 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Riccarton&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Riccarton&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPNIBBzQwM2owajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelBushInn",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Cambridge",
@@ -144,7 +199,19 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–9 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680031ff3a63001ff4dc73ef_BurgerFuel%20Store%20-%20Cambridge%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6810225c31bb85c9cfd4fce1_BurgerFuel%20Cambridge%20%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68102268f3dc51c5dfcb13cc_BurgerFuel%20Cambridge%20%20in-store%202.JPG",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6810226c1bea9088f04cf319_BurgerFuel%20Cambridge%20in-store%203.JPG",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6810226f5d9d68cb3022f328_BurgerFuel%20Cambridge%20in-store%204.avif"
+   ],
+   "started": "BurgerFuel Cambridge opened its doors back in May 2022 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zpnQT60sDVoSfaLaFjgX6GzzrAkqA:1745284356728&kgmid=/g/11q4cyb6y6&q=BurgerFuel+Cambridge&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=c1cfdb08fe24a79c",
+   "facebook": "https://www.facebook.com/BurgerFuelCambridge",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Courtenay Place",
@@ -166,7 +233,20 @@
     "Friday": "10 am–3 am",
     "Saturday": "10 am–3 am",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68003218b27d2ff5d677f546_BurgerFuel%20Store%20-%20Courtenay%20Place%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68103816ae9d88a332923234_BurgerFuel%20Courtenay%20Place%20%20in-store%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68103816e3a6f41559bcd91b_BurgerFuel%20Courtenay%20Place%20in-store%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68103817092321ad643f0fe0_BurgerFuel%20Courtenay%20Place%20in-store%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68103815cbea49bbb585cafb_BurgerFuel%20Courtenay%20Place%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681038157bfc0ba58176b388_BurgerFuel%20Courtenay%20Place%20in-store%201.avif"
+   ],
+   "started": "BurgerFuel Courtenay Place opened its doors back in May 2006 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zq5GTGrJFRpDi3PYaiu9-R5pWKXKA:1745284566768&kgmid=/g/1tdkgvbp&q=BurgerFuel+Courtenay+Place&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=2d51cc086874db56",
+   "facebook": "https://www.facebook.com/profile.php?id=100061645818165",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Cuba Street",
@@ -188,7 +268,18 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6800323489c180f20d433448_BurgerFuel%20Store%20-%20Cuba%20Street%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681038ff11b5468a1b50044a_BurgerFuel%20Cuba%20Street%20in-store%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68103900f95aed5d5fa48b4b_BurgerFuel%20Cuba%20Street%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681038ff71c0227612368542_BurgerFuel%20Cuba%20Street%20in-store%201.avif"
+   ],
+   "started": "BurgerFuel Cuba Street opened its doors back in April 2012 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+cuba+street&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Cuba+Street&gs_lcrp=EgZjaHJvbWUqEAgAEAAYkQIY4wIYgAQYigUyEAgAEAAYkQIY4wIYgAQYigUyEwgBEC4YrwEYxwEYkQIYgAQYigUyDQgCEAAYkQIYgAQYigUyBwgDEAAYgAQyCAgEEAAYFhgeMgoIBRAAGKIEGIkFMgYIBhBFGDwyBggHEEUYPNIBBzYxNmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100067518006344",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Customs Street",
@@ -210,7 +301,19 @@
     "Friday": "10 am–11 pm",
     "Saturday": "11 am–11 pm",
     "Sunday": "11 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104a8fd0ef581eaa5ed8ff_BurgerFuel%20Store%20-%20Customs%20St%20storefront.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104a9a4195fa3b8de06e3f_BurgerFuel%20Customs%20St%20%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104a9a2cfbe1af3087cedc_BurgerFuel%20Customs%20St%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104a9a816ecc23e5f06315_BurgerFuel%20Customs%20St%20%20in-store%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104a9acd1aff11e1d1ab1c_BurgerFuel%20Customs%20St%20%20in-store%203.avif"
+   ],
+   "started": "BurgerFuel Customs Street opened its doors back in October 2013 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+customs+street&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Customs+Street&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzY2MWowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelCustomsSt/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Dunedin North",
@@ -232,7 +335,19 @@
     "Friday": "9 am–12 am",
     "Saturday": "9 am–12 am",
     "Sunday": "9 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68673e45ec69e4e515052e26_BurgerFuel_Dunedin_024.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68673e55543b9eeb20f58ca7_BurgerFuel_Dunedin_005.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68673ec5495543ec5abff08c_BurgerFuel_Dunedin_035.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68673ee39f5236e76392e7f0_BurgerFuel_Dunedin_058.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68673f12ec69e4e51505b9b7_BurgerFuel_Dunedin_052.avif"
+   ],
+   "started": "BurgerFuel Dunedin North opened its doors back in April 2023 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zqxeEKAhOAYR5nNjXK_XLND7yOZaA:1745284912336&kgmid=/g/11tsmkch1_&q=BurgerFuel+Dunedin+North&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=9c8e0ed59ee60075",
+   "facebook": "https://www.facebook.com/BurgerFuelDunedinNorth",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Ellerslie",
@@ -254,7 +369,19 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6800326881b7a8fcb412f437_BurgerFuel%20Store%20-%20Ellerslie%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681047728ae9fc06adf4747c_BurgerFuel%20Ellerslie%20%20in-store%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104770816ecc23e5ed4c13_BurgerFuel%20Ellerslie%20%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/681047718ae9fc06adf47355_BurgerFuel%20Ellerslie%20%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68104770c9f4d56a99e784a6_BurgerFuel%20Ellerslie%20%20in-store%204.avif"
+   ],
+   "started": "BurgerFuel Ellerslie opened its doors back in December 2006 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zpx97nxp9AvwloLtO-kyp-jZq6tWg:1745285794799&kgmid=/g/1v4k6py5&q=BurgerFuel+Ellerslie&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=15db87816e7b15a3",
+   "facebook": "https://www.facebook.com/BurgerFuelEllerslie",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Fairy Springs",
@@ -276,7 +403,18 @@
     "Friday": "11 am–11 pm",
     "Saturday": "11 am–11 pm",
     "Sunday": "11am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682506d7592834c8e0b96464_BurgerFuel%20Store%20-%20Fairy%20Springs%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682507d9e14eec241f076a34_BurgerFuel%20Fairy%20Springs%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682507dc4d9171aab0119ee0_BurgerFuel%20Fairy%20Springs%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682507e1cd2f3c7cc9fe0c21_BurgerFuel%20Fairy%20Springs%20in-store%203.avif"
+   ],
+   "started": "BurgerFuel Fairy Springs opened its doors back in March 2014 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zrEe0RdgKUKnThC_JC0-abZerTnnw:1745285950195&kgmid=/g/11b6xhgc_s&q=BurgerFuel+Fairy+Springs&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=bf1092a66098ba64",
+   "facebook": "https://www.facebook.com/profile.php?id=100066898024640",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Ferrymead",
@@ -298,7 +436,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682505b2971887dc6deb0c0a_BurgerFuel%20Store%20-%20Ferrymead%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682505bb9a77984b04e965c7_BurgerFuel%20Ferrymead%20in-store%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682505c2efdaba0c662a8998_BurgerFuel%20Ferrymead%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682505c59a77984b04e96cee_BurgerFuel%20Ferrymead%20in-store%203.avif"
+   ],
+   "started": "BurgerFuel Ferrymead opened its doors back in April 2016 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zpRU3dNveS3EJyQZQe7Mv5xhGF19w:1745286140424&kgmid=/g/11cmxj5qzp&q=BurgerFuel+Ferrymead&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=b63927a110a51fb4",
+   "facebook": "https://www.facebook.com/BurgerFuelFerrymead/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Five Cross Roads",
@@ -320,7 +469,17 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–12 am",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68673fd5d6fb17a01b9b6f44_BFD%20Five%20Cross%20Roads%2002104.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867401135550ff1c1527bfe_BFD%20Five%20Cross%20Roads%2002111.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867405dec69e4e51506b3cd_BFD%20Five%20Cross%20Roads%2002107.avif"
+   ],
+   "started": "BurgerFuel Five Cross Roads opened its doors back in March 2008 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zq3ynRelD8uUHmi2HGxzO8oO94P6Q:1745286559428&kgmid=/g/11_rld1nn&q=BurgerFuel+Five+Cross+Roads&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=2560541d5a2a94f8",
+   "facebook": "https://www.facebook.com/BurgerFuelFiveCrossRoads/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Frankton",
@@ -342,7 +501,18 @@
     "Friday": "9 am–11 pm",
     "Saturday": "9 am–11 pm",
     "Sunday": "9 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867422d9f5236e76395c9b0_BFD%20Frankton%2002167.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867423513437ba10e0ebc2c_BFD%20Frankton%2002171.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674264fcc861b73e1ffb4f_BFD%20Frankton%2002185.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867426b543b9eeb20f66c64_BFD%20Frankton%2002273.avif"
+   ],
+   "started": "BurgerFuel Frankton opened its doors back in September 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zpaVzq8cw15pe9T-vdTt9J9hXlzjg:1745286685505&kgmid=/g/11bw635cfy&q=BurgerFuel+Frankton&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=c2fb8f315e355996",
+   "facebook": "https://www.facebook.com/profile.php?id=100067845616146",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Glenfield",
@@ -364,7 +534,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–11 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6826698fc8912a5c2da1a3b6_BurgerFuel%20Glenfield%20in-store.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68266990cfe297bb63d1dcf8_BurgerFuel%20Glenfield%20in-store%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682669940b86c61ea972feb0_BurgerFuel%20Glenfield%20in-store%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68266997fff2f7e373cb1c05_BurgerFuel%20Glenfield%20in-store%204.avif"
+   ],
+   "started": "BurgerFuel Glenfield opened its doors back in March 2004 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zoknIkKcCP0Rz-9XV7ef9rkiSTkGg:1745286881330&kgmid=/g/1tdp9t48&q=BurgerFuel+Glenfield&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=3f84a777b5a42743",
+   "facebook": "https://www.facebook.com/profile.php?id=100064317455220",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Hastings",
@@ -386,7 +567,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686743ba7d7a4ecc43b41a75_BFD%20Hastings%2000770.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686743c4ec69e4e5150883a9_BFD%20Hastings%2000787.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686743c935550ff1c153a56c_BFD%20Hastings%2000779.avif"
+   ],
+   "started": "BurgerFuel Hastings opened its doors back in June 2014 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+hastings&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Hastings&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQc1ODlqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063975015733",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Hataitai",
@@ -408,7 +599,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686744d6a7c23e97001de146_BFD%20Hataitai%2005400.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686744ca2ba05d238c7a5b01_BFD%20Hataitai%2005394.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686744d62a75a8aa27674692_BFD%20Hataitai%2005406.avif"
+   ],
+   "started": "BurgerFuel Hataitai opened its doors back in January 2014 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Hataitai&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Hataitai&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQc0MTBqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100069868957698",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Henderson",
@@ -430,7 +631,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674777183f2752044dd013_BFD%20Henderson%2001179.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686747702ba05d238c7c2456_BFD%20Henderson%2001181.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686747707126e133fd00bc60_BFD%20Henderson%2001187.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867477735550ff1c15557db_BFD%20Henderson%2001186.avif"
+   ],
+   "started": "BurgerFuel Henderson opened its doors back in June 2004 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zo0OH9VzkMecENeRpggNBbQZrMg9g:1745288193508&kgmid=/g/1v1sldn1&q=BurgerFuel+Henderson&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=460b28f2746ee340",
+   "facebook": "https://www.facebook.com/profile.php?id=100070094505519",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Invercargill",
@@ -451,7 +663,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867485ffcc861b73e212d42_BFD%20Invercargill%2000312.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867486b2ba05d238c7cca05_BFD%20Invercargill%2000310.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674875d6fb17a01b9fd703_BFD%20Invercargill%2000319.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686748b03e01fbc490d0ee5f_BFD%20Invercargill%2000314.avif"
+   ],
+   "started": "BurgerFuel Invercargill opened its doors back in November 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zpmCn7McVsSh1NFy50AIFFwXefXKg:1745288010437&kgmid=/g/11bx1bn7jf&q=BurgerFuel+Invercargill&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=80120a562caf0042",
+   "facebook": "https://www.facebook.com/profile.php?id=100065729940049",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Johnsonville",
@@ -473,7 +696,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674972183f2752044e6aa1_BFD%20Johnsonville%2004908.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686749d3d6fb17a01b9ffa55_BFD%20Johnsonville%2004909.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686749e3057d51fbfd66c683_BFD%20Johnsonville%2004916.avif"
+   ],
+   "started": "BurgerFuel Johnsonville opened its doors back in September 2008 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Johnsonville&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Johnsonville&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQczODRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100066615544651",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Kāpiti Coast",
@@ -495,7 +728,17 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674b30fa896033e8b3e6a3_BFD%20Kapiti%2008898.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674b3061900c67bb94509c_BFD%20Kapiti%2008884.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674b30057d51fbfd67b831_BFD%20Kapiti%2008917.avif"
+   ],
+   "started": "BurgerFuel Kāpiti Coast opened its doors back in April 2016 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Kapiti+Coast&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Kapiti+Coast&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQcyMjlqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100032758635595",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Lower Hutt",
@@ -517,7 +760,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674d11fa896033e8b55c28_BFD%20Lower%20Hutt_.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674d1cfa896033e8b56611_BFD%20Lower%20Hutt_-6.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674d1c48c6f19c913e599b_BFD%20Lower%20Hutt_-2.avif"
+   ],
+   "started": "BurgerFuel Lower Hutt opened its doors back in October 2005 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zo0OhK1TrdJ8cnzVuqIVZf7WsJ6tA:1745287317211&kgmid=/g/1tgkhgqy&q=BurgerFuel+Lower+Hutt&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=c39fe482f34fb943",
+   "facebook": "https://www.facebook.com/profile.php?id=100064304373513",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Manukau",
@@ -538,7 +791,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10:30 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674ea93e01fbc490d3dcae_BFD%20Manukau%2001724.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674ea93e01fbc490d3dcb1_BFD%20Manukau%2001709.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68674ea93e01fbc490d3dcb4_BFD%20Manukau%2002321.avif"
+   ],
+   "started": "Back in August 2004, a new BurgerFuel opened its doors in Manukau, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Manukau&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Manukau&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQcyMjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelManukau/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Mission Bay",
@@ -560,7 +823,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867506f3e01fbc490d49a81_BFD%20Mission%20Bay%2004782.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867506f3e01fbc490d49a84_BFD%20Mission%20Bay%2004770.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867506f3e01fbc490d49a8a_BFD%20Mission%20Bay%2004765.avif"
+   ],
+   "started": "Back in July 2009, a new BurgerFuel opened its doors in Mission Bay, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?sca_esv=f2c24bc0eda68a1d&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zq7mw2MUCj-ezeExUa2u4TuM_5oAg:1745287143417&kgmid=/g/1td484q0&q=BurgerFuel+Mission+Bay&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=652179079405705f",
+   "facebook": "https://www.facebook.com/BurgerFuelMissionBay/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Mt Eden",
@@ -582,7 +855,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686752417adad019bdf40a1b_BFD%20Mt%20Eden%2000956.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68675241d7c3ab9bbeb39c01_BFD%20Mt%20Eden%2000954.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68675241cdf6e5cb30c871d4_BFD%20Mt%20Eden%2001010.avif"
+   ],
+   "started": "Back in July 2001, a new BurgerFuel opened its doors in Mt Eden, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?sca_esv=6990abc5dd915474&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AHTn8zpuCVuxkV6nfEWsfr57AaVUB72P2Q:1747354242166&kgmid=/g/1tc_ffzf&q=BurgerFuel+Mt+Eden&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=4776313b38762fdd",
+   "facebook": "https://www.facebook.com/burgerfuelmteden",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Mt Maunganui",
@@ -604,7 +887,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867534fc6de82315bb37903_BFD%20Mt%20Maunganui%2003632.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867534f495543ec5acb2fb5_BFD%20Mt%20Maunganui%2003650.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867534f2a75a8aa276d356a_BFD%20Mt%20Maunganui%2003636.avif"
+   ],
+   "started": "Back in December 2010, a new BurgerFuel opened its doors in Mt Maunganui, Tauranga. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+mount+maunganui&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Mount+Maunganui&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMgYIBRBFGDwyBggGEEUYPDIGCAcQRRg80gEHNTM5ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100064140846195",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Mt Roskill",
@@ -626,7 +919,21 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6808304906fa0caf2351c644_BurgerFuel%20Store%20-%20Mt%20Roskill%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268534276e0cc8b44e4a4d_BurgerFuel%20Mt%20Roskill%20storefront%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268534d84c53a58059249c_BurgerFuel%20Mt%20Roskill%20storefront%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682685336af5f0b5b3083cca_BurgerFuel%20Mt%20Roskill%20storefront%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268533bdc409d71e0d97bd_BurgerFuel%20Mt%20Roskill%20storefront%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682685333e0c70b0f2f3b864_BurgerFuel%20Mt%20Roskill%20storefront%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682685330149fa7746dcb27a_BurgerFuel%20Mt%20Roskill%20mural.avif"
+   ],
+   "started": "Back in April 2013, a new BurgerFuel opened its doors in Mt Roskill, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+mt+roskill&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Mt+Roskill&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yBggFEEUYPDIGCAYQRRg8MgYIBxBFGD3SAQc0NzFqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100068368158324",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Mt Wellington",
@@ -648,7 +955,21 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6808310b06fa0caf2352a628_BurgerFuel%20Store%20-%20Mt%20Wellington%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682686e4b86ca5fabc6de49d_BurgerFuel%20Mt%20Wellington%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682686e5db6c4c9a75a4c06b_BurgerFuel%20Mt%20Wellington%20interior%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682686e40aad9d90af41f522_BurgerFuel%20Mt%20Wellington%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682686e44c789f1962c6d20b_BurgerFuel%20Mt%20Wellington%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682686e4db6c4c9a75a4c054_BurgerFuel%20Mt%20Wellington%20interior%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682686e41e11a756e7195607_BurgerFuel%20Mt%20Wellington%20interior%20mural.avif"
+   ],
+   "started": "Back in March 2015, a new BurgerFuel opened its doors in Mt Wellington, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+mt+wellington&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Mt+Wellington&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBCDE0OTNqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuel.MtWellington",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Napier",
@@ -670,7 +991,19 @@
     "Friday": "9 am–11 pm",
     "Saturday": "9 am–11 pm",
     "Sunday": "9 am–9:30 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680830d9736331d4d1497865_BurgerFuel%20Store%20-%20Napier%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268a02d94f84f4b50b48d0_BurgerFuel%20Napier%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268a026197b55d79d25e11_BurgerFuel%20Napier%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268a03d72fa9cefe3829ba_BurgerFuel%20Napier%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268a01d47e9691634bb196_BurgerFuel%20Napier%20interior%202.avif"
+   ],
+   "started": "Back in October 2007, a new BurgerFuel opened its doors in Napier. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+napier&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Napier&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzYyMWowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063965410618",
+   "event": null,
+   "blog": null
   },
   {
    "name": "New Lynn",
@@ -692,7 +1025,19 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68083185744c818c360528d1_BurgerFuel%20Store%20-%20New%20Lynn%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268c20228b74e3bb500d34_BurgerFuel%20New%20Lynn%20interior%201.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268c208c2c7dd504c6399f_BurgerFuel%20New%20Lynn%20interior%203.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268c20ef586a276be467a2_BurgerFuel%20New%20Lynn%20interior%202.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268c28ce7b4aab176d9fa8_BurgerFuel%20New%20Lynn%20mural.jpg"
+   ],
+   "started": "Back in April 2007, a new BurgerFuel opened its doors in New Lynn, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+new+lynn&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+New+Lynn&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQgxNzc3ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100070304736852",
+   "event": null,
+   "blog": null
   },
   {
    "name": "New Plymouth",
@@ -714,7 +1059,22 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680831d84d66a805c6c5f4ab_BurgerFuel%20Store%20-%20New%20Plymouth%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268deb2675013b7e167c9e_BurgerFuel%20New%20Plymouth%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268debcaf92772f728162d_BurgerFuel%20New%20Plymouth%20interior%206.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268dea2675013b7e167b8e_BurgerFuel%20New%20Plymouth%20interior%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268dee682bef676d73f0e3_BurgerFuel%20New%20Plymouth%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268deb502419751ae65c9c_BurgerFuel%20New%20Plymouth%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268debf57bbae961204186_BurgerFuel%20New%20Plymouth%20interior%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68268df20fd7671e97e6dbe8_BurgerFuel%20New%20Plymouth%20interior%20mural.avif"
+   ],
+   "started": "Back in January 2006, a new BurgerFuel opened its doors in New Plymouth. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+new+plymouth&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+New+Plymouth&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzY0OWowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100039929240548",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Pakuranga",
@@ -736,7 +1096,20 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68083228a346cf09058b0374_BurgerFuel%20Store%20-%20Pakuranga%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68269267e7ab3226d38a9af7_BurgerFuel%20Pakuranga%20interior%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68269266b45edf25155867ec_BurgerFuel%20Pakuranga%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68269265a14236e697fde0a5_BurgerFuel%20Pakuranga%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682692666a623748ad8bf0a0_BurgerFuel%20Pakuranga%20interior%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682692663a68fc2b595479f8_BurgerFuel%20Pakuranga%20interior%201.avif"
+   ],
+   "started": "Back in March 2015, a new BurgerFuel opened its doors in Pakuranga, Auckland. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=burgerfuel+pakuranga&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Pakuranga&gs_lcrp=EgZjaHJvbWUqDAgAECMYJxiABBiKBTIMCAAQIxgnGIAEGIoFMhMIARAuGK8BGMcBGJECGIAEGIoFMgcIAhAAGIAEMg0IAxAAGJECGIAEGIoFMggIBBAAGBYYHjIICAUQABgWGB4yBggGEEUYPDIGCAcQRRg80gEHODg4ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100068164271431",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Palmerston North",
@@ -758,7 +1131,20 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6808325a2bb80abb99d252f3_BurgerFuel%20Store%20-%20Palmerston%20North%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682693b5f6716379e749c75a_BurgerFuel%20Palmerston%20North%20interior%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682693b84f88e367656fb5a0_BurgerFuel%20Palmerston%20North%20interior%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682693b5daa06a5f8bac093a_BurgerFuel%20Palmerston%20North%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682693b6368c7dec69786f6e_BurgerFuel%20Palmerston%20North%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682693b5f6716379e749c75a_BurgerFuel%20Palmerston%20North%20interior%202.avif"
+   ],
+   "started": "Back in July 2006, a new BurgerFuel opened its doors in Palmerston North. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Palmerston+North&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Palmerston+North&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQczNTRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100066738494542",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Papamoa",
@@ -780,7 +1166,21 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680832a85dcc745e542d3fc1_BurgerFuel%20Store%20-%20Papamoa%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6826951bcd8bb9d4bfaaac1a_BurgerFuel%20Papamoa%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68269519f14ac0c6748431e5_BurgerFuel%20Papamoa%20interior%206.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6826951a13f788eaf5bbc3bf_BurgerFuel%20Papamoa%20interior%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682695194636d70fe0d5cf22_BurgerFuel%20Papamoa%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6826951aba4ef95f5b85a599_BurgerFuel%20Papamoa%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6826951b4169e05c817c3cb8_BurgerFuel%20Papamoa%20interior%202.avif"
+   ],
+   "started": "Back in December 2018, a new BurgerFuel opened its doors in Papamoa. Since then, they’ve been dishing out the best gourmet burgers to the local community and haven’t looked back.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Papamoa&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Papamoa&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDwyBggDEEUYPNIBBzI5MGowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100064043678667",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Papanui",
@@ -802,7 +1202,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68675767a7c23e9700278d93_BFD%20Papanui%2009734.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867576c517d812d57ec17cc_BFD09784.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6867577177d3803c9f9f9448_BFD%20Papanui%2009759.avif"
+   ],
+   "started": "BurgerFuel Papanui opened its doors back in August 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+papanui&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Papanui&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQc2NjVqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100064934385585",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Parnell",
@@ -824,7 +1234,21 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–11 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680832ed7e062feccbc37dbb_BurgerFuel%20Store%20-%20Parnell%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a4f17730dc4abd48e4a75_BurgerFuel%20Parnell%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a4f175ed086b2f27b0585_BurgerFuel%20Parnell%20interior%206.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a4f18be6ff1c1dde4c78b_BurgerFuel%20Parnell%20interior%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a4f181b3438e7d7d922ae_BurgerFuel%20Parnell%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a4f165ed086b2f27b047a_BurgerFuel%20Parnell%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a4f17131b970fea562437_BurgerFuel%20Parnell%20interior%202.avif"
+   ],
+   "started": "BurgerFuel Parnell opened its doors back in August 2000 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+parnell&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Parnell&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzI2NGowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelParnell/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Ponsonby",
@@ -846,7 +1270,21 @@
     "Friday": "10 am–3 am",
     "Saturday": "10 am–3 am",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/67d1bad195960dba1d52f36e_ponsonby-image-retouch.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680021ea4fd166d3122d9c2f_BFD%20Ponsonby%2001016.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680021e9a7b4d19038cd8348_BFD%20Ponsonby%2001025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680021edfb8c46df0e77094a_BFD%20Ponsonby%2001024.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680021ea2d724e1393b70dc4_BFD%20Ponsonby%2001023.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680021e92d724e1393b70c95_BFD%20Ponsonby%2001022.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680021eaa7b4d19038cd8621_BFD%20Ponsonby%2001019.avif"
+   ],
+   "started": "BurgerFuel Ponsonby opened its doors back in October 1995 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://g.co/kgs/gWEZKQn",
+   "facebook": "https://www.facebook.com/BurgerFuelPonsonby",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Porirua",
@@ -868,7 +1306,19 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a5d86d8437e7d3bd32623_BurgerFuel%20Porirua%20interior%201.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a5d8ad8437e7d3bd32b69_BurgerFuel%20Porirua%20interior%202.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a5d8fca67f3878454cde5_BurgerFuel%20Porirua%20interior%203.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a5d90e866fb7d8d0fc6d8_BurgerFuel%20Porirua%20interior%204.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a5d94627a47fce035a4dc_BurgerFuel%20Porirua%20interior%20mural.jpg"
+   ],
+   "started": "BurgerFuel Porirua opened its doors back in June 2014 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+porirua&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Porirua&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQc0MzhqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063931692424",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Pt Chevalier",
@@ -890,7 +1340,19 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6806457de49261f6771c6ade_pt-chev-location-image.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7e72b35381c274a95f32_Burger%20Fuel%20Pt%20Chev%20interior%201.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7e7b1227c6746449ad43_Burger%20Fuel%20Pt%20Chev%20interior%202.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7e9256e9fddebe8af983_Burger%20Fuel%20Pt%20Chev%20interior%204.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7e93cacf8de3330f773c_Burger%20Fuel%20Pt%20Chev%20interior%203.jpg"
+   ],
+   "started": "BurgerFuel Pt Chevalier opened its doors back in May 2020 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Pt+Chev&stick=H4sIAAAAAAAA_-NgU1I1qDBLMUgxMTezMDJKSbEwSEuyMqgwSrRMTUwzNTQ1TU40NDA0WsQq5FRalJ5a5FaamqMQUKLgnJFaBgC4Lvc0PgAAAA&hl=en&mat=CaEc05Lj00h7ElcBmzl_pfQyfKICIiY3cmwNtqz58Y06EZi2mopW8qoe8E1lxUWYfJOtfIWNGpV9VLgiGcd3QPU6Yci5gV40Z6lID5GsCh0pE87rxGVhMHnMrtFIKb2ehz4&authuser=0",
+   "facebook": "https://www.facebook.com/BurgerFuelGreatNorthRoad/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Pukekohe",
@@ -912,7 +1374,18 @@
     "Friday": "10 am–9:30 pm",
     "Saturday": "10 am–9:30 pm",
     "Sunday": "10 am–9:30 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a70d855e14fb5573484fa_BurgerFuel%20Pukekohe%20interior%203.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a70d7d4fa7e6dcd3cc107_BurgerFuel%20Pukekohe%20interior%204.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a70d855e14fb5573484e3_BurgerFuel%20Pukekohe%20interior%201.jpg",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a70d778dd81829dbb42fc_BurgerFuel%20Pukekohe%20interior%202.jpg"
+   ],
+   "started": "BurgerFuel Pukekohe opened its doors back in October 2012 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+pukekohe&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Pukekohe&gs_lcrp=EgZjaHJvbWUqEAgAEAAYkQIY4wIYgAQYigUyEAgAEAAYkQIY4wIYgAQYigUyEwgBEC4YrwEYxwEYkQIYgAQYigUyBwgCEAAYgAQyDQgDEAAYkQIYgAQYigUyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQc2MTZqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063573821733",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Queen Street",
@@ -934,7 +1407,18 @@
     "Friday": "8 am–2 am",
     "Saturday": "9 am–2 am",
     "Sunday": "9 am–12 am"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/680834103ea6f1304734065a_BurgerFuel%20Store%20-%20Queen%20Street%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7fc64ef84c790e40f49c_BurgerFuel%20Queen%20St%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7fc9cee1d6b543dfa062_BurgerFuel%20Queen%20St%20interior%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a7fc9bebbe4132fdb3452_BurgerFuel%20Queen%20St%20interior%203.avif"
+   ],
+   "started": "BurgerFuel Queen Street opened its doors back in July 2007 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+queen+street&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Queen+Street&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyDQgCEAAYkQIYgAQYigUyDQgDEAAYkQIYgAQYigUyDQgEEAAYkQIYgAQYigUyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzM4N2owajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelQueenSt/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Redwoods",
@@ -956,7 +1440,18 @@
     "Friday": "9:30am–11 pm",
     "Saturday": "9:30 am–11 pm",
     "Sunday": "9:30 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4848c0168f3e2110b74a_BFD04579.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c484b942f8a2e04ada286_BFD04581.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c484ecb08ef3fcdecd9ac_BFD04586.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4850c18c7df9cb8949ff_BFD04594.avif"
+   ],
+   "started": "BurgerFuel Redwoods opened its doors back in January 2013 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+redwood+centre&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Redwood+Centre&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMg0IBRAAGIYDGIAEGIoFMgYIBhBFGDwyBggHEEUYPNIBBzY0MWowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063625077028",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Rolleston",
@@ -977,7 +1472,19 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–9 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a9e733d1d237dbcd7a6a8_BurgerFuel%20Rolleston%20interior%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a9e77188d5c683f4bda6c_BurgerFuel%20Rolleston%20interior%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a9e6792c466a067bc7f5f_BurgerFuel%20Rolleston%20interior%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682a9e8dd97e790368d384b9_BurgerFuel%20Rolleston%20interior%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/682aa11d58b49ccd27150c1d_BurgerFuel%20Rolleston%20storefront%20people.avif"
+   ],
+   "started": "BurgerFuel Rolleston opened its doors back in October 2022 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+rolleston&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Rolleston&gs_lcrp=EgZjaHJvbWUqEAgAEAAYkQIY4wIYgAQYigUyEAgAEAAYkQIY4wIYgAQYigUyEwgBEC4YrwEYxwEYkQIYgAQYigUyBwgCEAAYgAQyCAgDEAAYFhgeMggIBBAAGBYYHjINCAUQABiGAxiABBiKBTIGCAYQRRg8MgYIBxBFGDzSAQc0MTNqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelRolleston/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Rototuna",
@@ -999,7 +1506,18 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–9 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c48d196e7649a60e39e75_BFD02299.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4908a7704f2ec92e6223_BFD02326.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4908c0168f3e2110f002_BFD02313.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4908cb08ef3fcded6a7c_BFD02310.avif"
+   ],
+   "started": "BurgerFuel Rototuna opened its doors back in April 2017 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+rototuna&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Rototuna&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQc4MTdqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063697684228",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Royal Oak",
@@ -1021,7 +1539,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/683e797425e4d04a5983f73a_BurgerFuel%20Royal%20Oak%20store%20front%202025%20web.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/683e7b8aa1d5b2c8177495c9_BurgerFuel%20Royal%20Oak%20opening%202025.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/683e7b9a433de425f0874bb3_BurgerFuel%20Royal%20Oak%20in-store%202015.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/683e7ba057b3f9a29dcb8797_BurgerFuel%20Royal%20Oak%20store%20staff.avif"
+   ],
+   "started": "BurgerFuel Royal Oak opened its doors in June 2025 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=cc16af6e80ebe361&rlz=1C1GCEU_enNZ1044NZ1046&sxsrf=AE3TifM9TkDkZ75CsnPHfaBSqZhUEaH9WQ:1748923584671&kgmid=/g/11xgf8gr8y&q=BurgerFuel+Royal+Oak&shndl=30&shem=lcuae,uaasie&source=sh/x/loc/uni/m1/1&kgs=ae362d9ac206e8e3",
+   "facebook": "https://www.facebook.com/BurgerFuelRoyalOak/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Silverdale",
@@ -1043,7 +1572,17 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68675c55cdf6e5cb30cd2b04_BFD00638.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68675c60495543ec5acdf75b_BFD00620.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68675c692ba05d238c80bdbe_BFD00634.avif"
+   ],
+   "started": "BurgerFuel Silverdale opened its doors back in October 2012 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Silverdale&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Silverdale&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQcyMTdqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100062961015693",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Spitfire Square",
@@ -1064,7 +1603,17 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c49b52c08cf1645a6738c_BFD09552.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c49b54d42829d00cde0df_BFD09549.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c49b5dc19b11e0067d083_BFD09541.avif"
+   ],
+   "started": "BurgerFuel Spitfire Square opened its doors back in August 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Spitfire+Square&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Spitfire+Square&gs_lcrp=EgZjaHJvbWUyDAgAEEUYORjjAhiABDINCAEQLhivARjHARiABDIHCAIQABiABDIHCAMQABiABDIICAQQABgWGB4yBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQc2MjVqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063674780845",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Sydenham",
@@ -1086,7 +1635,19 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ae786ba0bad9feafcf3_BFD%20Sydenham%2009377.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ae786ba0bad9feafce1_BFD%20Sydenham%2009373.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ae8dc19b11e00684052_BFD%20Sydenham%2009366.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ae765a119c59595d3f0_BFD09415.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ae7c0168f3e2111cba1_BFD%20Sydenham%2009411.avif"
+   ],
+   "started": "BurgerFuel Sydenham opened its doors back in November 2016 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+sydenham&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Sydenham&gs_lcrp=EgZjaHJvbWUqEAgAEAAYkQIY4wIYgAQYigUyEAgAEAAYkQIY4wIYgAQYigUyEwgBEC4YrwEYxwEYkQIYgAQYigUyDQgCEAAYkQIYgAQYigUyCAgDEAAYFhgeMggIBBAAGBYYHjIICAUQABgWGB4yBggGEEUYPDIGCAcQRRg80gEHNjQ4ajBqNKgCALACAQ&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100064655630342",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Takanini",
@@ -1108,7 +1669,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4be1a5befa54eb2632de_BFD01792.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4be12c08cf1645a8023f_BFD01769.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4be1dc19b11e0068b09c_BFD01761.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4be1a5befa54eb26331b_BFD01756.avif"
+   ],
+   "started": "BurgerFuel Takanini opened its doors back in August 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Takanini&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Takanini&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQcyNjlqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelTakanini/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Takapuna",
@@ -1130,7 +1702,18 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–12 am",
     "Sunday": "10 am–11 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4d642c08cf1645a8925d_BFD00416.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4d64572073aed6a5df61_BFD00423.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4d6360474f96675e7175_BFD00438.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4d65f7350a317667e9f8_BFD00420.avif"
+   ],
+   "started": "BurgerFuel Takapuna opened its doors back in December 1997 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Takapuna&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Takapuna&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQczMTNqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100067959044963",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Taupō",
@@ -1152,7 +1735,18 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4e1bc18c7df9cb8adc67_BFD04636.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4e2078dce8a5ed088384_BFD04699.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4e1f78dce8a5ed08835d_BFD04694.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4e2078dce8a5ed088372_BFD04633.avif"
+   ],
+   "started": "BurgerFuel Taupō opened its doors back in July 2008 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+taupo&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Taupo&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzk0M2owajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063539275672",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Tauranga",
@@ -1174,7 +1768,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4eceb79cf7766bfbbd0e_BFD03526.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ececb08ef3fcdf04701_BFD03588.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ece2c08cf1645a9156c_BFD03525.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4ece572073aed6a674d5_BFD03518.avif"
+   ],
+   "started": "BurgerFuel Tauranga opened its doors back in November 2005 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+tauranga&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Tauranga&gs_lcrp=EgZjaHJvbWUqBwgAEAAYgAQyBwgAEAAYgAQyBwgBEAAYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQc1MjJqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100068344000369",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Te Awamutu",
@@ -1196,7 +1801,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–9 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4f45a7704f2ec931cdea_BFD03059.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4f772c08cf1645a965ce_BFD03079.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4f7aa7704f2ec931f76f_BFD03103.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c4f892c08cf1645a96746_BFD03100.avif"
+   ],
+   "started": "BurgerFuel Te Awamutu opened its doors back in June 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Te+Awamutu&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Te+Awamutu&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQcyMzlqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/BurgerFuelTeAwamutu/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Te Rapa",
@@ -1218,7 +1834,18 @@
     "Friday": "9 am–11 pm",
     "Saturday": "9 am–11 pm",
     "Sunday": "9 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68e2eff3b2de6235e204d63b_BurgerFuel%20Te%20Rapa%20opening%202025%201%20(1).webp",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68e2efaebfb2d113f19ba13f_BurgerFuel%20Te%20Rapa%20opening%202025%203.webp",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68e2efae1d00a83f25b946f9_BurgerFuel%20Te%20Rapa%20opening%202025%202.webp",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/68e2ee27b2de6235e20466bf_DSCF1448.webp"
+   ],
+   "started": "BurgerFuel Te Rapa opened its doors back in October 2025 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?sca_esv=feb283e208b62ac8&hl=en&authuser=0&sxsrf=AE3TifPEgly3dBv__qXI630R8PjpBN_lmg:1758760992244&kgmid=/g/11zh_d_q1y&q=BurgerFuel+Te+Rapa&shndl=30&shem=lcuae,uaasie,shrtsdl&source=sh/x/loc/uni/m1/1&kgs=67f46ce7f52ca9ed&utm_source=lcuae,uaasie,shrtsdl,sh/x/loc/uni/m1/1",
+   "facebook": "https://www.facebook.com/BurgerFuelTeRapa",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Timaru",
@@ -1240,7 +1867,18 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–9:30 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c502acb08ef3fcdf0cae3_BFD09200.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c503ab79cf7766bfc2a1d_BFD09206.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c504ca7704f2ec932c6a7_BFD09164.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c505db79cf7766bfc36a7_BFD09209.avif"
+   ],
+   "started": "BurgerFuel Timaru opened its doors back in May 2016 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+timaru&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Timaru&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMggIBRAAGBYYHjIGCAYQRRg8MgYIBxBFGDzSAQc2MDVqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063998290982",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Upper Hutt",
@@ -1262,7 +1900,17 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–10 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c51bf9dba1d2458c37f02_BFD05081.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c51c8f7350a31766a2b3b_BFD05084.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c51c22c08cf1645aa11a1_BFD05098.avif"
+   ],
+   "started": "BurgerFuel Upper Hutt opened its doors back in May 2015 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Upper+Hutt&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Upper+Hutt&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgYIAhBFGDzSAQczMjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100051512785139",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Westgate",
@@ -1284,7 +1932,19 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–12 am",
     "Sunday": "10 am–12 am"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dabdbef29ff5195b517d9_BurgerFuel%20Westgate%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dabe0094635d42fa3bffb_BurgerFuel%20Westgate%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dabe0ef29ff5195b5194d_BurgerFuel%20Westgate%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dabe0094635d42fa3bfd9_BurgerFuel%20Westgate%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dabe0094635d42fa3bff8_BurgerFuel%20Westgate%201.avif"
+   ],
+   "started": "BurgerFuel Westgate opened its doors back in May 2014 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+westgate&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Westgate&gs_lcrp=EgZjaHJvbWUqEAgAEAAYkQIY4wIYgAQYigUyEAgAEAAYkQIY4wIYgAQYigUyEwgBEC4YrwEYxwEYkQIYgAQYigUyDQgCEAAYkQIYgAQYigUyBwgDEAAYgAQyBwgEEAAYgAQyCAgFEAAYFhgeMgYIBhBFGDwyBggHEEUYPNIBBzQ1MmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100064721208883",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Whanganui",
@@ -1306,7 +1966,17 @@
     "Friday": "10 am–10 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–11 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c53b6572073aed6aac1ea_BFopening_WNG-3.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686c53c3572073aed6aacbb4_BFopening_WNG-5.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/6840d0d51a8604acec05b7bb_RBF%20ABOUT%203.avif"
+   ],
+   "started": "BurgerFuel Whanganui opened its doors back in July 2024 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+whanganui&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Whanganui&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyBggGEEUYPDIGCAcQRRg80gEIMTY0OGowajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=61569059054370",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Whangaparāoa",
@@ -1328,7 +1998,19 @@
     "Friday": "10 am–12 am",
     "Saturday": "10 am–12 am",
     "Sunday": "10 am–12 am"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dac82ef29ff5195b53db0_BurgerFuel%20Whangaparaoa%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dac825213515c1227c003_BurgerFuel%20Whangaparaoa%205.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dac82ef29ff5195b53d8e_BurgerFuel%20Whangaparaoa%204.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dac82094635d42fa44311_BurgerFuel%20Whangaparaoa%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dac82e4aa31cb9775083f_BurgerFuel%20Whangaparaoa%202.avif"
+   ],
+   "started": "BurgerFuel Whangaparāoa opened its doors back in October 2016 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=burgerfuel+whangaparaoa&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Whangaparaoa&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBwgCEAAYgAQyBwgDEAAYgAQyCAgEEAAYFhgeMgcIBRAAGO8FMgYIBhBFGDwyBggHEEUYPNIBBzc3M2owajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100063648566332",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Whangārei",
@@ -1350,7 +2032,16 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686daa790fea6345127d2d1d_IMG_8636.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686daada07c2766dc13415c8_IMG_8453.avif"
+   ],
+   "started": "BurgerFuel Whangārei opened its doors back in March 2021 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Whangarei&rlz=1C1GCEU_enNZ1044NZ1046&oq=&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MhYIARAuGK8BGMcBGJECGIAEGIoFGI4FMg0IAhAAGJECGIAEGIoFMg0IAxAAGJECGIAEGIoFMg0IBBAAGJECGIAEGIoFMg0IBRAAGJECGIAEGIoFMgYIBhBFGDwyBggHEEUYPNIBBzQ0M2owajSoAgCwAgE&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/pages/BurgerFuel/106334198207654/",
+   "event": null,
+   "blog": null
   },
   {
    "name": "Windsor Park",
@@ -1372,7 +2063,18 @@
     "Friday": "10 am–11 pm",
     "Saturday": "10 am–11 pm",
     "Sunday": "10 am–10 pm"
-   }
+   },
+   "photos": [
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686daceae9ddba051892d17e_BurgerFuel%20Windsor%20Park%201.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dacebe9ddba051892d442_BurgerFuel%20Windsor%20Park%203.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dacebb3430ff6ac0430a6_BurgerFuel%20Windsor%20Park%202.avif",
+    "https://cdn.prod.website-files.com/67bc26a1dc4339ea29ceb640/686dacec07c2766dc134a5d1_BurgerFuel%20Windsor%20Park%204.avif"
+   ],
+   "started": "BurgerFuel Windsor Park opened its doors back in November 2008 and since then, they’ve been serving up good vibes and nothing but the best gourmet burgers in town.",
+   "google": "https://www.google.com/search?q=BurgerFuel+Windsor+Park&rlz=1C1GCEU_enNZ1044NZ1046&oq=BurgerFuel+Windsor+Park&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDwyBggCEEUYPNIBBzM0OWowajSoAgCwAgA&sourceid=chrome&ie=UTF-8",
+   "facebook": "https://www.facebook.com/profile.php?id=100064532305876",
+   "event": null,
+   "blog": null
   }
  ]
 }
