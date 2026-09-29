@@ -637,8 +637,10 @@
       el.animate([{ opacity: 0, transform: 'translateY(1.5rem)' }, { opacity: 1, transform: 'none' }],
                  { duration: OPEN_MS, delay: 60 + i * 40, easing: EASE_OUT_QUINT, fill: 'backwards' });
     });
-    var a = clone.animate(rectFrames(T, H.img, 'inset(0px 0px 0px 0px)',
-                                     'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px)'), opts);
+    // top corners soften from the card's square edge to the sheet's radius
+    // over the whole flight, so nothing snaps when the real photo takes over
+    var a = clone.animate(rectFrames(T, H.img, 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)',
+                                     'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px round ' + radius + ' ' + radius + ' 0px 0px)'), opts);
     whenDone(a, OPEN_MS, function () {
       elHeroImg.style.visibility = '';
       thumb.style.visibility = '';
@@ -670,8 +672,8 @@
     ], opts);
     elSheetScroll.animate([{ opacity: 1 }, { opacity: 0 }],
                           { duration: CLOSE_MS * 0.6, easing: EASE_IN_CUBIC, fill: 'forwards' });
-    var a = clone.animate(rectFrames(H.img, T, 'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px)',
-                                     'inset(0px 0px 0px 0px)'), opts);
+    var a = clone.animate(rectFrames(H.img, T, 'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px round ' + radius + ' ' + radius + ' 0px 0px)',
+                                     'inset(0px 0px 0px 0px round 0px 0px 0px 0px)'), opts);
     whenDone(a, CLOSE_MS, function () {
       thumb.style.visibility = '';
       elHeroImg.style.visibility = '';
@@ -750,16 +752,21 @@
   function readHash(hash) {
     var parts = decodeURIComponent(hash.slice(1)).split('&');
     if (parts.indexOf('list') > -1) setView('list');
+    if (parts.indexOf('map') > -1) setView('map');
     var s = STORES.find(function (x) { return parts.indexOf(x.slug) > -1; });
     if (s) select(s, 'link');
   }
   function writeHash(slug) {
     if (!w.history.replaceState) return;
     var parts = [];
-    if (state.view === 'list') parts.push('list');
+    // only note the view when it isn't this mode's default
+    if (state.view !== defaultView()) parts.push(state.view);
     if (slug) parts.push(slug);
     w.history.replaceState(null, '', w.location.pathname + w.location.search + (parts.length ? '#' + parts.join('&') : ''));
   }
+
+  // phones open on the list; tablet and desktop on the map
+  function defaultView() { return isMobile() ? 'list' : 'map'; }
 
   /* ── selection ────────────────────────────────────────────── */
   function select(store, source, fromRow) {
@@ -775,7 +782,6 @@
 
   /* ── view switching ───────────────────────────────────────── */
   function setView(view) {
-    var stuck = d.body.classList.contains('is-stuck');
     state.view = view;
     d.body.dataset.view = view;
     elListView.hidden = view !== 'list';
@@ -787,16 +793,11 @@
     });
     if (view === 'map' && state.map) {
       state.map.resize();
-      fitToFilter();
+      fitToFilter(!state.fitted);     // first showing jumps; later ones ease
+      state.fitted = true;
     }
-    // Mobile: if the switch was already stuck, land the new view's top
-    // directly under it instead of wherever the old scroll happened to be.
-    if (isMobile() && stuck) {
-      var target = view === 'map' ? elMap : elListView;
-      var bandBottom = elSegwrap.getBoundingClientRect().bottom;
-      var gap = view === 'map' ? 0 : remPx();
-      w.scrollTo(0, w.scrollY + target.getBoundingClientRect().top - bandBottom - gap);
-    }
+    // mobile: the list starts at its title; the map view doesn't scroll
+    if (isMobile()) w.scrollTo(0, 0);
     if (view !== 'map') hideHint();
     writeHash(state.selected && state.selected.slug);
     updateStuck();
@@ -809,7 +810,7 @@
     var u = remPx();
     if (!state.region && !state.query) {
       if (isMobile()) {
-        state.map.fitBounds(STORES, { top: u * 3, right: u * 2, bottom: u * 3, left: u * 2 }, instant);
+        state.map.fitBounds(STORES, { top: u * 11, right: u * 2, bottom: u * 7, left: u * 2 }, instant);
       } else if (sheetMode()) {
         state.map.fitBounds(STORES, { top: toolbarBottom() + u * 2, right: u * 3, bottom: u * 3, left: u * 3 }, instant);
       } else {
@@ -820,7 +821,7 @@
     // padding derived from the live root scale and the toolbar's real height
     var tb = toolbarBottom() + u * 2;
     state.map.fitBounds(stores, isMobile()
-      ? { top: u * 5, right: u * 3, bottom: u * 3, left: u * 3 }
+      ? { top: u * 12, right: u * 3, bottom: u * 8, left: u * 3 }
       : sheetMode()
         ? { top: tb, right: u * 4, bottom: u * 4, left: u * 4 }
         : { top: tb, right: elSidebar.hidden ? u * 5 : u * 43, bottom: u * 6, left: u * 5 });
@@ -839,7 +840,8 @@
 
   /* ── sticky switch shadow (mobile) ────────────────────────── */
   function updateStuck() {
-    if (!isMobile()) { d.body.classList.remove('is-stuck'); return; }
+    // the mobile switch now floats at the bottom; nothing sticks any more
+    if (true) { d.body.classList.remove('is-stuck'); return; }
     var navH = remPx() * 4.375;
     // stuck = the band sits pinned under the nav while the page has moved on
     var stuck = elSegwrap.getBoundingClientRect().top <= navH + 0.5 && w.scrollY > 0;
@@ -897,7 +899,7 @@
   function wigglePins() {
     var box = elMap.getBoundingClientRect();
     // below the nav and whatever floats over the map's top edge
-    var top = Math.max(box.top, isMobile() ? remPx() * 9 : elToolbar.getBoundingClientRect().bottom);
+    var top = Math.max(box.top, (isMobile() ? elMFOpen : elToolbar).getBoundingClientRect().bottom);
     var pins = [];
     state.markers.forEach(function (m) {
       if (m.el.style.display === 'none') return;
@@ -1090,9 +1092,232 @@
     delete elSfRing.dataset.slug;
   }
 
+  /* ── mobile: filter pill + search overlay ──────────────────────
+     The pill opens an overlay that grows out of it (a clip that starts
+     as the pill's own rounded box and opens to the card — 450ms
+     ease-out-quint) and shrinks back into it on the way out (400ms
+     ease-in-cubic). The keyboard comes straight up. What's typed and the
+     region picked only apply on Search; closing any other way discards
+     them, the way Airbnb's search does. */
+  var elMF      = $('[data-mfilter]');
+  var elMFOpen  = $('[data-mfilter-open]');
+  var elMFClear = $('[data-mfilter-clear]');
+  var elFM      = $('[data-fmodal]');
+  var elFMCard  = $('[data-fmodal-card]');
+  var elFMInput = $('[data-fmodal-input]');
+  var elFMForm  = $('[data-fmodal-form]');
+  var elFMGo    = $('[data-fmodal-go]');
+  var elFRegion = $('[data-fregion]');
+  var elFRBtn   = $('[data-fregion-btn]');
+  var elFRPanel = $('[data-fregion-panel]');
+  var elFRList  = $('[data-fregion-list]');
+  var fm = { open: false, region: null, busy: false, frTimer: 0, frAnim: 0 };
+
+  function syncFilterChip() {
+    var on = !!(state.query.trim() || state.region);
+    elMFClear.hidden = !on;
+    elMF.classList.toggle('is-filtered', on);     // purple icon + dot while filtering
+  }
+  // the overlay's × shows only when there's something to clear: text or a region
+  function syncFMClear() {
+    $('[data-fmodal-x]', elFM).hidden = !(elFMInput.value.trim() || fm.region);
+  }
+
+  function roundInset(outer, inner, r) {
+    return 'inset(' + Math.max(0, inner.top - outer.top) + 'px ' +
+                      Math.max(0, outer.right - inner.right) + 'px ' +
+                      Math.max(0, outer.bottom - inner.bottom) + 'px ' +
+                      Math.max(0, inner.left - outer.left) + 'px round ' + r + ')';
+  }
+  function fmChrome() { return [$('.fmodal__overlay', elFM), $('.fmodal__close', elFM), elFMGo]; }
+
+  function openFM() {
+    if (fm.open || fm.busy) return;
+    fm.open = true;
+    fm.region = state.region;
+    elFMInput.value = state.query;
+    syncFRegion();
+    syncFMClear();
+    buildFRegion();
+    elFM.hidden = false;
+    d.documentElement.classList.add('is-locked');
+    // still inside the tap, so iOS will raise the keyboard
+    elFMInput.focus({ preventScroll: true });
+
+    if (REDUCED.matches) { elMF.classList.add('is-hidden'); return; }
+    var pill = elMFOpen.getBoundingClientRect();
+    var card = elFMCard.getBoundingClientRect();
+    elMF.classList.add('is-hidden');
+    fm.busy = true;
+    var a = elFMCard.animate([
+      { clipPath: roundInset(card, pill, (pill.height / 2) + 'px') },
+      { clipPath: 'inset(0px 0px 0px 0px round ' + getComputedStyle(elFMCard).borderTopLeftRadius + ')' }
+    ], { duration: OPEN_MS, easing: EASE_OUT_QUINT });
+    $$('.fmodal__card > *', elFM).forEach(function (el, i) {
+      el.animate([{ opacity: 0, transform: 'translateY(.5rem)' }, { opacity: 1, transform: 'none' }],
+                 { duration: 350, delay: 90 + i * 30, easing: EASE_OUT_QUINT, fill: 'backwards' });
+    });
+    fmChrome().forEach(function (el, i) {
+      el.animate(i === 0 ? [{ opacity: 0 }, { opacity: 1 }]
+                         : [{ opacity: 0, transform: 'translateY(-.5rem)' }, { opacity: 1, transform: 'none' }],
+                 { duration: i === 0 ? 300 : 350, delay: i === 0 ? 0 : 140, easing: EASE_OUT_QUINT, fill: 'backwards' });
+    });
+    whenDone(a, OPEN_MS, function () { fm.busy = false; });
+  }
+
+  function closeFM(apply) {
+    if (!fm.open) return;
+    fm.open = false;
+    closeFRegion(true);
+    elFMInput.blur();
+    if (apply) {
+      clearTimeout(searchTimer);
+      var q = elFMInput.value.trim();
+      state.region = fm.region;                 // set both, then filter and fit once
+      elRegionLbl.textContent = fm.region ? fm.region + ', NZ' : 'Select a Region';
+      elRegionBtn.classList.toggle('has-value', !!fm.region);
+      elRegionClear.hidden = !fm.region;
+      buildRegionMenu();
+      setQuery(q, { fit: true });
+      if (state.view === 'list') w.scrollTo(0, 0);
+    }
+    var finish = function () {
+      elFM.hidden = true;
+      fm.busy = false;
+      elMF.classList.remove('is-hidden');
+      elFMGo.classList.remove('is-pressed');
+      d.documentElement.classList.remove('is-locked');
+      [elFMCard].concat($$('.fmodal__card > *', elFM), fmChrome())
+        .forEach(function (el) { el.getAnimations().forEach(function (an) { an.cancel(); }); });
+    };
+    if (REDUCED.matches) { finish(); return; }
+    var pill = elMFOpen.getBoundingClientRect();
+    var card = elFMCard.getBoundingClientRect();
+    fm.busy = true;
+    var a = elFMCard.animate([
+      { clipPath: 'inset(0px 0px 0px 0px round ' + getComputedStyle(elFMCard).borderTopLeftRadius + ')' },
+      { clipPath: roundInset(card, pill, (pill.height / 2) + 'px') }
+    ], { duration: CLOSE_MS, easing: EASE_IN_CUBIC, fill: 'forwards' });
+    $$('.fmodal__card > *', elFM).forEach(function (el) {
+      el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, easing: EASE_IN_CUBIC, fill: 'forwards' });
+    });
+    fmChrome().forEach(function (el) {
+      el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: CLOSE_MS * 0.8, easing: EASE_IN_CUBIC, fill: 'forwards' });
+    });
+    whenDone(a, CLOSE_MS, finish);
+  }
+
+  /* the overlay's region dropdown — same look and motion as desktop's */
+  function syncFRegion() {
+    $('[data-fregion-label]', elFRegion).textContent = fm.region || 'All regions';
+    elFRBtn.classList.toggle('has-value', !!fm.region);
+    syncFMClear();
+  }
+  function buildFRegion() {
+    var opts = [{ value: null, label: 'All regions', count: STORES.length }].concat(
+      REGIONS.map(function (r) { return { value: r, label: r, count: REGION_COUNT[r] || 0 }; }));
+    elFRList.innerHTML = '';
+    opts.forEach(function (o, i) {
+      var li = d.createElement('li');
+      var b = d.createElement('button');
+      b.type = 'button';
+      b.className = 'region__opt';
+      b.setAttribute('role', 'option');
+      b.setAttribute('aria-selected', String(fm.region === o.value));
+      b.style.setProperty('--i', i);
+      b.appendChild(d.createTextNode(o.label));
+      var c = d.createElement('span');
+      c.className = 'region__count';
+      c.textContent = o.count;
+      b.appendChild(c);
+      b.addEventListener('click', function () {
+        fm.region = o.value;
+        syncFRegion();
+        buildFRegion();
+        closeFRegion();
+      });
+      li.appendChild(b);
+      elFRList.appendChild(li);
+    });
+  }
+  function openFRegion() {
+    clearTimeout(fm.frTimer);
+    elFMInput.blur();                         // drop the keyboard so the list has room
+    elFRPanel.hidden = false;
+    elFMForm.classList.add('is-fregion-open');
+    void elFRPanel.offsetHeight;
+    elFRegion.dataset.open = '';
+    elFRBtn.setAttribute('aria-expanded', 'true');
+    var sel = $('[aria-selected="true"]', elFRList);
+    elFRList.scrollTop = sel ? Math.max(0, sel.parentNode.offsetTop - elFRList.clientHeight / 2) : 0;
+    clearTimeout(fm.frAnim);
+    elFRPanel.classList.remove('is-anim');
+    if (!REDUCED.matches) {
+      void elFRPanel.offsetWidth;
+      elFRPanel.classList.add('is-anim');
+      fm.frAnim = setTimeout(function () { elFRPanel.classList.remove('is-anim'); },
+                             175 + elFRList.children.length * 50 + 50);
+    }
+  }
+  function closeFRegion(now) {
+    if (!('open' in elFRegion.dataset)) return;
+    delete elFRegion.dataset.open;
+    elFRBtn.setAttribute('aria-expanded', 'false');
+    var done = function () {
+      if ('open' in elFRegion.dataset) return;
+      elFRPanel.hidden = true;
+      elFMForm.classList.remove('is-fregion-open');   // hand the layer back once it's shut
+    };
+    if (now) { done(); return; }
+    fm.frTimer = setTimeout(done, 240);
+  }
+
+  function bindFilterModal() {
+    elMFOpen.addEventListener('click', openFM);
+    elMFClear.addEventListener('click', function () {
+      clearTimeout(searchTimer);
+      state.query = '';
+      elSearch.value = '';
+      setRegion(null);
+    });
+    $$('[data-fmodal-dismiss]', elFM).forEach(function (el) {
+      el.addEventListener('click', function () { closeFM(false); });
+    });
+    // × clears both the text and the region, then goes back to typing
+    $('[data-fmodal-x]', elFM).addEventListener('click', function () {
+      elFMInput.value = '';
+      fm.region = null;
+      syncFRegion();
+      buildFRegion();
+      elFMInput.focus();
+    });
+    elFMInput.addEventListener('input', syncFMClear);
+    elFMInput.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' || e.isComposing) return;
+      e.preventDefault();
+      if (!fm.open || fm.busy) return;
+      elFMGo.classList.add('is-pressed');
+      closeFM(true);
+    });
+    $('[data-fmodal-form]', elFM).addEventListener('submit', function (e) {
+      e.preventDefault();
+      elFMGo.classList.add('is-pressed');    // stays purple while it shrinks away
+      closeFM(true);
+    });
+    elFRBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if ('open' in elFRegion.dataset) closeFRegion(); else openFRegion();
+    });
+    elFMCard.addEventListener('click', function (e) {
+      if (!elFRegion.contains(e.target)) closeFRegion();
+    });
+    elFMInput.addEventListener('focus', function () { closeFRegion(); });
+  }
+
   /* ── refresh ──────────────────────────────────────────────── */
   function refresh() {
     elSearchClr.hidden = state.query.trim() === '';
+    syncFilterChip();
     renderList();
     renderMarkers();
     syncMarkerSelection();
@@ -1164,6 +1389,7 @@
     });
     d.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
+      if (fm.open) { if ('open' in elFRegion.dataset) closeFRegion(); else closeFM(false); return; }
       if ('open' in elRegion.dataset) closeRegion();
       else if (state.sheetOpen) closeSidebar();
     });
@@ -1202,6 +1428,7 @@
       if (mode() === wasMode) return;
       wasMode = mode();
       flip = null;
+      if (fm.open) { fm.open = false; fm.busy = false; elFM.hidden = true; elMF.classList.remove('is-hidden'); d.documentElement.classList.remove('is-locked'); }
       if (state.sheetOpen && state.selected) {
         var s = state.selected;
         closeSidebar();
@@ -1241,10 +1468,11 @@
     resolveAssets();
     buildRegionMenu();
     bind();
+    bindFilterModal();
     bindNudges();
     var linked = w.location.hash;   // read before setView rewrites it
     refresh();
-    setView('map');
+    setView(defaultView());
     readHash(linked);
 
     w.BFMap.create(elMap, w.BF_CONFIG)
@@ -1261,7 +1489,7 @@
 
         renderMarkers();
         measureToolbar();
-        if (sheetMode()) fitToFilter(true);
+        if (sheetMode() && state.view === 'map') { fitToFilter(true); state.fitted = true; }
         // desktop greets with a wiggle; mobile waits for the first idle 3s
         if (!sheetMode() && canWiggle()) setTimeout(wigglePins, 600);
 

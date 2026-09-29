@@ -35,48 +35,64 @@ embed demo at
 <https://alex-psychoactive.github.io/burgerfuel-locations/embed-test.html>
 (that file is the Webflow setup, verbatim).
 
-**1 — Page Settings → Inside `<head>` tag**
+The Webflow code is **two lines and never changes**, whatever gets released:
 
-```html
-<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=4">
-```
-
-**2 — Drag an Embed element onto the canvas, paste just this**
+**1 — Drag an Embed element onto the canvas, paste just this**
 
 ```html
 <div id="bf-locator"></div>
 ```
 
-**3 — Page Settings → Before `</body>` tag**
+**2 — Page Settings → Before `</body>` tag**
 
 ```html
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/lightbox.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/loader.js"></script>
 ```
+
+Nothing goes in the `<head>`: the loader adds the stylesheet itself.
+
+How it works: on every page load `loader.js` fetches `version.json`,
+bypassing every cache, then loads the stylesheet and each script stamped
+with that version (`?v=5`). A new release reaches the live site as soon as
+GitHub Pages has published it, usually within a minute of the push. There's
+nothing to bump in Webflow.
 
 Notes that will save you an hour each:
 
 * **Custom code only runs on the published site**, never on the Designer
   canvas. Publish to the `.webflow.io` staging domain to see anything.
-* **Order matters** — `markup.js` injects the DOM and must run before `app.js`.
-* **Bump `?v=4` → `?v=4` after every push.** GitHub Pages sends
-  `Cache-Control: max-age=600`, so without it browsers can serve a stale file
-  for ten minutes.
-* `js/markup.js` is **generated from `index.html`** — regenerate it after
-  changing markup:
-
-  ```bash
-  python -c "import io,re,json; s=io.open('index.html',encoding='utf-8').read(); b=re.sub(r'<script[^>]*></script>\s*','',re.search(r'<body[^>]*>(.*?)</body>',s,re.S).group(1)).strip(); io.open('js/markup.js','w',encoding='utf-8').write('(function(){var m=document.getElementById(\"bf-locator\");if(!m||m.getAttribute(\"data-bf-mounted\"))return;m.setAttribute(\"data-bf-mounted\",\"1\");m.innerHTML='+json.dumps(b)+';})();\n')"
-  ```
-
-* Asset URLs are **not** hardcoded — `config.js` derives `assetBase` from its
+* `js/markup.js` is **generated from `index.html`**. The release script
+  regenerates it (below), so don't edit it by hand.
+* Asset URLs are **not** hardcoded. `config.js` derives `assetBase` from its
   own `<script src>`, and `app.js` resolves every `<img data-bf-src>` against
   it. Move the repo anywhere and the images follow.
+
+### Releases and rollbacks
+
+```bash
+python tools/release.py
+git commit -am "Release v6: what changed"
+git tag v6
+git push origin main --tags
+```
+
+`tools/release.py` bumps `version.json` and every `?v=` in `index.html`,
+and regenerates `js/markup.js`. Every release is a git tag (`v1`, `v2`, …),
+so any past version can be looked at or restored:
+
+```bash
+git checkout v4 -- .                 # put v4's files back
+python tools/release.py              # stamp them as a new version
+git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
+```
+
+| Tag | What it was |
+|---|---|
+| v1 | Desktop build, first Webflow embed |
+| v2 | Mobile layout, slide-up store sheet, richer store data |
+| v3 | Tablet, photo lightbox, card morph, region dropdown |
+| v4 | Lightbox tap fix, sheet scroll reset, polish |
+| v5 | Mobile filter pill + search overlay, list-first mobile, loader.js |
 
 ### Before this goes on the client site
 
@@ -96,12 +112,19 @@ Built from the "Mobile Designs" Figma frames (393 wide). Same fluid-rem rule
 as desktop, just a different anchor: `1rem` = 16px at 393
 (`clamp(.8125rem, 4.0712468vw, 1.25rem)`, so 13px on a 320 phone, capped at 20px).
 
-* **The page scrolls on mobile.** Title → Map/List switch → search → region →
-  map or list. The map is sized to fill the screen under the sticky switch,
-  so once you've scrolled to it the whole view is map.
-* **Sticky switch.** The toolbar is `display:contents` on mobile so the switch
-  can stick for the full page length. The shadow only appears once it's stuck
-  (and the nav's own shadow hands off to it).
+* **Opens on the list view.** The list scrolls (title, cards, footer). The
+  map view is the map alone, fixed full screen, and the page doesn't scroll,
+  so there's nothing to get stuck below. `#map` in the URL opens the map.
+* **Floating controls, both views.** A "Filter & Search Stores" pill floats
+  at the top, with a Clear chip under it while a search or region is active.
+  The Map/List switch floats in a bar at the bottom.
+* **Search overlay.** Tapping the pill grows the overlay out of it (a clip
+  morph, 450ms ease-out-quint) with the keyboard already up. The search field
+  lights purple and grows slightly when focused. The region dropdown matches
+  desktop's. Nothing applies until **Search** is pressed. That button turns
+  purple instantly, then the overlay shrinks back into the pill (400ms
+  ease-in-cubic). The ×, tapping the dark area or Esc close it without
+  applying anything.
 * **Store sheet.** Tapping a store on the map slides the sheet up over a
   70% black scrim: 450ms ease-out-quint in, 400ms ease-in-cubic out. From
   the list, the card's photo flies up into the sheet's hero while the sheet

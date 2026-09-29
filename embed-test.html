@@ -4,23 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Embed test — simulates a Webflow page</title>
-
-<!-- ① HEAD CODE — this is what goes in Webflow's "Inside <head> tag" -->
-<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=4">
+<!-- No head code needed any more: the loader adds the stylesheet itself. -->
 </head>
 <body>
 
-<!-- ② EMBED ELEMENT — this is the whole HTML Embed in Webflow -->
+<!-- ① EMBED ELEMENT — the whole HTML Embed in Webflow -->
 <div id="bf-locator"></div>
 
-<!-- ③ FOOTER CODE — this is what goes in "Before </body> tag".
-     Order matters: markup.js must run before app.js. -->
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/lightbox.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=4"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=4"></script>
+<!-- ② FOOTER CODE — the whole of "Before </body> tag". This line never
+     changes: the loader reads version.json and pulls in the current
+     release of everything else. -->
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/loader.js"></script>
 </body>
 </html>
