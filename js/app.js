@@ -1118,9 +1118,11 @@
     elMFClear.hidden = !on;
     elMF.classList.toggle('is-filtered', on);     // purple icon + dot while filtering
   }
-  // the overlay's × shows only when there's something to clear: text or a region
+  // each field clears only itself: the search × shows once there's text,
+  // the region × once a region is picked
   function syncFMClear() {
-    $('[data-fmodal-x]', elFM).hidden = !(elFMInput.value.trim() || fm.region);
+    $('[data-fmodal-x]', elFM).hidden = !elFMInput.value.trim();
+    $('[data-fregion-clear]', elFM).hidden = !fm.region;
   }
 
   function roundInset(outer, inner, r) {
@@ -1283,13 +1285,18 @@
     $$('[data-fmodal-dismiss]', elFM).forEach(function (el) {
       el.addEventListener('click', function () { closeFM(false); });
     });
-    // × clears both the text and the region, then goes back to typing
+    // search × clears the text only, then goes back to typing
     $('[data-fmodal-x]', elFM).addEventListener('click', function () {
       elFMInput.value = '';
+      syncFMClear();
+      elFMInput.focus();
+    });
+    // region × resets to all regions
+    $('[data-fregion-clear]', elFM).addEventListener('click', function (e) {
+      e.stopPropagation();
       fm.region = null;
       syncFRegion();
       buildFRegion();
-      elFMInput.focus();
     });
     elFMInput.addEventListener('input', syncFMClear);
     elFMInput.addEventListener('keydown', function (e) {

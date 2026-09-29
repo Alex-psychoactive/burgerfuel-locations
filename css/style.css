@@ -1463,6 +1463,17 @@ input{font:inherit}
     transition:background .25s var(--ease-out-quint);
   }
   .fregion__btn.has-value{color:#000}
+  .fregion__btn.has-value>span{margin-right:2.5rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* clear disc: sits left of the chevron, stays up while the list is open */
+  .fregion__clear{
+    position:absolute;z-index:3;top:1.875rem;right:3.125rem;transform:translateY(-50%);
+    width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;
+    background:var(--bf-white);color:#000;
+    transition:background .2s var(--ease-out-quint),color .2s var(--ease-out-quint);
+  }
+  .fregion__clear[hidden]{display:none}
+  .fregion__clear svg{width:1.125rem;height:1.125rem}
+  .fregion__clear:active{background:var(--bf-black);color:var(--bf-white)}
   .fregion__caret{width:1.5rem;height:1.5rem;flex:none;transition:transform .3s var(--ease-out-quint)}
   .fregion[data-open] .fregion__btn{background:transparent}
   .fregion[data-open] .fregion__caret{transform:rotate(180deg)}

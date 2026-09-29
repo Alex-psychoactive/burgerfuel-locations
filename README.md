@@ -51,6 +51,13 @@ The Webflow code is **two lines and never changes**, whatever gets released:
 
 Nothing goes in the `<head>`: the loader adds the stylesheet itself.
 
+**Already on the older seven-script setup?** It keeps working as-is and
+never needs editing. The `?v=` number in those tags doesn't choose a
+version; it's only a cache label. GitHub Pages always serves the latest
+files at those addresses, so each release reaches that setup on its own,
+within 10 minutes at most (the Pages cache time). The loader just
+removes that 10-minute wait.
+
 How it works: on every page load `loader.js` fetches `version.json`,
 bypassing every cache, then loads the stylesheet and each script stamped
 with that version (`?v=5`). A new release reaches the live site as soon as
@@ -93,6 +100,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v3 | Tablet, photo lightbox, card morph, region dropdown |
 | v4 | Lightbox tap fix, sheet scroll reset, polish |
 | v5 | Mobile filter pill + search overlay, list-first mobile, loader.js |
+| v6 | Mobile overlay: search and region each get their own clear |
 
 ### Before this goes on the client site
 
