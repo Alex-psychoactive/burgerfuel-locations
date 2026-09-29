@@ -7,7 +7,7 @@
 <meta name="description" content="Find your nearest BurgerFuel store across New Zealand.">
 <link rel="preload" href="fonts/VanguardCF-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body data-view="map">
 
@@ -115,8 +115,13 @@
       </div>
     </div>
 
-    <form class="search" data-search-form role="search">
+    <form class="search" data-search-form role="search" autocomplete="off">
       <input class="search__input" type="search" placeholder="Search Regions, Cities, Suburbs" aria-label="Search regions, cities, suburbs" data-search-input>
+      <!-- countdown ring, shown when the query narrows to exactly one store -->
+      <svg class="search__ring" data-sf-ring viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path class="search__ring-track" d="M5.636 18.364A9 9 0 1 1 18.364 18.364" pathLength="1"/>
+        <path class="search__ring-fill" d="M5.636 18.364A9 9 0 1 1 18.364 18.364" pathLength="1"/>
+      </svg>
       <button class="search__clear" type="button" data-search-clear hidden>
         <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Clear
@@ -132,7 +137,14 @@
         <span data-region-label>Select a Region</span>
         <svg fill="none" class="icon icon--chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 11L12 14L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <ul class="region__menu u-scroll" data-region-menu role="listbox" tabindex="-1" hidden></ul>
+      <!-- shown once a region is chosen; same pill as the search's Clear -->
+      <button type="button" class="region__clear" data-region-clear hidden aria-label="Clear region">
+        <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <!-- the panel drops out of the button: masked reveal, rows stagger in -->
+      <div class="region__panel" data-region-panel hidden>
+        <ul class="region__menu u-scroll" data-region-menu role="listbox" tabindex="-1" aria-label="Regions"></ul>
+      </div>
     </div>
   </div>
 
@@ -142,14 +154,15 @@
   <div class="scrim" data-scrim hidden></div>
 
   <aside class="sidebar" data-sidebar hidden aria-label="Store details" aria-modal="false">
+    <!-- floats over the sheet (outside the scroller) so it's always reachable -->
+    <button type="button" class="btn-close" data-sidebar-close aria-label="Close">
+      <svg fill="none" class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="btn-close__label">Close</span>
+    </button>
     <div class="sidebar__scroll u-scroll" data-sidebar-scroll>
 
       <div class="sidebar__hero">
         <img class="sidebar__img" data-s-img alt="" src="">
-        <button type="button" class="btn-close" data-sidebar-close aria-label="Close">
-          <svg fill="none" class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="btn-close__label">Close</span>
-        </button>
       </div>
 
       <div class="sheet-grey">
@@ -309,11 +322,12 @@
     <div class="sidebar__orderbar">
       <div class="sidebar__gradient" aria-hidden="true"></div>
       <a class="btn btn--order" data-s-order href="https://eat.burgerfuel.com/order">
-        <span class="btn--order__label">Order now</span>
-        <span class="btn--order__label btn--order__label--m">Order from this store</span>
-        <span class="btn--order__arrow">
-          <svg fill="none" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.28775 12.7126L12.7124 5.28793M12.7124 11.6519L12.7124 5.28793L6.34841 5.28793" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <img data-bf-src="assets/m/takeaway-bag.svg" alt="" aria-hidden="true">
+        <span class="btn--order__fill" aria-hidden="true"></span>
+        <span class="btn--order__label">Order from this store</span>
+        <!-- hover flips the bag out to the top-right and the arrow in from the bottom-left -->
+        <span class="btn--order__icon" aria-hidden="true">
+          <img class="btn--order__bag" data-bf-src="assets/m/takeaway-bag.svg" alt="">
+          <svg class="btn--order__go" fill="none" viewBox="0 0 18 18"><path d="M5.28775 12.7126L12.7124 5.28793M12.7124 11.6519L12.7124 5.28793L6.34841 5.28793" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </a>
     </div>
@@ -347,6 +361,28 @@
   </ul>
 </footer>
 
+<!-- Photo lightbox: grows out of the tapped photo; pinch / double-tap to zoom -->
+<div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Store photos">
+  <div class="lightbox__bg" data-lb-bg></div>
+  <div class="lightbox__stage" data-lb-stage>
+    <div class="lightbox__track" data-lb-track></div>
+  </div>
+  <button type="button" class="lightbox__close" data-lb-close aria-label="Close photos">
+    <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="lightbox__ui">
+    <div class="lightbox__nav">
+      <button type="button" class="lightbox__btn" data-lb-prev aria-label="Previous photo">
+        <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.543 12.1842L6.08846 12.1842M10.9976 17.0933L6.08846 12.1842L10.9976 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="lightbox__btn" data-lb-next aria-label="Next photo">
+        <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.45697 12.1842L17.9115 12.1842M13.0024 17.0933L17.9115 12.1842L13.0024 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="lightbox__dots" data-lb-dots aria-live="polite"></div>
+  </div>
+</div>
+
 <template data-store-row-tpl>
   <li class="storerow" role="button" tabindex="0">
     <div class="storerow__thumb"><img alt="" loading="lazy"></div>
@@ -363,10 +399,11 @@
   </li>
 </template>
 
-<script src="js/config.js?v=2"></script>
-<script src="js/stores-data.js?v=2"></script>
-<script src="js/hours.js?v=2"></script>
-<script src="js/map.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+<script src="js/config.js?v=3"></script>
+<script src="js/stores-data.js?v=3"></script>
+<script src="js/hours.js?v=3"></script>
+<script src="js/map.js?v=3"></script>
+<script src="js/lightbox.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>

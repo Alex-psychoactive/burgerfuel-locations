@@ -24,6 +24,10 @@ window.BF_CONFIG = {
 
   googleMapsApiKey: '',
 
+  // When the query narrows to exactly one store, count down 0.8s in the
+  // field and open it. false = never auto-open.
+  autoOpenSingle: true,
+
   // Whole-of-New-Zealand starting view
   center: { lat: -41.0, lng: 173.6 },
   zoom: 5.35,

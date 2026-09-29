@@ -38,7 +38,7 @@ embed demo at
 **1 — Page Settings → Inside `<head>` tag**
 
 ```html
-<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=2">
+<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=3">
 ```
 
 **2 — Drag an Embed element onto the canvas, paste just this**
@@ -50,12 +50,13 @@ embed demo at
 **3 — Page Settings → Before `</body>` tag**
 
 ```html
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=2"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=2"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=2"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=2"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=2"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=2"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/lightbox.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=3"></script>
 ```
 
 Notes that will save you an hour each:
@@ -63,7 +64,7 @@ Notes that will save you an hour each:
 * **Custom code only runs on the published site**, never on the Designer
   canvas. Publish to the `.webflow.io` staging domain to see anything.
 * **Order matters** — `markup.js` injects the DOM and must run before `app.js`.
-* **Bump `?v=2` → `?v=2` after every push.** GitHub Pages sends
+* **Bump `?v=3` → `?v=3` after every push.** GitHub Pages sends
   `Cache-Control: max-age=600`, so without it browsers can serve a stale file
   for ten minutes.
 * `js/markup.js` is **generated from `index.html`** — regenerate it after
@@ -101,17 +102,22 @@ as desktop, just a different anchor: `1rem` = 16px at 393
 * **Sticky switch.** The toolbar is `display:contents` on mobile so the switch
   can stick for the full page length. The shadow only appears once it's stuck
   (and the nav's own shadow hands off to it).
-* **Store sheet.** Tapping a store in either view slides the sheet up over a
-  70% black scrim: 450ms ease-out-quint in, 400ms ease-in-quad out. Close by
+* **Store sheet.** Tapping a store on the map slides the sheet up over a
+  70% black scrim: 450ms ease-out-quint in, 400ms ease-in-cubic out. From
+  the list, the card's photo flies up into the sheet's hero while the sheet
+  grows out of the card (same timings), and it shrinks back into the card
+  on close. Close by
   the × button, tapping the scrim, Esc, "Back to all stores", or swiping down
   from the top of the sheet. The hero photo scrolls with parallax. The purple
   "Order from this store" bar floats over the sheet, and its gradient is
   click-through.
 * **Map nudges.** "Pinch to zoom", then "Tap a store for details", show once
   as a toast the first time the map is on screen, and vanish on the first
-  touch. After 5s without any input, the pins on screen do a quick staggered
-  wiggle-and-grow, repeating every 5s while the visitor stays idle. Any touch,
-  scroll or key resets the 5s. Off when the OS asks for reduced motion.
+  touch. After 3.25s without any input, the pins on screen do a quick
+  wiggle-and-grow in a random order, repeating every 3.25s while the
+  visitor stays idle. Any touch, scroll, wheel or key resets the 3.25s. Desktop and tablet do the same, and
+  desktop also wiggles once as soon as the map loads. Off when the OS asks
+  for reduced motion.
 * **Pins** grow to the design's 103px once zoomed in (zoom ≥ 10.5) and have an
   invisible padded tap target.
 * **Footer** appears under the list view only.
@@ -126,6 +132,59 @@ can be shared.
 
 **`?demo`** turns on the event and blog blocks for every store using the
 Figma copy, because no live store has either right now.
+
+---
+
+## Tablet (768–1199px)
+
+From the iPad Pro 11" frame. The root is pinned at 16px here (no vw
+scaling), so rem = design px ÷ 16 and nothing shrinks as the window
+narrows. Same model as desktop: the map is the page, with one floating
+bar holding the Map/List switch, region and search, slimmed to 52px
+controls. Where all three don't fit on one row (around 768px), search
+wraps onto its own full-width row. The list's top padding is the
+bar's measured height (`--tb`, set by a ResizeObserver), so even a
+wrapped bar can't sit on top of it. Store sheet = the mobile sheet,
+centred and capped at 640px.
+
+## Search, region dropdown and buttons
+
+* **Search**: goes lighter with a hint of purple on hover, and full purple
+  with white text while focused. Typed text is a size up from the
+  placeholder. The search button goes black-on-white while pressed, with
+  no scaling anywhere.
+* **Region Clear**: once a region is chosen, the same Clear pill as the
+  search appears inside the region button.
+* **Region dropdown**: the designed grey panel. It drops out of the
+  button with a clip-mask reveal, and its rows stagger in (50ms apart,
+  175ms fade + rise, ease-out-quint). Hovering a row eases its text in
+  (padding, 250ms ease-out-quint). Each row shows its store count. It
+  scrolls with the wheel and shows about 7 rows.
+* **Buttons with a background change** (Get directions, Call store,
+  Google / Facebook, Learn more, View store, Clear, Close, Order): a
+  rounded block rises from below the button and squares off as it fills
+  (300ms ease-out-quint in and out) while the outline fades away. Pressing
+  darkens it.
+* **Order button**: fills black on hover while the bag in its white disc
+  slides out to the top-right and an arrow slides in from the bottom-left
+  (same 300ms ease-out-quint).
+* **Selected store on the map**: circled in purple "ink", drawn
+  counter-clockwise like a pen. Each circle is generated fresh: tilt,
+  wobble, start point, and whether the ends cross or stop short all vary. Hover is gated to
+  mouse/trackpad so a tap on a phone doesn't stick.
+* **One match → open**: `autoOpenSingle: true` in `js/config.js`. When the
+  query (3+ characters) narrows to exactly one store, a ring in the field
+  fills over 0.8s and then opens that store in the list view. Keep typing,
+  press Esc or clear to cancel.
+
+## Photo lightbox
+
+Each photo in the sheet's strip darkens and zooms slightly on hover
+while a fullscreen badge rises in (200ms ease-out-quint). With a mouse
+the strip can also be dragged. `js/lightbox.js`: tapping a photo grows it out of its thumbnail
+into a full-screen viewer. Pinch or double-tap to zoom, drag to pan,
+swipe sideways for the next photo, swipe down to close. Closing flies it
+back into the matching thumbnail.
 
 ---
 
@@ -248,7 +307,8 @@ Google/MapLibre instance.
 
 ## Known gaps
 
-* Tablet (768–960px) is still the old minimal floor. It's the next job.
+* Desktop now starts at 1200px. Between 1200 and ~1440 the desktop ramp
+  runs at 10–12px/rem, which is small. Worth a look alongside laptop sizes.
 * The mobile hamburger is visual only. On the client site the host nav
   supplies the real menu.
 * The list view's sort switch and "In New Zealand · N stores" header aren't

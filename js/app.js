@@ -15,10 +15,26 @@
   var REGIONS = (w.BF_DATA && w.BF_DATA.regions) || [];
   var BASE    = (w.BF_CONFIG && w.BF_CONFIG.assetBase) || '';
 
-  // same breakpoint as the CSS; rem in a media query is always 16px
+  /* Three modes, same breakpoints as the CSS (rem in a media query is
+     always 16px):
+       mobile  < 768   scrolling page, slide-up sheet
+       tablet  768–1199  map is the page, floating bar, slide-up sheet
+       desktop ≥ 1200  map is the page, sidebar
+     "Sheet mode" = mobile or tablet. */
   var MQ = w.matchMedia('(max-width: 47.99rem)');
+  var MQ_SHEET = w.matchMedia('(max-width: 74.99rem)');
+  var COARSE = w.matchMedia('(pointer: coarse)');
   var REDUCED = w.matchMedia('(prefers-reduced-motion: reduce)');
   function isMobile() { return MQ.matches; }
+  function sheetMode() { return MQ_SHEET.matches; }
+  function mode() { return isMobile() ? 'mobile' : sheetMode() ? 'tablet' : 'desktop'; }
+
+  var CFG = w.BF_CONFIG || {};
+  var AUTO_OPEN = CFG.autoOpenSingle !== false;    // one match → countdown → open
+
+  var EASE_OUT_QUINT = 'cubic-bezier(.22,1,.36,1)';
+  var EASE_IN_CUBIC  = 'cubic-bezier(.32,0,.67,0)';
+  var OPEN_MS = 450, CLOSE_MS = 400;
 
   /* ?demo shows the event and blog blocks on every store, using the copy
      from the Figma frames. No live store has either right now. */
@@ -67,6 +83,7 @@
   var elRegionMenu = $('[data-region-menu]');
   var elRegionLbl  = $('[data-region-label]');
   var elSegwrap    = $('[data-segwrap]');
+  var elToolbar    = $('.toolbar');
   var elSidebar    = $('[data-sidebar]');
   var elSheetScroll= $('[data-sidebar-scroll]');
   var elHeroImg    = $('[data-s-img]');
@@ -118,9 +135,9 @@
       li.dataset.slug = s.slug;
       if (state.selected && state.selected.slug === s.slug) li.classList.add('is-active');
 
-      li.addEventListener('click', function () { select(s, 'list'); });
+      li.addEventListener('click', function () { select(s, 'list', li); });
       li.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(s, 'list'); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(s, 'list', li); }
       });
       elList.appendChild(li);
     });
@@ -199,8 +216,89 @@
 
   function syncMarkerSelection() {
     state.markers.forEach(function (m, slug) {
-      m.el.classList.toggle('is-active', !!state.selected && slug === state.selected.slug);
+      var on = !!state.selected && slug === state.selected.slug;
+      var was = m.el.classList.contains('is-active');
+      m.el.classList.toggle('is-active', on);
+      if (on && !was) drawInk(m.el);
+      if (!on && was) eraseInk(m.el);
     });
+  }
+
+  /* ── hand-drawn ink circle ─────────────────────────────────────
+     The selected pin gets circled the way you'd circle something on a
+     printed map with a purple pen: one loose loop, drawn counter-
+     clockwise from the upper left. Every circle is generated fresh —
+     its tilt, wobble and start point vary, and its ends either cross
+     past each other or stop just short. */
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function inkPath() {
+    var cx = 100, cy = 50, rx = 88, ry = 36;
+    var tilt = rand(-7, -1) * Math.PI / 180;         // right side rides a little high
+    var start = rand(195, 235) * Math.PI / 180;      // upper left
+    var over = Math.random() < 0.55 ? rand(0.12, 0.42) : -rand(0.08, 0.3);  // cross, or a gap
+    var sweep = Math.PI * 2 + over;
+    var drift = rand(-0.06, 0.06);                   // the loop doesn't close on itself
+    var w1 = rand(0, 6.28), w2 = rand(0, 6.28), a1 = rand(0.02, 0.05), a2 = rand(0.04, 0.09);
+    var lead = rand(0.04, 0.14);                     // the pen lands a little outside the loop
+    var N = 72, pts = [];
+    for (var i = 0; i <= N; i++) {
+      var f = i / N;
+      var t = start - sweep * f;                      // decreasing angle = counter-clockwise on screen
+      var k = 1 + drift * f + lead * Math.max(0, 1 - f / 0.12);
+      var x = rx * k * (1 + a1 * Math.sin(3 * t + w1)) * Math.cos(t);
+      var y = ry * k * (1 + a2 * Math.sin(2 * t + w2)) * Math.sin(t);
+      pts.push([cx + x * Math.cos(tilt) - y * Math.sin(tilt), cy + x * Math.sin(tilt) + y * Math.cos(tilt)]);
+    }
+    // Catmull-Rom through the points → smooth cubic Béziers
+    var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (var j = 0; j < pts.length - 1; j++) {
+      var p0 = pts[j - 1] || pts[j], p1 = pts[j], p2 = pts[j + 1], p3 = pts[j + 2] || p2;
+      d += ' C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(1) + ' ' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) +
+           ' ' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(1) + ' ' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) +
+           ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    return d;
+  }
+
+  function drawInk(pin) {
+    var old = pin.querySelector('.bf-ink');
+    if (old) old.remove();
+    var svg = d.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'bf-ink');
+    svg.setAttribute('viewBox', '0 0 200 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+    var shape = inkPath();
+    // a firm main stroke plus a thin, offset second pass: the uneven
+    // pressure of a real pen
+    // widths are screen px (non-scaling), so the line stays pen-even
+    // however the loop is stretched
+    [{ w: 3.4, o: 0.95, dx: 0, dy: 0 },
+     { w: 1.4, o: 0.4, dx: 0.9, dy: 0.7 }].forEach(function (pass) {
+      var path = d.createElementNS(SVGNS, 'path');
+      path.setAttribute('d', shape);
+      path.setAttribute('stroke-width', pass.w);
+      path.setAttribute('vector-effect', 'non-scaling-stroke');
+      path.setAttribute('opacity', pass.o);
+      if (pass.dx) path.setAttribute('transform', 'translate(' + pass.dx + ' ' + pass.dy + ')');
+      svg.appendChild(path);
+    });
+    pin.insertBefore(svg, pin.firstChild);
+    if (REDUCED.matches) return;
+    Array.prototype.forEach.call(svg.children, function (path, i) {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }],
+                   { duration: 350, delay: i * 25, easing: 'cubic-bezier(.45,.05,.25,1)', fill: 'backwards' });
+    });
+  }
+  function eraseInk(pin) {
+    var ink = pin.querySelector('.bf-ink');
+    if (!ink) return;
+    ink.classList.add('is-out');
+    setTimeout(function () { if (ink.parentNode) ink.remove(); }, 260);
   }
 
   /* ── store sheet: content ─────────────────────────────────── */
@@ -258,12 +356,25 @@
     var photos = (s.photos && s.photos.length) ? s.photos : [s.image];
     elPhotos.innerHTML = '';
     photos.forEach(function (src, i) {
+      var b = d.createElement('button');
+      b.type = 'button';
+      b.className = 'sheet-photo';
+      b.setAttribute('aria-label', 'View photo ' + (i + 1) + ' of ' + photos.length + ' full screen');
       var img = d.createElement('img');
       img.src = src;
       img.alt = 'BurgerFuel ' + s.name + ' — photo ' + (i + 1);
       img.loading = i < 2 ? 'eager' : 'lazy';
+      img.draggable = false;
       img.addEventListener('load', syncPhotoNav);   // widths aren't known until then
-      elPhotos.appendChild(img);
+      b.appendChild(img);
+      b.insertAdjacentHTML('beforeend',
+        '<span class="sheet-photo__expand" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24">' +
+        '<path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>');
+      b.addEventListener('click', function () {
+        if (photoDragged) return;                 // the end of a drag isn't a click
+        openPhotos(photos, i, s);
+      });
+      elPhotos.appendChild(b);
     });
     elPhotos.scrollLeft = 0;
     syncPhotoNav();
@@ -296,6 +407,50 @@
     return list[(i + 1) % list.length];
   }
 
+  function openPhotos(photos, i, s) {
+    if (!w.BFLightbox) return;
+    w.BFLightbox.open({
+      photos: photos,
+      index: i,
+      alt: 'BurgerFuel ' + s.name,
+      keyboard: keyNav,
+      thumb: function (n) { var b = elPhotos.children[n]; return b ? b.querySelector('img') : null; },
+      // keep the strip in step, so closing flies back to the right thumbnail
+      onIndex: function (n) {
+        var el = elPhotos.children[n];
+        if (el) elPhotos.scrollLeft = el.offsetLeft - elPhotos.firstElementChild.offsetLeft;
+      }
+    });
+  }
+
+  /* mouse users can drag the strip like a touch slider; snapping is off
+     while the button is down and back on to settle */
+  var photoDragged = false;
+  function bindPhotoDrag() {
+    var x0 = 0, left0 = 0, down = false;
+    elPhotos.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; photoDragged = false;
+      x0 = e.clientX; left0 = elPhotos.scrollLeft;
+    });
+    w.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - x0;
+      if (!photoDragged && Math.abs(dx) > 5) {
+        photoDragged = true;
+        elPhotos.classList.add('is-dragging');
+      }
+      if (photoDragged) elPhotos.scrollLeft = left0 - dx;
+    });
+    w.addEventListener('pointerup', function () {
+      if (!down) return;
+      down = false;
+      elPhotos.classList.remove('is-dragging');
+      // let the click that follows this pointerup see the flag, then clear it
+      setTimeout(function () { photoDragged = false; }, 0);
+    });
+  }
+
   function syncPhotoNav() {
     var max = elPhotos.scrollWidth - elPhotos.clientWidth - 2;
     $('[data-photos-prev]').disabled = elPhotos.scrollLeft <= 2;
@@ -315,11 +470,13 @@
   d.addEventListener('keydown', function () { keyNav = true; }, true);
   d.addEventListener('pointerdown', function () { keyNav = false; }, true);
 
-  function openSidebar(s) {
+  var flip = null;   // { row } while the sheet was opened from a list card
+
+  function openSidebar(s, fromRow) {
     fillSidebar(s);
     clearTimeout(closeTimer);
 
-    if (!isMobile()) {
+    if (!sheetMode()) {
       elSidebar.hidden = false;
       d.body.classList.add('is-sidebar-open');
       if (state.map) state.map.resize();
@@ -342,8 +499,15 @@
     elScrim.hidden = false;
     elSidebar.style.removeProperty('--drag');
     d.documentElement.classList.add('is-locked');
-    void elSidebar.offsetHeight;           // commit the off-screen start before sliding
-    d.body.classList.add('is-sheet-open', 'is-sidebar-open');
+
+    var thumb = fromRow && $('.storerow__thumb img', fromRow);
+    if (thumb && inView(thumb) && !REDUCED.matches) {
+      morphOpen(fromRow, thumb);
+    } else {
+      flip = null;
+      void elSidebar.offsetHeight;           // commit the off-screen start before sliding
+      d.body.classList.add('is-sheet-open', 'is-sidebar-open');
+    }
     elSidebar.setAttribute('aria-modal', 'true');
     state.sheetOpen = true;
     // keyboard users land on Close; a tap shouldn't leave a focus ring behind
@@ -351,13 +515,15 @@
   }
 
   function closeSidebar() {
+    var curSlug = state.selected && state.selected.slug;
     state.selected = null;
     writeHash(null);
     state.sheetOpen = false;
     syncListSelection();
     syncMarkerSelection();
 
-    if (!isMobile() || elSidebar.hidden) {
+    if (!sheetMode() || elSidebar.hidden) {
+      flip = null;
       elSidebar.hidden = true;
       elScrim.hidden = true;
       d.body.classList.remove('is-sidebar-open', 'is-sheet-open');
@@ -366,17 +532,148 @@
       return;
     }
 
-    d.body.classList.remove('is-sheet-open');
     elSidebar.setAttribute('aria-modal', 'false');
-    // 400ms ease-in-quad, set in CSS — wait it out, then take it off the page
-    closeTimer = setTimeout(function () {
+    var done = function () {
       elSidebar.hidden = true;
       elScrim.hidden = true;
+      elSidebar.classList.remove('is-flip');
       elSidebar.style.removeProperty('--drag');
       d.body.classList.remove('is-sidebar-open');
       d.documentElement.classList.remove('is-locked');
-    }, REDUCED.matches ? 20 : 420);
+    };
+
+    // shrink back into the card we came from, if it's still on screen and
+    // the sheet hasn't been scrolled far past its photo
+    // (the store now showing, which "Next store" may have changed)
+    var row = flip && curSlug && $('.storerow[data-slug="' + curSlug + '"]', elList);
+    var thumb = row && $('.storerow__thumb img', row);
+    flip = null;
+    if (thumb && inView(thumb) && !REDUCED.matches &&
+        elSheetScroll.scrollTop < elHeroImg.parentNode.offsetHeight &&
+        !elSidebar.classList.contains('is-dragging') && !elSidebar.style.getPropertyValue('--drag')) {
+      d.body.classList.remove('is-sheet-open');   // scrim fades (CSS, ease-in-cubic)
+      morphClose(row, thumb, done);
+      return;
+    }
+
+    d.body.classList.remove('is-sheet-open');
+    // 400ms ease-in-cubic, set in CSS — wait it out, then take it off the page
+    closeTimer = setTimeout(done, REDUCED.matches ? 20 : CLOSE_MS + 20);
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+
+  /* ── list card → sheet morph (sheet mode, list view) ──────────
+     The card's photo lifts off and flies to the sheet's hero slot while
+     the sheet grows out of the card's own rectangle around it — a clip
+     that starts as the card and opens to the full sheet. Same timings as
+     the slide: 450ms ease-out-quint in, 400ms ease-in-cubic out. */
+  /* Run fn once, when the animation finishes — or shortly after it should
+     have, if the browser stopped painting (backgrounded tab) and 'finish'
+     never arrives. The UI must never be left mid-morph. */
+  function whenDone(anim, ms, fn) {
+    var ran = false;
+    var go = function () { if (!ran) { ran = true; fn(); } };
+    anim.onfinish = anim.oncancel = go;
+    setTimeout(go, ms + 150);
+  }
+  function inView(el) {
+    var r = el.getBoundingClientRect();
+    return r.width > 0 && r.bottom > 0 && r.top < w.innerHeight;
+  }
+  function insetFrom(outer, inner) {
+    return 'inset(' + Math.max(0, inner.top - outer.top) + 'px ' +
+                      Math.max(0, outer.right - inner.right) + 'px ' +
+                      Math.max(0, outer.bottom - inner.bottom) + 'px ' +
+                      Math.max(0, inner.left - outer.left) + 'px round 0px)';
+  }
+  function heroTarget() {
+    // the hero photo is taller than its slot (for the parallax); the slot clips it
+    var img = elHeroImg.getBoundingClientRect();
+    var slot = elHeroImg.parentNode.getBoundingClientRect();
+    return { img: img, clipTop: Math.max(0, slot.top - img.top), clipBottom: Math.max(0, img.bottom - slot.bottom) };
+  }
+  function makeClone(src, r) {
+    var c = d.createElement('img');
+    c.className = 'flip-clone';
+    c.src = src; c.alt = '';
+    c.style.cssText = 'top:' + r.top + 'px;left:' + r.left + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+    d.body.appendChild(c);
+    return c;
+  }
+  function rectFrames(from, to, fromClip, toClip) {
+    return [
+      { top: from.top + 'px', left: from.left + 'px', width: from.width + 'px', height: from.height + 'px', clipPath: fromClip },
+      { top: to.top + 'px', left: to.left + 'px', width: to.width + 'px', height: to.height + 'px', clipPath: toClip }
+    ];
+  }
+
+  function morphOpen(row, thumb) {
+    flip = { slug: row.dataset.slug };
+    elSidebar.classList.add('is-flip');                  // no slide: the sheet sits in place
+    d.body.classList.add('is-sheet-open', 'is-sidebar-open');   // scrim fades in (CSS)
+
+    var S = elSidebar.getBoundingClientRect();
+    var R = row.getBoundingClientRect();
+    var T = thumb.getBoundingClientRect();
+    var H = heroTarget();
+    var radius = getComputedStyle(elSidebar).borderTopLeftRadius;
+
+    var clone = makeClone(thumb.currentSrc || thumb.src, T);
+    elHeroImg.style.visibility = 'hidden';
+    thumb.style.visibility = 'hidden';
+
+    var opts = { duration: OPEN_MS, easing: EASE_OUT_QUINT };
+    elSidebar.animate([
+      { clipPath: insetFrom(S, R) },
+      { clipPath: 'inset(0px 0px 0px 0px round ' + radius + ' ' + radius + ' 0px 0px)' }
+    ], opts);
+    $$('.sheet-grey > *, .sidebar__orderbar', elSidebar).forEach(function (el, i) {
+      el.animate([{ opacity: 0, transform: 'translateY(1.5rem)' }, { opacity: 1, transform: 'none' }],
+                 { duration: OPEN_MS, delay: 60 + i * 40, easing: EASE_OUT_QUINT, fill: 'backwards' });
+    });
+    var a = clone.animate(rectFrames(T, H.img, 'inset(0px 0px 0px 0px)',
+                                     'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px)'), opts);
+    whenDone(a, OPEN_MS, function () {
+      elHeroImg.style.visibility = '';
+      thumb.style.visibility = '';
+      clone.remove();
+      elSidebar.getAnimations().forEach(function (an) { an.cancel(); });
+      elSidebar.classList.remove('is-flip');
+    });
+  }
+
+  function morphClose(row, thumb, done) {
+    elSheetScroll.scrollTop = Math.min(elSheetScroll.scrollTop, 0);
+    elHeroImg.style.transform = '';
+    elSidebar.classList.add('is-flip');
+
+    var S = elSidebar.getBoundingClientRect();
+    var R = row.getBoundingClientRect();
+    var T = thumb.getBoundingClientRect();
+    var H = heroTarget();
+    var radius = getComputedStyle(elSidebar).borderTopLeftRadius;
+
+    var clone = makeClone(elHeroImg.currentSrc || elHeroImg.src, H.img);
+    elHeroImg.style.visibility = 'hidden';
+    thumb.style.visibility = 'hidden';
+
+    var opts = { duration: CLOSE_MS, easing: EASE_IN_CUBIC, fill: 'forwards' };
+    elSidebar.animate([
+      { clipPath: 'inset(0px 0px 0px 0px round ' + radius + ' ' + radius + ' 0px 0px)' },
+      { clipPath: insetFrom(S, R) }
+    ], opts);
+    elSheetScroll.animate([{ opacity: 1 }, { opacity: 0 }],
+                          { duration: CLOSE_MS * 0.6, easing: EASE_IN_CUBIC, fill: 'forwards' });
+    var a = clone.animate(rectFrames(H.img, T, 'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px)',
+                                     'inset(0px 0px 0px 0px)'), opts);
+    whenDone(a, CLOSE_MS, function () {
+      thumb.style.visibility = '';
+      elHeroImg.style.visibility = '';
+      clone.remove();
+      elSidebar.getAnimations().forEach(function (an) { an.cancel(); });
+      elSheetScroll.getAnimations().forEach(function (an) { an.cancel(); });
+      done();
+    });
   }
 
   /* hero parallax: the photo drifts at a third of the scroll speed, and
@@ -386,7 +683,7 @@
     if (parallaxRaf) return;
     parallaxRaf = w.requestAnimationFrame(function () {
       parallaxRaf = 0;
-      if (!isMobile() || REDUCED.matches) { elHeroImg.style.transform = ''; return; }
+      if (!sheetMode() || REDUCED.matches) { elHeroImg.style.transform = ''; return; }
       var y = elSheetScroll.scrollTop;
       var h = elHeroImg.parentNode.offsetHeight;
       if (y < 0) {
@@ -402,7 +699,7 @@
     var startY = 0, startX = 0, lastY = 0, lastT = 0, v = 0, dragging = false, decided = false;
 
     elSidebar.addEventListener('touchstart', function (e) {
-      if (!isMobile() || !state.sheetOpen || e.touches.length !== 1) return;
+      if (!sheetMode() || !state.sheetOpen || e.touches.length !== 1) return;
       if (elSheetScroll.scrollTop > 0) return;
       startY = lastY = e.touches[0].clientY;
       startX = e.touches[0].clientX;
@@ -411,7 +708,7 @@
     }, { passive: true });
 
     elSidebar.addEventListener('touchmove', function (e) {
-      if (!isMobile() || !state.sheetOpen || !startY) return;
+      if (!sheetMode() || !state.sheetOpen || !startY) return;
       var y = e.touches[0].clientY, dy = y - startY, dx = e.touches[0].clientX - startX;
       if (!decided) {
         if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;
@@ -459,10 +756,10 @@
   }
 
   /* ── selection ────────────────────────────────────────────── */
-  function select(store, source) {
+  function select(store, source, fromRow) {
     state.selected = store;
     writeHash(store.slug);
-    openSidebar(store);
+    openSidebar(store, fromRow);
     syncListSelection();
     syncMarkerSelection();
     if (state.view === 'map' && source !== 'map' && state.map) {
@@ -507,15 +804,31 @@
     if (!state.region && !state.query) {
       if (isMobile()) {
         state.map.fitBounds(STORES, { top: u * 3, right: u * 2, bottom: u * 3, left: u * 2 }, instant);
+      } else if (sheetMode()) {
+        state.map.fitBounds(STORES, { top: toolbarBottom() + u * 2, right: u * 3, bottom: u * 3, left: u * 3 }, instant);
       } else {
         state.map.panTo(w.BF_CONFIG.center.lat, w.BF_CONFIG.center.lng, 0);
       }
       return;
     }
-    // padding derived from the live root scale so it tracks the fluid layout
+    // padding derived from the live root scale and the toolbar's real height
+    var tb = toolbarBottom() + u * 2;
     state.map.fitBounds(stores, isMobile()
       ? { top: u * 5, right: u * 3, bottom: u * 3, left: u * 3 }
-      : { top: u * 9, right: elSidebar.hidden ? u * 5 : u * 43, bottom: u * 6, left: u * 5 });
+      : sheetMode()
+        ? { top: tb, right: u * 4, bottom: u * 4, left: u * 4 }
+        : { top: tb, right: elSidebar.hidden ? u * 5 : u * 43, bottom: u * 6, left: u * 5 });
+  }
+
+  /* The toolbar's bottom edge within the stage, published as --tb so the
+     list starts below it. Measured, not assumed: on tablet the bar can
+     wrap onto a second row, and nothing may sit underneath it. */
+  function toolbarBottom() {
+    return elToolbar.offsetTop + elToolbar.offsetHeight;
+  }
+  function measureToolbar() {
+    if (isMobile()) { elStage.style.removeProperty('--tb'); return; }
+    elStage.style.setProperty('--tb', toolbarBottom() + 'px');
   }
 
   /* ── sticky switch shadow (mobile) ────────────────────────── */
@@ -531,9 +844,10 @@
      1. A small toast, once, the first time the map comes into view —
         "Pinch to zoom", then "Tap a store". Gone the moment the map is
         touched.
-     2. After 5s with no input at all, the pins on screen give a quick
-        staggered wiggle, then again every 5s while the visitor stays
-        idle. Any touch, scroll or key puts it back on a 5s cooldown. */
+     2. After 3.25s with no input at all, the pins on screen give a
+        quick wiggle in a random order, then again every 3.25s while the
+        visitor stays idle. Any touch, scroll, wheel or key puts it back
+        on a 3.25s cooldown. Desktop also wiggles once on load. */
   var mapInView = 0;
   var HINTS = [
     { icon: 'zoom', text: 'Pinch to zoom' },
@@ -547,7 +861,8 @@
     elHint.removeAttribute('data-show');
   }
   function playHints() {
-    if (hintsPlayed || state.mapTouched || !isMobile() || state.view !== 'map' || state.sheetOpen) return;
+    // touch screens only — "pinch" means nothing to a mouse
+    if (hintsPlayed || state.mapTouched || !(isMobile() || COARSE.matches) || state.view !== 'map' || state.sheetOpen) return;
     hintsPlayed = true;
     var t = 700;
     HINTS.forEach(function (h) {
@@ -562,7 +877,7 @@
     });
   }
 
-  var IDLE_MS = 5000;
+  var IDLE_MS = 3250;
   var idleTimer = 0;
   function armIdle() { clearTimeout(idleTimer); idleTimer = setTimeout(idleTick, IDLE_MS); }
   function idleTick() {
@@ -570,12 +885,13 @@
     armIdle();
   }
   function canWiggle() {
-    return isMobile() && !REDUCED.matches && !d.hidden && state.map &&
-           state.view === 'map' && !state.sheetOpen && mapInView >= 0.35;
+    return !REDUCED.matches && !d.hidden && state.map && state.view === 'map' &&
+           !state.sheetOpen && mapInView >= 0.35 && !(w.BFLightbox && w.BFLightbox.isOpen());
   }
   function wigglePins() {
     var box = elMap.getBoundingClientRect();
-    var top = Math.max(box.top, remPx() * 9);       // below the nav + sticky band
+    // below the nav and whatever floats over the map's top edge
+    var top = Math.max(box.top, isMobile() ? remPx() * 9 : elToolbar.getBoundingClientRect().bottom);
     var pins = [];
     state.markers.forEach(function (m) {
       if (m.el.style.display === 'none') return;
@@ -584,13 +900,20 @@
         pins.push({ el: m.el, x: r.left });
       }
     });
-    pins.sort(function (a, b) { return a.x - b.x; });
-    pins.slice(0, 24).forEach(function (p, i) {
+    // random order and a little random spacing each time, so the wave
+    // never plays the same way twice
+    for (var k = pins.length - 1; k > 0; k--) {
+      var r = Math.floor(Math.random() * (k + 1));
+      var t = pins[k]; pins[k] = pins[r]; pins[r] = t;
+    }
+    var at = 0;
+    pins.slice(0, 24).forEach(function (p) {
       setTimeout(function () {
         p.el.classList.remove('is-wiggle');
         void p.el.offsetWidth;
         p.el.classList.add('is-wiggle');
-      }, i * 70);
+      }, at);
+      at += 40 + Math.random() * 60;
     });
   }
 
@@ -623,21 +946,34 @@
     armIdle();
   }
 
-  /* ── region dropdown ──────────────────────────────────────── */
+  /* ── region dropdown ──────────────────────────────────────────
+     The panel drops out of the button (clip-mask reveal in CSS) and its
+     rows stagger in; each row carries its store count. */
+  var elRegionPanel = $('[data-region-panel]');
+  var elRegionClear = $('[data-region-clear]');
+  var REGION_COUNT = {};
+  STORES.forEach(function (s) { REGION_COUNT[s.region] = (REGION_COUNT[s.region] || 0) + 1; });
+  var regionCloseTimer = 0, regionAnimTimer = 0;
+
   function buildRegionMenu() {
-    var opts = [{ value: null, label: 'All Regions' }].concat(
-      REGIONS.map(function (r) { return { value: r, label: r }; })
+    var opts = [{ value: null, label: 'All regions', count: STORES.length }].concat(
+      REGIONS.map(function (r) { return { value: r, label: r, count: REGION_COUNT[r] || 0 }; })
     );
 
     elRegionMenu.innerHTML = '';
-    opts.forEach(function (o) {
+    opts.forEach(function (o, i) {
       var li = d.createElement('li');
       var b = d.createElement('button');
       b.type = 'button';
       b.className = 'region__opt';
       b.setAttribute('role', 'option');
       b.setAttribute('aria-selected', String(state.region === o.value));
-      b.textContent = o.label;
+      b.style.setProperty('--i', i);
+      b.appendChild(d.createTextNode(o.label));
+      var c = d.createElement('span');
+      c.className = 'region__count';
+      c.textContent = o.count;
+      b.appendChild(c);
       b.addEventListener('click', function () { setRegion(o.value); });
       li.appendChild(b);
       elRegionMenu.appendChild(li);
@@ -647,6 +983,8 @@
   function setRegion(value) {
     state.region = value;
     elRegionLbl.textContent = value ? value + ', NZ' : 'Select a Region';
+    elRegionBtn.classList.toggle('has-value', !!value);
+    elRegionClear.hidden = !value;
     closeRegion();
     buildRegionMenu();
     refresh();
@@ -662,14 +1000,88 @@
   }
 
   function openRegion() {
+    clearTimeout(regionCloseTimer);
+    elRegionPanel.hidden = false;
+    void elRegionPanel.offsetHeight;          // start from the clipped state
     elRegion.dataset.open = '';
-    elRegionMenu.hidden = false;
     elRegionBtn.setAttribute('aria-expanded', 'true');
+    var sel = $('[aria-selected="true"]', elRegionMenu);
+    elRegionMenu.scrollTop = sel ? Math.max(0, sel.offsetTop - elRegionMenu.clientHeight / 2) : 0;
+    clearTimeout(regionAnimTimer);
+    elRegionPanel.classList.remove('is-anim');
+    if (!REDUCED.matches) {
+      void elRegionPanel.offsetWidth;
+      elRegionPanel.classList.add('is-anim');
+      // drop the stagger once it has played so hover transitions aren't held
+      regionAnimTimer = setTimeout(function () { elRegionPanel.classList.remove('is-anim'); },
+                                   175 + elRegionMenu.children.length * 50 + 50);
+    }
   }
   function closeRegion() {
+    if (!('open' in elRegion.dataset)) return;
     delete elRegion.dataset.open;
-    elRegionMenu.hidden = true;
     elRegionBtn.setAttribute('aria-expanded', 'false');
+    regionCloseTimer = setTimeout(function () {
+      if (!('open' in elRegion.dataset)) elRegionPanel.hidden = true;
+    }, 240);
+  }
+
+  /* ── one match → open it ─────────────────────────────────────
+     If what's typed (3+ characters) narrows to exactly one store, a ring
+     in the field counts down 0.8s, then opens that store in the list
+     view. Any further keystroke, Esc or clear cancels it, and it never
+     re-fires for the same query. BF_CONFIG.autoOpenSingle switches it. */
+  var elSfRing = $('[data-sf-ring]');
+  var searchTimer = 0;
+  var autoTimer = 0, autoDoneFor = '';
+
+  /* open a store found by search; in the list view the card morphs open */
+  function openFromSearch(store, toList) {
+    if (toList && state.view !== 'list') setView('list');
+    if (state.view !== 'list') { select(store, 'search'); return; }
+    var li = $('.storerow[data-slug="' + store.slug + '"]', elList);
+    if (li) {
+      var r = li.getBoundingClientRect();
+      if (isMobile()) {
+        var bandBottom = elSegwrap.getBoundingClientRect().bottom;
+        if (r.top < bandBottom || r.bottom > w.innerHeight) w.scrollTo(0, w.scrollY + r.top - bandBottom - remPx());
+      } else {
+        li.scrollIntoView({ block: 'nearest' });
+      }
+    }
+    select(store, 'list', li);
+  }
+
+  function checkAuto() {
+    if (!AUTO_OPEN) return;
+    var q = elSearch.value.trim().toLowerCase();
+    if (q !== autoDoneFor) autoDoneFor = '';
+    var m = q.length >= 3 && !autoDoneFor ? filterStores(state.region, q) : [];
+    if (m.length === 1) startAuto(m[0], q); else cancelAuto();
+  }
+  function startAuto(store, q) {
+    if (autoTimer && elSfRing.dataset.slug === store.slug) return;   // already counting
+    cancelAuto();
+    elSfRing.dataset.slug = store.slug;
+    elSfRing.setAttribute('data-on', '');
+    void elSfRing.getBoundingClientRect();
+    elSfRing.setAttribute('data-run', '');
+    autoTimer = setTimeout(function () {
+      autoTimer = 0;
+      autoDoneFor = q;
+      cancelAuto();
+      if (isMobile() || COARSE.matches) elSearch.blur();
+      clearTimeout(searchTimer);
+      setQuery(elSearch.value);              // the list narrows to that one card
+      openFromSearch(store, true);
+    }, REDUCED.matches ? 300 : 800);
+  }
+  function cancelAuto() {
+    clearTimeout(autoTimer);
+    autoTimer = 0;
+    elSfRing.removeAttribute('data-run');
+    elSfRing.removeAttribute('data-on');
+    delete elSfRing.dataset.slug;
   }
 
   /* ── refresh ──────────────────────────────────────────────── */
@@ -695,15 +1107,16 @@
       elListScroll.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    var searchTimer;
     elSearch.addEventListener('input', function () {
       // show Clear as soon as they type, don't wait out the debounce
       elSearchClr.hidden = elSearch.value.trim() === '';
       clearTimeout(searchTimer);
       searchTimer = setTimeout(function () { setQuery(elSearch.value); }, 160);
+      checkAuto();
     });
     elSearchForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      cancelAuto();
       clearTimeout(searchTimer);
       setQuery(elSearch.value, { fit: true });
       if (isMobile()) elSearch.blur();     // drop the keyboard so results show
@@ -713,12 +1126,14 @@
     elSearch.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && elSearch.value) {
         e.stopPropagation();
+        cancelAuto();
         clearTimeout(searchTimer);
         setQuery('', { fit: true, focus: true });
       }
     });
 
     elSearchClr.addEventListener('click', function () {
+      cancelAuto();
       clearTimeout(searchTimer);
       setQuery('', { fit: true, focus: true });
     });
@@ -730,6 +1145,10 @@
       setRegion(null);   // keeps the query, widens the region
     });
 
+    elRegionClear.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setRegion(null);
+    });
     elRegionBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       if ('open' in elRegion.dataset) closeRegion(); else openRegion();
@@ -752,6 +1171,7 @@
     $('[data-photos-prev]').addEventListener('click', function () { stepPhotos(-1); });
     $('[data-photos-next]').addEventListener('click', function () { stepPhotos(1); });
     elPhotos.addEventListener('scroll', syncPhotoNav, { passive: true });
+    bindPhotoDrag();
     elSheetScroll.addEventListener('scroll', onSheetScroll, { passive: true });
     bindSheetDrag();
 
@@ -769,12 +1189,13 @@
     }, { passive: false });
 
     w.addEventListener('scroll', updateStuck, { passive: true });
-    // crossing the breakpoint with the sheet open: reset to that mode's shape.
-    // Checked on resize as well as the media query event, whichever lands first.
-    var wasMobile = isMobile();
+    // crossing a breakpoint with the sheet open: reset to that mode's shape.
+    // Checked on resize as well as the media query events, whichever lands first.
+    var wasMode = mode();
     var onMode = function () {
-      if (isMobile() === wasMobile) return;
-      wasMobile = isMobile();
+      if (mode() === wasMode) return;
+      wasMode = mode();
+      flip = null;
       if (state.sheetOpen && state.selected) {
         var s = state.selected;
         closeSidebar();
@@ -787,9 +1208,13 @@
       if (state.map) { state.map.resize(); fitToFilter(); }
       updateStuck();
     };
-    if (MQ.addEventListener) MQ.addEventListener('change', onMode); else MQ.addListener(onMode);
+    [MQ, MQ_SHEET].forEach(function (q) {
+      if (q.addEventListener) q.addEventListener('change', onMode); else q.addListener(onMode);
+    });
+    if (w.ResizeObserver) new ResizeObserver(measureToolbar).observe(elToolbar);
     w.addEventListener('resize', function () {
       onMode();
+      measureToolbar();
       if (state.map) state.map.resize();
       updateStuck();
     });
@@ -822,14 +1247,17 @@
         STORES.forEach(function (s) {
           state.markers.set(s.slug, api.addMarker(s, function (store) { select(store, 'map'); }));
         });
-        api.onClick(function () { if (state.sheetOpen && !isMobile()) closeSidebar(); });
+        api.onClick(function () { if (state.sheetOpen && !sheetMode()) closeSidebar(); });
 
         // mobile pins grow once the map is zoomed in far enough to have room
         var near = function (z) { elStage.toggleAttribute('data-near', z >= 10.5); };
         if (api.onZoom) { api.onZoom(near); near(api.getZoom()); }
 
         renderMarkers();
-        if (isMobile()) fitToFilter(true);
+        measureToolbar();
+        if (sheetMode()) fitToFilter(true);
+        // desktop greets with a wiggle; mobile waits for the first idle 3s
+        if (!sheetMode() && canWiggle()) setTimeout(wigglePins, 600);
 
         if (api.driver === 'maplibre') {
           console.info('[BF] Keyless preview basemap in use. Add a Google Maps API ' +
