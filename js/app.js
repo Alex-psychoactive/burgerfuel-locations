@@ -478,6 +478,7 @@
 
     if (!sheetMode()) {
       elSidebar.hidden = false;
+      elSheetScroll.scrollTop = 0;
       d.body.classList.add('is-sidebar-open');
       if (state.map) state.map.resize();
       state.sheetOpen = true;
@@ -497,6 +498,10 @@
     lastFocus = d.activeElement;
     elSidebar.hidden = false;
     elScrim.hidden = false;
+    // a hidden element ignores scrollTop, so reset once it's back on the
+    // page — every store opens at its hero, never where the last one was
+    elSheetScroll.scrollTop = 0;
+    elHeroImg.style.transform = '';
     elSidebar.style.removeProperty('--drag');
     d.documentElement.classList.add('is-locked');
 
@@ -534,6 +539,7 @@
 
     elSidebar.setAttribute('aria-modal', 'false');
     var done = function () {
+      elSheetScroll.scrollTop = 0;
       elSidebar.hidden = true;
       elScrim.hidden = true;
       elSidebar.classList.remove('is-flip');

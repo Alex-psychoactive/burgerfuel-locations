@@ -38,7 +38,7 @@ embed demo at
 **1 — Page Settings → Inside `<head>` tag**
 
 ```html
-<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=3">
+<link rel="stylesheet" href="https://alex-psychoactive.github.io/burgerfuel-locations/css/style.css?v=4">
 ```
 
 **2 — Drag an Embed element onto the canvas, paste just this**
@@ -50,13 +50,13 @@ embed demo at
 **3 — Page Settings → Before `</body>` tag**
 
 ```html
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=3"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=3"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=3"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=3"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/lightbox.js?v=3"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=3"></script>
-<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=3"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/config.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/stores-data.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/hours.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/map.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/lightbox.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/markup.js?v=4"></script>
+<script src="https://alex-psychoactive.github.io/burgerfuel-locations/js/app.js?v=4"></script>
 ```
 
 Notes that will save you an hour each:
@@ -64,7 +64,7 @@ Notes that will save you an hour each:
 * **Custom code only runs on the published site**, never on the Designer
   canvas. Publish to the `.webflow.io` staging domain to see anything.
 * **Order matters** — `markup.js` injects the DOM and must run before `app.js`.
-* **Bump `?v=3` → `?v=3` after every push.** GitHub Pages sends
+* **Bump `?v=4` → `?v=4` after every push.** GitHub Pages sends
   `Cache-Control: max-age=600`, so without it browsers can serve a stale file
   for ten minutes.
 * `js/markup.js` is **generated from `index.html`** — regenerate it after

@@ -88,9 +88,10 @@
   /* size each image to "contain" inside its slide, so its box is exactly
      the painted pixels — that's what the FLIP measures against */
   function fit(img) {
-    // measure the stage, not the slide: a slide can be stretched by its photo
+    // the slide's own width (narrower on desktop, where neighbours peek in);
+    // slides can't be stretched by their photo (min-width:0 in the CSS)
     var cs = getComputedStyle(img.parentNode);
-    var bw = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    var bw = img.parentNode.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     var bh = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
     var r = (img.naturalWidth || 3) / (img.naturalHeight || 2);
     var wdt = Math.min(bw, bh * r);
@@ -106,13 +107,15 @@
 
   function setTrack(animate, dx) {
     track.style.transition = animate ? 'transform .42s ' + EASE_OUT_QUINT : 'none';
-    track.style.transform = 'translate3d(calc(' + (-index * 100) + '% + ' + (dx || 0) + 'px),0,0)';
+    // lead − index × (slide + gap), in % of the track; all three come from CSS
+    track.style.transform = 'translate3d(calc(var(--lead) + (var(--slide) + var(--gap)) * ' + (-index) + ' + ' + (dx || 0) + 'px),0,0)';
   }
 
   function syncUi() {
     Array.prototype.forEach.call(dots.children, function (dot, i) {
       dot.classList.toggle('is-active', i === index);
     });
+    slides.forEach(function (img, i) { img.parentNode.classList.toggle('is-current', i === index); });
     dots.setAttribute('aria-label', 'Photo ' + (index + 1) + ' of ' + slides.length);
     btnPrev.disabled = index === 0;
     btnNext.disabled = index === slides.length - 1;
@@ -296,15 +299,18 @@
     function mid(a, b) { return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; }
     function snapshot() {
       var p = Array.from(pts.values());
-      start = { s: z.s, x: z.x, y: z.y, p: p.map(function (q) { return { x: q.x, y: q.y }; }), t: Date.now() };
+      start = { s: z.s, x: z.x, y: z.y, p: p.map(function (q) { return { x: q.x, y: q.y }; }), t: Date.now(), target: start && start.target };
       if (p.length === 2) { start.d = dist(p[0], p[1]); start.m = mid(p[0], p[1]); }
     }
 
     stage.addEventListener('pointerdown', function (e) {
       if (busy) return;
-      stage.setPointerCapture(e.pointerId);
+      var downOn = e.target;               // before capture retargets everything to the stage
+      try { stage.setPointerCapture(e.pointerId); } catch (err) { /* pointer already gone */ }
       pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
       snapshot();
+      if (pts.size === 1) start.target = downOn;
+      if (e.pointerType === 'mouse') root.classList.add('is-grabbing');
       swipe = null;
     });
 
@@ -351,6 +357,7 @@
     });
 
     function end(e) {
+      root.classList.remove('is-grabbing');
       if (!pts.has(e.pointerId)) return;
       var p0 = pts.get(e.pointerId);
       pts.delete(e.pointerId);
@@ -388,7 +395,11 @@
           clearTimeout(lastTap.timer);
           if (z.s > 1.01) resetZoom(true); else zoomAt(2.5, p0.x, p0.y, true);
           lastTap.t = 0;
-        } else if (e.target !== cur() && z.s <= 1.01) {
+        } else if (start.target && start.target.closest && start.target.closest('.lightbox__slide:not(.is-current)')) {
+          // desktop: a peeking neighbour — go to it
+          lastTap.t = 0;
+          go(slides.indexOf(start.target.closest('.lightbox__slide').querySelector('img')));
+        } else if (start.target !== cur() && z.s <= 1.01) {
           // off the photo: close straight away. (Only taps on the photo
           // need to wait and see if a second tap makes it a double-tap.)
           lastTap.t = 0;

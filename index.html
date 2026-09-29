@@ -7,7 +7,7 @@
 <meta name="description" content="Find your nearest BurgerFuel store across New Zealand.">
 <link rel="preload" href="fonts/VanguardCF-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body data-view="map">
 
@@ -163,6 +163,7 @@
 
       <div class="sidebar__hero">
         <img class="sidebar__img" data-s-img alt="" src="">
+        <span class="sidebar__handle" aria-hidden="true"></span>
       </div>
 
       <div class="sheet-grey">
@@ -300,20 +301,24 @@
       <section class="sheet-sec sheet-more">
         <button type="button" class="jumpcard jumpcard--next" data-s-next-store>
           <img class="jumpcard__bg" data-s-next-img alt="" src="">
-          <span class="jumpcard__tile" aria-hidden="true">
-            <svg fill="none" viewBox="0 0 24 24"><path d="M6.45697 12.1842L17.9115 12.1842M13.0024 17.0933L17.9115 12.1842L13.0024 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
-          </span>
-          <span class="jumpcard__label">
-            <span class="jumpcard__kicker" data-s-next-name>Ponsonby</span>
-            Next store
+          <span class="jumpcard__tag">
+            <span class="jumpcard__tile" aria-hidden="true">
+              <svg fill="none" viewBox="0 0 24 24"><path d="M6.45697 12.1842L17.9115 12.1842M13.0024 17.0933L17.9115 12.1842L13.0024 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="jumpcard__label">
+              <span class="jumpcard__kicker" data-s-next-name>Ponsonby</span>
+              Next store
+            </span>
           </span>
         </button>
         <button type="button" class="jumpcard jumpcard--back" data-s-back>
           <img class="jumpcard__bg" data-bf-src="assets/m/back-map.webp" alt="">
-          <span class="jumpcard__tile" aria-hidden="true">
-            <svg fill="none" viewBox="0 0 24 24"><path d="M17.543 12.1842L6.08846 12.1842M10.9976 17.0933L6.08846 12.1842L10.9976 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
+          <span class="jumpcard__tag">
+            <span class="jumpcard__tile" aria-hidden="true">
+              <svg fill="none" viewBox="0 0 24 24"><path d="M17.543 12.1842L6.08846 12.1842M10.9976 17.0933L6.08846 12.1842L10.9976 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="jumpcard__label">Back to<br>all stores</span>
           </span>
-          <span class="jumpcard__label">Back to<br>all stores</span>
         </button>
       </section>
     </div>
@@ -399,11 +404,11 @@
   </li>
 </template>
 
-<script src="js/config.js?v=3"></script>
-<script src="js/stores-data.js?v=3"></script>
-<script src="js/hours.js?v=3"></script>
-<script src="js/map.js?v=3"></script>
-<script src="js/lightbox.js?v=3"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/config.js?v=4"></script>
+<script src="js/stores-data.js?v=4"></script>
+<script src="js/hours.js?v=4"></script>
+<script src="js/map.js?v=4"></script>
+<script src="js/lightbox.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
