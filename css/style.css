@@ -1106,7 +1106,16 @@ input{font:inherit}
   .listview__scroll{height:auto;overflow:visible;padding:0 1rem 5.9375rem}
   .is-sidebar-open .listview__scroll{padding-right:1rem}
   .listview__col{width:auto}
-  .listview__head{display:none}
+  /* the desktop "In <region> · Showing: N stores" line, under STORES — only
+     while a search or region is narrowing the list */
+  .listview__head{
+    display:none;flex-direction:column;align-items:center;gap:0;
+    padding-block:0 1.5rem;text-align:center;
+  }
+  .has-filter .listview__head{display:flex}
+  .listview__title{font-size:2rem;line-height:1.05}
+  .listview__count{margin-top:.375rem;font-size:1rem;color:var(--grey-text)}
+  .sortswitch{display:none}
   .storelist{gap:1.5rem}
 
   /* next / back cards: labels a size up so they read on a phone */
@@ -1127,8 +1136,9 @@ input{font:inherit}
   .storerow__addr .icon,.storerow.is-active .storerow__addr .icon{width:1.125rem;height:1.125rem;opacity:1}
   .storerow__radio{display:none}
   .storerow:active .storerow__thumb img{transform:scale(1.03)}
-  .empty{padding-block:1rem 2rem}
+  .empty{padding-block:.5rem 2rem;text-align:center;margin-inline:auto}
   .empty__title{font-size:2rem}
+  .empty__actions{justify-content:center}
 
   /* ── footer (list view only) ── */
   body[data-view="list"] .mfooter{display:block}
@@ -1444,7 +1454,7 @@ input{font:inherit}
     background:var(--bf-white);color:#000;
     transition:background .2s var(--ease-out-quint),color .2s var(--ease-out-quint);
   }
-  .fmodal__x svg{width:1.5rem;height:1.5rem}
+  .fmodal__x svg{width:1.125rem;height:1.125rem}   /* same × as the region clear */
   .fmodal__x[hidden]{display:none}
   .fmodal__x:active{background:var(--bf-black);color:var(--bf-white)}
 

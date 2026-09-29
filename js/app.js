@@ -1117,6 +1117,7 @@
     var on = !!(state.query.trim() || state.region);
     elMFClear.hidden = !on;
     elMF.classList.toggle('is-filtered', on);     // purple icon + dot while filtering
+    d.body.classList.toggle('has-filter', on);    // mobile list shows its "In … · Showing" line
   }
   // each field clears only itself: the search × shows once there's text,
   // the region × once a region is picked

@@ -101,6 +101,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v4 | Lightbox tap fix, sheet scroll reset, polish |
 | v5 | Mobile filter pill + search overlay, list-first mobile, loader.js |
 | v6 | Mobile overlay: search and region each get their own clear |
+| v7 | Mobile list: "In <region> · Showing N" heading and empty state when filtered; smaller search clear icon |
 
 ### Before this goes on the client site
 
