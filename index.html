@@ -7,7 +7,7 @@
 <meta name="description" content="Find your nearest BurgerFuel store across New Zealand.">
 <link rel="preload" href="fonts/VanguardCF-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="stylesheet" href="css/style.css?v=15">
 </head>
 <body data-view="map">
 <div id="bf-locator" data-bf-mounted="1">
@@ -355,6 +355,15 @@
             <span class="jumpcard__title">Next store <svg class="jumpcard__arrow" fill="none" viewBox="0 0 32 32" aria-hidden="true"><path d="M8.60925 16.2456L23.882 16.2456M17.3365 22.7911L23.882 16.2456L17.3365 9.70017" stroke="currentColor" stroke-width="2.18182" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </span>
         </button>
+        <!-- desktop: the map is already beside the panel, so the second card
+             steps back a store instead of "back to all stores" -->
+        <button type="button" class="jumpcard jumpcard--prev" data-s-prev-store>
+          <img class="jumpcard__bg" data-s-prev-img alt="" src="">
+          <span class="jumpcard__label">
+            <span class="jumpcard__kicker" data-s-prev-name>Ponsonby</span>
+            <span class="jumpcard__title"><svg class="jumpcard__arrow jumpcard__arrow--back" fill="none" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 16.4545L24.2727 16.4545M17.7273 23L24.2727 16.4545L17.7273 9.90909" stroke="currentColor" stroke-width="2.18182" stroke-linejoin="round"/></svg> Previous store</span>
+          </span>
+        </button>
         <button type="button" class="jumpcard jumpcard--back" data-s-back>
           <img loading="lazy" class="jumpcard__bg" data-bf-src="assets/m/back-map.webp" alt="">
           <span class="jumpcard__label">
@@ -382,31 +391,6 @@
 
 </main>
 
-<!-- Mobile list view only -->
-<footer class="mfooter" data-mfooter>
-  <img class="mfooter__logo" data-bf-src="assets/m/bf-keyline.svg" alt="BurgerFuel">
-  <ul class="mfooter__social">
-    <li><a href="https://www.youtube.com/@burgerfuel" target="_blank" rel="noopener" aria-label="YouTube"><img data-bf-src="assets/m/social-youtube.svg" alt=""></a></li>
-    <li><a href="https://www.instagram.com/burgerfuel/" target="_blank" rel="noopener" aria-label="Instagram"><img data-bf-src="assets/m/social-instagram.svg" alt=""></a></li>
-    <li><a href="https://www.tiktok.com/@burgerfuel" target="_blank" rel="noopener" aria-label="TikTok"><img data-bf-src="assets/m/social-tiktok.svg" alt=""></a></li>
-    <li><a href="https://www.facebook.com/burgerfuel/" target="_blank" rel="noopener" aria-label="Facebook"><img data-bf-src="assets/m/social-facebook.svg" alt=""></a></li>
-  </ul>
-  <a class="ordercta" href="https://eat.burgerfuel.com/order">
-    <span class="ordercta__track" aria-hidden="true">
-      <span class="ordercta__item">Order now<svg fill="none" viewBox="0 0 74 60"><path d="M18.2972 48.8268L56.3841 10.74M56.3841 43.3859V10.74H23.7382" stroke="currentColor" stroke-width="9.27922" stroke-linecap="square"/></svg></span>
-      <span class="ordercta__item">Order now<svg fill="none" viewBox="0 0 74 60"><path d="M18.2972 48.8268L56.3841 10.74M56.3841 43.3859V10.74H23.7382" stroke="currentColor" stroke-width="9.27922" stroke-linecap="square"/></svg></span>
-      <span class="ordercta__item">Order now<svg fill="none" viewBox="0 0 74 60"><path d="M18.2972 48.8268L56.3841 10.74M56.3841 43.3859V10.74H23.7382" stroke="currentColor" stroke-width="9.27922" stroke-linecap="square"/></svg></span>
-      <span class="ordercta__item">Order now<svg fill="none" viewBox="0 0 74 60"><path d="M18.2972 48.8268L56.3841 10.74M56.3841 43.3859V10.74H23.7382" stroke="currentColor" stroke-width="9.27922" stroke-linecap="square"/></svg></span>
-    </span>
-    <span class="u-sr">Order now</span>
-  </a>
-  <ul class="mfooter__legal">
-    <li>© BurgerFuel <span data-year>2026</span> All Rights Reserved</li>
-    <li><a href="https://www.burgerfuel.com/nz/terms-and-conditions">Terms and Conditions</a></li>
-    <li><a href="https://www.burgerfuel.com/nz/privacy-policy">Privacy Policy</a></li>
-    <li><a href="https://psychoactive.co.nz" target="_blank" rel="noopener">Website by Psychoactive Studios</a></li>
-  </ul>
-</footer>
 
 <!-- Photo lightbox: grows out of the tapped photo; pinch / double-tap to zoom -->
 <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Store photos">
@@ -448,11 +432,11 @@
 
 </div><!-- /#bf-locator -->
 
-<script src="js/config.js?v=14"></script>
-<script src="js/stores-data.js?v=14"></script>
-<script src="js/hours.js?v=14"></script>
-<script src="js/map.js?v=14"></script>
-<script src="js/lightbox.js?v=14"></script>
-<script src="js/app.js?v=14"></script>
+<script src="js/config.js?v=15"></script>
+<script src="js/stores-data.js?v=15"></script>
+<script src="js/hours.js?v=15"></script>
+<script src="js/map.js?v=15"></script>
+<script src="js/lightbox.js?v=15"></script>
+<script src="js/app.js?v=15"></script>
 </body>
 </html>

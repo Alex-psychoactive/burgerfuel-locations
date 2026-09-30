@@ -480,16 +480,20 @@
     $('[data-s-next-img]').src = next.image;
     $('[data-s-next-name]').textContent = next.name;
     $('[data-s-next-store]').setAttribute('aria-label', 'Next store: ' + next.name);
+    var prev = nextStore(s, -1);
+    $('[data-s-prev-img]').src = prev.image;
+    $('[data-s-prev-name]').textContent = prev.name;
+    $('[data-s-prev-store]').setAttribute('aria-label', 'Previous store: ' + prev.name);
 
     elSheetScroll.scrollTop = 0;
   }
 
   // next along the list as the visitor currently sees it, wrapping round
-  function nextStore(s) {
+  function nextStore(s, step) {
     var list = visibleStores();
     if (list.length < 2) list = STORES.slice().sort(function (a, b) { return a.name.localeCompare(b.name, 'en'); });
     var i = list.findIndex(function (x) { return x.slug === s.slug; });
-    return list[(i + 1) % list.length];
+    return list[(i + (step || 1) + list.length) % list.length];
   }
 
   function openPhotos(photos, i, s) {
@@ -715,7 +719,7 @@
     c.className = 'flip-clone';
     c.src = src; c.alt = '';
     c.style.cssText = 'top:' + r.top + 'px;left:' + r.left + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
-    d.body.appendChild(c);
+    HOST.appendChild(c);            // inside #bf-locator, where .flip-clone is styled
     return c;
   }
   function rectFrames(from, to, fromClip, toClip) {
@@ -738,8 +742,16 @@
 
     var clone = makeClone(thumb.currentSrc || thumb.src, T);
     elHeroImg.style.visibility = 'hidden';
-    thumb.style.visibility = 'hidden';
+    elSidebar.style.clipPath = insetFrom(S, R);         // hold the sheet at the card while we wait
+    // start once the copy can paint (it's cached, so this is a frame or
+    // two), so the photo is visible for the whole flight
+    var started = false;
+    var start = function () { if (!started) { started = true; fly(); } };
+    if (clone.decode) clone.decode().then(start, start);
+    setTimeout(start, 120);
 
+    function fly() {
+    thumb.style.visibility = 'hidden';
     var opts = { duration: OPEN_MS, easing: EASE_OUT_QUINT };
     elSidebar.animate([
       { clipPath: insetFrom(S, R) },
@@ -758,8 +770,10 @@
       thumb.style.visibility = '';
       clone.remove();
       elSidebar.getAnimations().forEach(function (an) { an.cancel(); });
+      elSidebar.style.clipPath = '';
       elSidebar.classList.remove('is-flip');
     });
+    }
   }
 
   function morphClose(row, thumb, done) {
@@ -1667,6 +1681,9 @@
     $('[data-sidebar-close]').addEventListener('click', closeSidebar);
     elScrim.addEventListener('click', closeSidebar);
     $('[data-s-back]').addEventListener('click', closeSidebar);
+    $('[data-s-prev-store]').addEventListener('click', function () {
+      if (state.selected) select(nextStore(state.selected, -1), 'sheet');
+    });
     $('[data-s-next-store]').addEventListener('click', function () {
       if (state.selected) select(nextStore(state.selected), 'sheet');
     });

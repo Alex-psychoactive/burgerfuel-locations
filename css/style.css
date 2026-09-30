@@ -764,6 +764,15 @@ html.bf-app body{
 #bf-locator .jumpcard--back .jumpcard__label{left:1.939cqw;bottom:1.939cqw;padding-top:2.216cqw}   /* caps sit low in their line box */
 #bf-locator .jumpcard--back .jumpcard__arrow{margin-right:-.831cqw}
 #bf-locator .jumpcard--back:hover .jumpcard__arrow{transform:scaleX(-1) translateX(1.108cqw)}
+/* previous store (desktop only): same card as next, label bottom-left */
+#bf-locator .jumpcard--prev{display:none}
+#bf-locator .jumpcard--prev .jumpcard__label{left:1.939cqw;bottom:1.939cqw}
+#bf-locator .jumpcard--prev .jumpcard__arrow{margin-right:-.831cqw}
+#bf-locator .jumpcard--prev:hover .jumpcard__arrow{transform:scaleX(-1) translateX(1.108cqw)}
+@media (min-width:75rem){
+  #bf-locator .jumpcard--prev{display:block}
+  #bf-locator .jumpcard--back{display:none}
+}
 #bf-locator .jumpcard:active .jumpcard__label{background:var(--bf-black);color:var(--bf-white)}
 
 /* sticky order bar + gradient shadow. The gradient never takes clicks:
@@ -1146,7 +1155,7 @@ html.bf-app body{
 
   /* ── list ── */
   #bf-locator .listview{order:4;position:static;inset:auto;z-index:auto;margin-top:calc(var(--u) * 1.4375);background:none}
-  #bf-locator .listview__scroll{height:auto;overflow:visible;padding:0 calc(var(--u) * 1) calc(var(--u) * 5.9375)}
+  #bf-locator .listview__scroll{height:auto;overflow:visible;padding:0 calc(var(--u) * 1) calc(var(--u) * 8 + env(safe-area-inset-bottom))}
   .is-sidebar-open #bf-locator .listview__scroll{padding-right:calc(var(--u) * 1)}
   #bf-locator .listview__col{width:auto}
   /* the desktop "In <region> · Showing: N stores" line, under STORES — only
@@ -1178,7 +1187,6 @@ html.bf-app body{
   #bf-locator .empty__actions{justify-content:center}
 
   /* ── footer (list view only) ── */
-  body[data-view="list"] #bf-locator .mfooter{display:block}
   #bf-locator .mfooter{padding:calc(var(--u) * 4.9375) 0 calc(var(--u) * 9.5);background:var(--bf-white);overflow:hidden}   /* clears the bottom bar */
   #bf-locator .mfooter__logo{width:calc(var(--u) * 7.5);height:calc(var(--u) * 2.1875);margin-inline:auto}
   #bf-locator .mfooter__social{display:flex;justify-content:center;gap:calc(var(--u) * .6);margin-top:calc(var(--u) * 4.25)}
