@@ -1733,9 +1733,18 @@
   /* ── boot ─────────────────────────────────────────────────── */
   function init() {
     d.documentElement.classList.add('bf-app');
-    // the site smooth-scrolls with Lenis, which swallows the wheel; inside
-    // the locator the panels and lists scroll natively
+    /* The site smooth-scrolls every page with Lenis (a global `lenis`
+       made by the site-wide footer script). The locator doesn't want it:
+       it swallows the wheel inside the panels. Switch it off on any page
+       that carries the locator — now, and again after the site's own
+       load handler has run (it calls lenis.start()). */
     HOST.setAttribute('data-lenis-prevent', '');
+    var noLenis = function () {
+      try { if (typeof lenis !== 'undefined' && lenis && lenis.destroy) lenis.destroy(); } catch (e) { /* not there */ }
+      d.documentElement.classList.remove('lenis', 'lenis-smooth', 'lenis-stopped', 'lenis-scrolling');
+    };
+    noLenis();
+    if (d.readyState !== 'complete') w.addEventListener('load', function () { setTimeout(noLenis, 0); });
     // the loader's placeholder has done its job once the real layout is here
     var ph = d.getElementById('bf-placeholder');
     if (ph) ph.remove();

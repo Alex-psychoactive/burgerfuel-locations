@@ -76,8 +76,9 @@ html.bf-app,html.bf-app body{height:100%}
 html.bf-app body{
   margin:0;
   background:var(--bf-grey,#f2f2f4);
-  /* the page never scrolls — the map owns the wheel */
-  overflow:hidden;
+  /* the page never scrolls — the map owns the wheel. !important because
+     the site's own load script sets an inline overflow on <body> */
+  overflow:hidden!important;
 }
 #bf-locator{
   font-family:var(--font-body);
@@ -1002,8 +1003,8 @@ html.bf-app body{
 @media (max-width:47.99rem){
   #bf-locator{--u:clamp(13px, 4.0712468vw, 20px)}
   html.bf-app,html.bf-app body{height:auto}
-  html.bf-app body{overflow:visible;overflow-x:clip;background:#fff}
-  html.is-locked,html.is-locked body{overflow:hidden}
+  html.bf-app body{overflow:visible!important;overflow-x:clip!important;background:#fff}
+  html.is-locked,html.is-locked body{overflow:hidden!important}
 
   #bf-locator{--nav-h:calc(var(--u) * 4.375);--inset:calc(var(--u) * 1)}
 

@@ -107,6 +107,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v10 | Store sheet redesign (outlined status tags, grey section icons on the right, new jump cards, 1/2/3+ photo layouts), Mon→Sun hours, smooth wheel zoom (pins keep up), region field grows into its dropdown, desktop region dot, store URLs with Back/Forward, locator fully scoped for the Webflow site (uses the site nav), tablet list = desktop rows, darkened lightbox neighbours |
 | v11 | Reads store data from the hidden Webflow CMS list when present (per-store order link, temporarily-closed and disable-order switches, events, latest blog post); falls back to the bundled data elsewhere |
 | v12 | Live-site fixes: swapped lat/lng in the CMS corrected on read and one bad pin can no longer stop the rest; panels scroll under the site's Lenis smooth-scroll; water-coloured placeholder and map fade-in instead of a white flash |
+| v13 | Lenis smooth-scroll switched off on locator pages; page scroll lock beats the site's inline body overflow |
 
 ### Store pages and store URLs
 
