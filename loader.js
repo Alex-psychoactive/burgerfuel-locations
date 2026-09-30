@@ -44,7 +44,7 @@
     /* Fetch the brand fonts now, not when something first uses them —
        otherwise the first store panel opened draws in a fallback font
        and then snaps to Vanguard. */
-    [['fonts/VanguardCF-Bold.woff2', 'font/woff2'], ['fonts/VanguardCF-DemiBold.otf', 'font/otf'],
+    [['fonts/VanguardCF-Bold.woff2', 'font/woff2'], ['fonts/VanguardCF-Medium.woff2', 'font/woff2'],
      ['fonts/Salted-Regular.woff2', 'font/woff2'], ['fonts/InstrumentSans-500.woff2', 'font/woff2'],
      ['fonts/InstrumentSans-600.woff2', 'font/woff2']].forEach(function (f) {
       var l = d.createElement('link');

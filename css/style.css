@@ -10,7 +10,8 @@
 @font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
-@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-DemiBold.otf') format('opentype');font-weight:600;font-style:normal;font-display:block}
+/* no licensed DemiBold: weight 600 (the Next / Previous store labels) uses the Bold */
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Bold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block}
 @font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
 @font-face{font-family:'Salted Regular';src:url('../fonts/Salted-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
 @font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Heavy.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}

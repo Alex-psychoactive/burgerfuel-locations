@@ -113,6 +113,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v16 | Previous-store name right-aligned, more bottom padding in the jump-card labels, STORES title closer to the pill, solid white grab handle, nav shadow fades out while the mobile sheet is open |
 | v17 | Mobile morph: the flying photo sits inside the sheet under its close button and grab handle, so they unmask with the sheet instead of popping in |
 | v18 | View store button removed (the store panel is the store page on every breakpoint); schema.org Restaurant structured data for the open store, for search results |
+| v19 | Licensed Vanguard CF (Medium/Bold/Heavy) and Salted, subset with Māori macrons; demo DemiBold removed. **Last version before Mapbox (CARTO basemap)** |
 
 ### Store pages and store URLs
 
@@ -363,10 +364,11 @@ trading, and groups consecutive identical days into `Sun – Wed` style rows.
 * the 320×144 pin from your folder — **used**, higher resolution
 * `assets/map-marker.png`, the live site's own marker, only 108×48 — kept for reference
 
-Fonts in `fonts/` are the real webfonts pulled from BurgerFuel's CDN
-(Instrument Sans 400/500/600, Vanguard CF Medium/Bold/Heavy). Vanguard
-DemiBold isn't served by the site, so weight 600 uses the Fontspring demo
-OTF from your folder — swap in a licensed `VanguardCF-DemiBold.woff2` when
+Fonts in `fonts/`: Instrument Sans 400/500/600 from BurgerFuel's CDN.
+The Vanguard CF files are the licensed Medium, Bold and Heavy, subset to
+Latin + Māori macrons + typographic punctuation (pyftsubset, WOFF2). There's
+no licensed DemiBold, so weight 600 is served by the Bold — add a
+`VanguardCF-DemiBold.woff2` and point the 600 @font-face at it when
 you have one.
 
 Icons are inlined as SVG so they inherit `currentColor`.
