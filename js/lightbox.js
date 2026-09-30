@@ -198,17 +198,13 @@
         { duration: ms(OPEN_MS), delay: ms(120), easing: EASE_OUT_QUINT, fill: 'backwards' });
       var a;
       if (from) {
-        if (thumb) thumb.style.visibility = 'hidden';
         a = img.animate([from, { transform: 'none', clipPath: 'inset(0px 0px)' }],
                         { duration: ms(OPEN_MS), easing: EASE_OUT_QUINT });
       } else {
         a = img.animate([{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }],
                         { duration: ms(OPEN_MS), easing: EASE_OUT_QUINT });
       }
-      whenDone(a, ms(OPEN_MS), function () {
-        busy = false;
-        if (thumb) thumb.style.visibility = '';
-      });
+      whenDone(a, ms(OPEN_MS), function () { busy = false; });
       if (o.keyboard) $('[data-lb-close]').focus({ preventScroll: true });
     };
     // the image needs its natural size before we can measure where it lands
@@ -228,7 +224,6 @@
         $(sel).getAnimations().forEach(function (an) { an.cancel(); });
       });
       d.documentElement.classList.remove('is-lb-open');
-      if (thumb) thumb.style.visibility = '';
       track.innerHTML = '';
       slides = [];
       if (returnFocus && returnFocus.focus) returnFocus.focus({ preventScroll: true });
@@ -245,9 +240,7 @@
     if (to) {
       a = img.animate([{ transform: 'none', clipPath: 'inset(0px 0px)' }, to],
                       { duration: ms(CLOSE_MS), easing: EASE_IN_CUBIC, fill: 'forwards' });
-      whenDone(a, ms(CLOSE_MS), function () { thumb.style.visibility = ''; finish(); });
-      // hide the real thumb only once the photo has nearly landed on it
-      thumb.style.visibility = 'hidden';
+      whenDone(a, ms(CLOSE_MS), finish);
     } else {
       a = img.animate([{ transform: 'none' }, { transform: 'scale(.94)' }],
                       { duration: ms(CLOSE_MS), easing: EASE_IN_CUBIC, fill: 'forwards' });

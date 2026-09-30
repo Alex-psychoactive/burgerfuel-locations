@@ -39,9 +39,11 @@ for f in ('index.html',):
     s = read(f)
     write(f, re.sub(r'\?v=\d+', '?v=%d' % new, s))
 
-# js/markup.js — the <body> of index.html minus its <script> tags
+# js/markup.js — the inside of index.html's #bf-locator, minus our own nav:
+# on the site, the Webflow nav component is the nav (app.js measures it)
 s = read('index.html')
-body = re.search(r'<body[^>]*>(.*?)</body>', s, re.S).group(1)
+body = re.search(r'<div id="bf-locator"[^>]*>(.*)</div><!-- /#bf-locator -->', s, re.S).group(1)
+body = re.sub(r'<header class="nav" data-bf-nav>.*?</header>\s*', '', body, flags=re.S)
 body = re.sub(r'<script[^>]*></script>\s*', '', body).strip()
 write('js/markup.js',
       '(function(){var m=document.getElementById("bf-locator");'

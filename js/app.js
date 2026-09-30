@@ -93,7 +93,19 @@
   var elPhotos     = $('[data-s-photos]');
   var rowTpl       = $('[data-store-row-tpl]');
 
-  function remPx() { return parseFloat(getComputedStyle(d.documentElement).fontSize) || 16; }
+  // the locator's own scale unit (--u on #bf-locator, its font-size), not the host page's rem
+  var HOST = d.getElementById('bf-locator') || d.body;
+  function remPx() { return parseFloat(getComputedStyle(HOST).fontSize) || 16; }
+
+  /* On the site the Webflow nav component is the nav (markup.js ships
+     without ours): measure it, so everything that sits "under the nav"
+     lines up with it at every breakpoint. */
+  function syncSiteNav() {
+    if ($('[data-bf-nav]', HOST)) return;                       // standalone: our own nav
+    var nav = d.querySelector(CFG.navSelector || 'nav.nav, .nav, header');
+    if (!nav || HOST.contains(nav)) return;
+    HOST.style.setProperty('--nav-h', Math.round(nav.getBoundingClientRect().height) + 'px');
+  }
 
   /* ── filtering & sorting ──────────────────────────────────── */
 
@@ -315,7 +327,6 @@
     $('[data-s-next]').textContent = st.next.replace(' at ', ' ');
     $('[data-s-next]').parentNode.hidden = !st.next;
 
-    $('[data-s-view]').href = '/nz/locations/' + s.slug;
     $('[data-s-address]').textContent = s.address;
     $('[data-s-directions]').href = s.gmaps ||
       ('https://www.google.com/maps/search/?api=1&query=' + s.lat + ',' + s.lng);
@@ -351,6 +362,8 @@
     show($('[data-s-review]'), !!(s.google || s.facebook));
 
     var photos = (s.photos && s.photos.length) ? s.photos : [s.image];
+    // desktop lays out 1 or 2 photos in place; only 3+ become a slider
+    $('[data-s-photos-sec]').dataset.count = photos.length > 2 ? 'many' : String(photos.length);
     elPhotos.innerHTML = '';
     photos.forEach(function (src, i) {
       var b = d.createElement('button');
@@ -365,8 +378,9 @@
       img.addEventListener('load', syncPhotoNav);   // widths aren't known until then
       b.appendChild(img);
       b.insertAdjacentHTML('beforeend',
-        '<span class="sheet-photo__expand" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24">' +
-        '<path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>');
+        '<span class="sheet-photo__expand" aria-hidden="true"><svg fill="none" viewBox="0 0 18 18">' +
+        '<path d="M9 10.05L7.95 9L3 13.95L3 10.5L1.5 10.5L1.5 16.5L7.5 16.5L7.5 15L4.05 15L9 10.05Z" fill="currentColor"/>' +
+        '<path d="M16.5 7.5L16.5 1.5L10.5 1.5L10.5 3L13.95 3L9 7.95L10.05 9L15 4.05L15 7.5L16.5 7.5Z" fill="currentColor"/></svg></span>');
       b.addEventListener('click', function () {
         if (photoDragged) return;                 // the end of a drag isn't a click
         openPhotos(photos, i, s);
@@ -412,10 +426,11 @@
       alt: 'BurgerFuel ' + s.name,
       keyboard: keyNav,
       thumb: function (n) { var b = elPhotos.children[n]; return b ? b.querySelector('img') : null; },
-      // keep the strip in step, so closing flies back to the right thumbnail
+      // keep the strip in step (it glides along behind the dimmed
+      // backdrop), so closing flies back to the right thumbnail
       onIndex: function (n) {
         var el = elPhotos.children[n];
-        if (el) elPhotos.scrollLeft = el.offsetLeft - elPhotos.firstElementChild.offsetLeft;
+        if (el) elPhotos.scrollTo({ left: el.offsetLeft - elPhotos.firstElementChild.offsetLeft, behavior: 'smooth' });
       }
     });
   }
@@ -424,11 +439,13 @@
      while the button is down and back on to settle */
   var photoDragged = false;
   function bindPhotoDrag() {
-    var x0 = 0, left0 = 0, down = false;
+    var x0 = 0, left0 = 0, down = false, vx = 0, lastX = 0, lastT = 0, settle = 0;
     elPhotos.addEventListener('pointerdown', function (e) {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
       down = true; photoDragged = false;
-      x0 = e.clientX; left0 = elPhotos.scrollLeft;
+      clearTimeout(settle);
+      x0 = lastX = e.clientX; lastT = e.timeStamp; vx = 0;
+      left0 = elPhotos.scrollLeft;
     });
     w.addEventListener('pointermove', function (e) {
       if (!down) return;
@@ -438,11 +455,31 @@
         elPhotos.classList.add('is-dragging');
       }
       if (photoDragged) elPhotos.scrollLeft = left0 - dx;
+      var dt = e.timeStamp - lastT;
+      if (dt > 0) vx = (e.clientX - lastX) / dt;
+      lastX = e.clientX; lastT = e.timeStamp;
     });
     w.addEventListener('pointerup', function () {
       if (!down) return;
       down = false;
-      elPhotos.classList.remove('is-dragging');
+      if (photoDragged) {
+        /* Glide to the nearest photo in the direction of the throw, with
+           snapping still off; switching snapping back on mid-drag is what
+           made the strip jump straight to a photo. */
+        var kids = [].slice.call(elPhotos.children);
+        var base = elPhotos.firstElementChild.offsetLeft;
+        var aim = elPhotos.scrollLeft - vx * 180;
+        var best = 0, bestD = Infinity;
+        kids.forEach(function (k) {
+          var dd = Math.abs(k.offsetLeft - base - aim);
+          if (dd < bestD) { bestD = dd; best = k.offsetLeft - base; }
+        });
+        best = Math.min(best, elPhotos.scrollWidth - elPhotos.clientWidth);
+        elPhotos.scrollTo({ left: best, behavior: 'smooth' });
+        settle = setTimeout(function () { elPhotos.classList.remove('is-dragging'); }, 450);
+      } else {
+        elPhotos.classList.remove('is-dragging');
+      }
       // let the click that follows this pointerup see the flag, then clear it
       setTimeout(function () { photoDragged = false; }, 0);
     });
@@ -502,7 +539,9 @@
     elSidebar.style.removeProperty('--drag');
     d.documentElement.classList.add('is-locked');
 
-    var thumb = fromRow && $('.storerow__thumb img', fromRow);
+    // phones only: the card grows into the sheet. Tablet's centred sheet
+    // just slides up with its photo already in place.
+    var thumb = isMobile() && fromRow && $('.storerow__thumb img', fromRow);
     if (thumb && inView(thumb) && !REDUCED.matches) {
       morphOpen(fromRow, thumb);
     } else {
@@ -744,25 +783,100 @@
     elSidebar.addEventListener('touchcancel', end);
   }
 
-  /* ── deep links ───────────────────────────────────────────────
-     #ponsonby opens that store's sheet, #list opens the list; both can
-     combine (#list&ponsonby). The hash follows the open store so a sheet
-     can be shared. replaceState, so Back still leaves the page. */
+  /* ── store URLs ───────────────────────────────────────────────
+     On the live site every store has its own address, which Google
+     indexes: /nz/locations/albany. Opening a sheet moves the address bar
+     there (pushState, no reload), closing it returns to the list's
+     address, and Back/Forward open and close sheets. The Webflow CMS
+     store template page carries the same embed with the store's slug —
+     <div id="bf-locator" data-store="albany"> — and starts with that
+     sheet open, so a Google result lands on the new design.
+
+     Optional attributes on #bf-locator, for the build period when the
+     pages live at other addresses:
+       data-store       the store to open on load (template page)
+       data-store-base  where store pages live   (default: see below)
+       data-list-url    the list page's address  (default: see below)
+     Defaults: on the list page, stores live under its own path; on a
+     store page, the list is the store path's parent.
+
+     Anywhere else (the GitHub preview, a test page) it falls back to
+     hash links: #ponsonby opens a sheet, #list / #map pick the view. */
+  var ROUTE = (function () {
+    var host = d.getElementById('bf-locator');
+    if (!host || !w.history.pushState) return null;
+    var path = w.location.pathname.replace(/\/+$/, '');
+    var start = host.getAttribute('data-store');
+    var parent = path.slice(0, path.lastIndexOf('/'));
+    if (!start && !/\/locations[^\/]*$/i.test(path)) return null;  // not a locations page: hash links
+    var list = host.getAttribute('data-list-url') || (start ? parent : path);
+    return {
+      start: start,
+      list: list.replace(/\/+$/, '') || '/',
+      stores: (host.getAttribute('data-store-base') || (start ? parent : path)).replace(/\/+$/, '')
+    };
+  })();
+  var LIST_TITLE = ROUTE && ROUTE.start ? (CFG.listTitle || 'BurgerFuel Store Locations | NZ') : d.title;
+  var routing = false;          // true while applying Back/Forward, so nothing is pushed
+
+  function slugFromPath() {
+    if (!ROUTE) return null;
+    var path = w.location.pathname.replace(/\/+$/, '');
+    if (path.indexOf(ROUTE.stores + '/') !== 0) return null;
+    return decodeURIComponent(path.slice(ROUTE.stores.length + 1).split('/')[0]);
+  }
+  function viewHash() {
+    // only note the view when it isn't this mode's default
+    return state.view !== defaultView() ? '#' + state.view : '';
+  }
+  function storeUrl(slug) {
+    return (slug ? ROUTE.stores + '/' + encodeURIComponent(slug) : ROUTE.list) + w.location.search + viewHash();
+  }
+
   function readHash(hash) {
     var parts = decodeURIComponent(hash.slice(1)).split('&');
     if (parts.indexOf('list') > -1) setView('list');
     if (parts.indexOf('map') > -1) setView('map');
-    var s = STORES.find(function (x) { return parts.indexOf(x.slug) > -1; });
+    var slug = ROUTE ? (ROUTE.start || slugFromPath()) : null;
+    var s = STORES.find(function (x) { return slug ? x.slug === slug : parts.indexOf(x.slug) > -1; });
     if (s) select(s, 'link');
   }
   function writeHash(slug) {
     if (!w.history.replaceState) return;
+    if (ROUTE) {
+      if (routing) return;
+      var want = storeUrl(slug);
+      var here = w.location.pathname.replace(/\/+$/, '') + w.location.search + w.location.hash;
+      if (want === here) return;
+      var onStore = !!slugFromPath();
+      // opening or closing a sheet is a step Back can undo; swapping one
+      // store for another (or changing view) just updates the address
+      if (!!slug !== onStore) w.history.pushState({ bf: slug || null }, '', want);
+      else w.history.replaceState({ bf: slug || null }, '', want);
+      d.title = slug ? storeTitle(slug) : LIST_TITLE;
+      return;
+    }
     var parts = [];
-    // only note the view when it isn't this mode's default
     if (state.view !== defaultView()) parts.push(state.view);
     if (slug) parts.push(slug);
     w.history.replaceState(null, '', w.location.pathname + w.location.search + (parts.length ? '#' + parts.join('&') : ''));
   }
+  function storeTitle(slug) {
+    var s = STORES.find(function (x) { return x.slug === slug; });
+    return s ? 'BurgerFuel ' + s.name + ' | Gourmet Burgers' : LIST_TITLE;
+  }
+  // Back / Forward: open or close the sheet the address now describes
+  w.addEventListener('popstate', function () {
+    if (!ROUTE) return;
+    var slug = slugFromPath();
+    var s = slug && STORES.find(function (x) { return x.slug === slug; });
+    routing = true;
+    try {
+      if (s) { if (!state.selected || state.selected.slug !== s.slug) select(s, 'link'); }
+      else if (state.sheetOpen) closeSidebar();
+      d.title = s ? storeTitle(s.slug) : LIST_TITLE;
+    } finally { routing = false; }
+  });
 
   // phones open on the list; tablet and desktop on the map
   function defaultView() { return isMobile() ? 'list' : 'map'; }
@@ -814,7 +928,8 @@
       } else if (sheetMode()) {
         state.map.fitBounds(STORES, { top: toolbarBottom() + u * 2, right: u * 3, bottom: u * 3, left: u * 3 }, instant);
       } else {
-        state.map.panTo(w.BF_CONFIG.center.lat, w.BF_CONFIG.center.lng, 0);
+        var t = toolbarBottom() + u * 2;
+        state.map.fitBounds(STORES, { top: t, right: elSidebar.hidden ? u * 5 : u * 43, bottom: u * 6, left: u * 5 }, instant);
       }
       return;
     }
@@ -1136,7 +1251,17 @@
                       Math.max(0, outer.bottom - inner.bottom) + 'px ' +
                       Math.max(0, inner.left - outer.left) + 'px round ' + r + ')';
   }
-  function fmChrome() { return [$('.fmodal__overlay', elFM), elFMGo, elFMClearAll]; }
+  function fmChrome() { return [$('.fmodal__overlay', elFM)]; }
+  function fmTrail() { return [elFMGo, elFMClearAll]; }
+  /* Search and Clear all hang off the card's bottom edge: the card's clip
+     and their travel share one duration and easing, so they stay 12px
+     under its growing (or shrinking) edge and read as one piece — they
+     start out tucked under the pill, narrow and squashed, and unfold. */
+  function trailFrom(pill, card) {
+    var go = elFMGo.getBoundingClientRect();
+    return 'translateY(' + (pill.bottom - card.bottom) + 'px) scale(' +
+           (pill.width / go.width).toFixed(3) + ', .5)';
+  }
 
   function openFM() {
     if (fm.open || fm.busy) return;
@@ -1161,13 +1286,20 @@
       { clipPath: 'inset(0px 0px 0px 0px round ' + getComputedStyle(elFMCard).borderTopLeftRadius + ')' }
     ], { duration: OPEN_MS, easing: EASE_OUT_QUINT });
     $$('.fmodal__card > *', elFM).forEach(function (el, i) {
-      el.animate([{ opacity: 0, transform: 'translateY(.5rem)' }, { opacity: 1, transform: 'none' }],
+      // the focused search field is already at its grown size: end there,
+      // so nothing snaps when the stagger hands back to the stylesheet
+      var end = el.contains(d.activeElement) && el.classList.contains('fmodal__search') ? 'scale(1.02)' : 'none';
+      el.animate([{ opacity: 0, transform: 'translateY(.5rem) ' + (end === 'none' ? '' : end) }, { opacity: 1, transform: end }],
                  { duration: 350, delay: 90 + i * 30, easing: EASE_OUT_QUINT, fill: 'backwards' });
     });
-    fmChrome().forEach(function (el, i) {
-      el.animate(i === 0 ? [{ opacity: 0 }, { opacity: 1 }]
-                         : [{ opacity: 0, transform: 'translateY(-.5rem)' }, { opacity: 1, transform: 'none' }],
-                 { duration: i === 0 ? 300 : 350, delay: i === 0 ? 0 : 140, easing: EASE_OUT_QUINT, fill: 'backwards' });
+    fmChrome().forEach(function (el) {
+      el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: EASE_OUT_QUINT });
+    });
+    var from = trailFrom(pill, card);
+    fmTrail().forEach(function (el) {
+      el.style.transformOrigin = '50% 0';
+      el.animate([{ transform: from, opacity: 0 }, { opacity: 1, offset: .35 }, { transform: 'none', opacity: 1 }],
+                 { duration: OPEN_MS, delay: 50, easing: EASE_OUT_QUINT, fill: 'backwards' });
     });
     whenDone(a, OPEN_MS, function () { fm.busy = false; });
   }
@@ -1195,7 +1327,7 @@
       elFMGo.classList.remove('is-pressed');
       d.documentElement.classList.remove('is-locked');
       if (keyNav) elMFOpen.focus({ preventScroll: true });
-      [elFMCard].concat($$('.fmodal__card > *', elFM), fmChrome())
+      [elFMCard].concat($$('.fmodal__card > *', elFM), fmChrome(), fmTrail())
         .forEach(function (el) { el.getAnimations().forEach(function (an) { an.cancel(); }); });
     };
     if (REDUCED.matches) { finish(); return; }
@@ -1211,6 +1343,12 @@
     });
     fmChrome().forEach(function (el) {
       el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: CLOSE_MS * 0.8, easing: EASE_IN_CUBIC, fill: 'forwards' });
+    });
+    var to = trailFrom(pill, card);
+    fmTrail().forEach(function (el) {
+      el.style.transformOrigin = '50% 0';
+      el.animate([{ transform: 'none', opacity: 1 }, { opacity: 1, offset: .65 }, { transform: to, opacity: 0 }],
+                 { duration: CLOSE_MS, easing: EASE_IN_CUBIC, fill: 'forwards' });
     });
     whenDone(a, CLOSE_MS, finish);
   }
@@ -1253,9 +1391,10 @@
     clearTimeout(fm.frTimer);
     elFMInput.blur();                         // drop the keyboard so the list has room
     elFRPanel.hidden = false;
+    elFRegion.classList.add('is-fr-active');
     elFMForm.classList.add('is-fregion-open');
     fitFRegion();
-    void elFRPanel.offsetHeight;
+    void elFRPanel.offsetHeight;             // start from the field's own shape
     elFRegion.dataset.open = '';
     elFRBtn.setAttribute('aria-expanded', 'true');
     var sel = $('[aria-selected="true"]', elFRList);
@@ -1277,6 +1416,11 @@
     var bottom = vv ? vv.offsetTop + vv.height : w.innerHeight;
     var room = bottom - elFRList.getBoundingClientRect().top - 16;
     elFRList.style.setProperty('--fr-max', Math.max(156, Math.floor(room)) + 'px');
+    // the panel's open height: header + the list at its capped height
+    var ps = getComputedStyle(elFRPanel);
+    var list = Math.min(elFRList.scrollHeight, parseFloat(getComputedStyle(elFRList).maxHeight) || Infinity);
+    elFRPanel.style.setProperty('--fr-h',
+      Math.ceil(parseFloat(ps.paddingTop) + parseFloat(ps.borderTopWidth) * 2 + list) + 'px');
   }
   function closeFRegion(now) {
     if (!('open' in elFRegion.dataset)) return;
@@ -1285,10 +1429,11 @@
     var done = function () {
       if ('open' in elFRegion.dataset) return;
       elFRPanel.hidden = true;
+      elFRegion.classList.remove('is-fr-active');
       elFMForm.classList.remove('is-fregion-open');   // hand the layer back once it's shut
     };
-    if (now) { done(); return; }
-    fm.frTimer = setTimeout(done, 240);
+    if (now || REDUCED.matches) { done(); return; }
+    fm.frTimer = setTimeout(done, 320);            // once it has folded back into the field
   }
 
   function bindFilterModal() {
@@ -1516,6 +1661,13 @@
 
   /* ── boot ─────────────────────────────────────────────────── */
   function init() {
+    d.documentElement.classList.add('bf-app');
+    syncSiteNav();
+    w.addEventListener('resize', syncSiteNav);
+    if (w.ResizeObserver) {
+      var siteNav = d.querySelector(CFG.navSelector || 'nav.nav, .nav, header');
+      if (siteNav && !HOST.contains(siteNav)) new ResizeObserver(syncSiteNav).observe(siteNav);
+    }
     resolveAssets();
     buildRegionMenu();
     bind();

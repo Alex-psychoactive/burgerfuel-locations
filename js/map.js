@@ -177,7 +177,8 @@
           maxZoom: opts.maxZoom,
           attributionControl: { compact: true }
         });
-        map.scrollZoom.enable();                 // wheel = zoom, never page scroll
+        map.scrollZoom.disable();                // our own wheel zoom below
+        smoothWheel(map, el, opts);
         map.dragRotate.disable();
         map.touchZoomRotate.disableRotation();
 
@@ -225,6 +226,43 @@
           });
         });
       });
+  }
+
+  /* Wheel zoom that glides. MapLibre's built-in wheel zoom restarts a
+     short tween on every notch, so a fast spin reads as a series of
+     jumps. Here each notch just moves a target zoom, and every frame the
+     map closes ~14% of the gap to it, zooming around the pointer. A spin
+     of any speed becomes one continuous, lightly eased zoom. Trackpad
+     scrolls and pinches (ctrl+wheel) feed the same target. */
+  function smoothWheel(map, el, opts) {
+    var target = null, anchor = null, raf = 0;
+    function zoomAround(z) {
+      var z0 = map.getZoom();
+      if (z === z0) return;
+      var s = Math.pow(2, z - z0);
+      var c = [el.clientWidth / 2, el.clientHeight / 2];
+      // keep the lng/lat under the pointer where it is
+      var centre = map.unproject([anchor[0] + (c[0] - anchor[0]) / s, anchor[1] + (c[1] - anchor[1]) / s]);
+      map.jumpTo({ center: centre, zoom: z });
+    }
+    function step() {
+      var d = target - map.getZoom();
+      if (Math.abs(d) < 0.002) { zoomAround(target); target = null; raf = 0; return; }
+      zoomAround(map.getZoom() + d * 0.14);
+      raf = requestAnimationFrame(step);
+    }
+    el.addEventListener('wheel', function (e) {
+      e.preventDefault();                      // wheel = zoom, never page scroll
+      var dy = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? 800 : 1);
+      // mouse notches (~100px) at MapLibre's rate; small trackpad deltas and pinches a bit livelier
+      var rate = e.ctrlKey ? 1 / 100 : Math.abs(dy) < 40 ? 1 / 220 : 1 / 450;
+      var from = target === null ? map.getZoom() : target;
+      target = Math.max(opts.minZoom || 0, Math.min(opts.maxZoom || 22, from - dy * rate));
+      var r = el.getBoundingClientRect();
+      anchor = [e.clientX - r.left, e.clientY - r.top];
+      map.stop();                              // a running fly/ease gives way
+      if (!raf) raf = requestAnimationFrame(step);
+    }, { passive: false });
   }
 
   /* Repaint CARTO Positron into the same greyscale skin as the Google style */

@@ -104,16 +104,45 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v7 | Mobile list: "In <region> · Showing N" heading and empty state when filtered; smaller search clear icon |
 | v8 | Mobile search overlay v2: compact card with close inside, outlined fields, picked-region dot, "Clear all" chips, softer shadows, dropdown kept on screen; white region dropdown on desktop too |
 | v9 | Accessibility + performance audit: store rows and map pins are real buttons, valid listbox, focus trap and focus return in overlay/sheet/lightbox, one h1, contrast fixes, fuller reduced-motion; map loads after the list on phones, lazy sheet icons, lighter nav and texture images |
+| v10 | Store sheet redesign (outlined status tags, grey section icons on the right, new jump cards, 1/2/3+ photo layouts), Mon→Sun hours, smooth wheel zoom (pins keep up), region field grows into its dropdown, desktop region dot, store URLs with Back/Forward, locator fully scoped for the Webflow site (uses the site nav), tablet list = desktop rows, darkened lightbox neighbours |
 
-### Before this goes on the client site
+### Store pages and store URLs
 
-The stylesheet sets `html{font-size:clamp(…)}` and `body{overflow:hidden}`.
-Those are correct for a page the locator *owns*, but on a page with Webflow's
-own nav they will rescale its text and kill scrolling. Two ways out: put the
-locator in an `<iframe>`, or move the fluid scale off the root onto a scoped
-custom property (`.bf-locator{--u:clamp(…)}` with `calc(var(--u) * n)` in
-place of `rem`). The markup also ships its own BurgerFuel nav — drop that
-`<header class="nav">` when the host page already has one.
+Each store has its own address, which Google indexes
+(`/nz/locations/upper-hutt`). The Webflow **CMS store template page** gets
+the same two lines, with the store's slug bound into the embed (Embed →
+insert field → Slug):
+
+```html
+<div id="bf-locator" data-store="{{Slug}}"></div>
+```
+
+It opens with that store's sheet up. On the list page, opening a sheet
+moves the address bar to the store's URL (no reload), closing it goes back
+to the list's URL, and Back/Forward open and close sheets. Keep the
+template page's own SEO title and description in its page settings.
+
+Optional attributes on `#bf-locator` for the build period, when the pages
+live somewhere else: `data-store-base="/nz/locations"` (where store pages
+live) and `data-list-url="/nz/locations-v2"` (the list page). Without them:
+on the list page stores live under the list's own path; on a store page the
+list is the parent path. Anywhere that isn't a `…/locations…` page (the
+GitHub preview, a test page) it uses hash links instead (`#albany`).
+
+### Living on someone else's page
+
+The locator is fully scoped, so it can't disturb the Webflow site:
+
+* every rule is under `#bf-locator`; the fluid scale is `--u` on
+  `#bf-locator` (`calc(var(--u) * n)` where there used to be `rem`), so the
+  site's own `rem` sizes are untouched. `tools/scope-css.py` did the
+  conversion; write new CSS the same way.
+* only three things touch the page itself, via `html.bf-app` (added by
+  app.js): full-height html/body, the no-scroll body on desktop, and the
+  background.
+* `js/markup.js` ships **without** our nav. The Webflow nav component is the
+  nav; app.js measures it (`nav.nav` by default, or `BF_CONFIG.navSelector`)
+  and lines everything up under it at every breakpoint.
 
 ---
 

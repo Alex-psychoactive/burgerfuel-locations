@@ -7,12 +7,13 @@
 <meta name="description" content="Find your nearest BurgerFuel store across New Zealand.">
 <link rel="preload" href="fonts/VanguardCF-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="stylesheet" href="css/style.css?v=10">
 </head>
 <body data-view="map">
+<div id="bf-locator" data-bf-mounted="1">
 
 <!-- ══════════ NAV ══════════ -->
-<header class="nav">
+<header class="nav" data-bf-nav>
   <a class="nav__logo" href="/" aria-label="BurgerFuel home">
     <img data-bf-src="assets/logo-nav.webp" alt="BurgerFuel">
   </a>
@@ -234,16 +235,14 @@
             </span>
           </div>
 
-          <a class="btn btn--ghost sidebar__viewstore" data-s-view href="#">View store</a>
         </div>
 
         <div class="sidebar__info">
           <div class="info">
             <p class="info__label">
-              <svg fill="none" class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M4.58333 9.09595C4.58333 13.5434 8.4741 17.2213 10.1963 18.6314C10.4427 18.8333 10.5674 18.9354 10.7513 18.9871C10.8945 19.0274 11.1052 19.0274 11.2484 18.9871C11.4326 18.9353 11.5565 18.8342 11.8039 18.6316C13.526 17.2215 17.4166 13.5439 17.4166 9.09636C17.4166 7.41325 16.7406 5.79888 15.5372 4.60875C14.3339 3.41861 12.7019 2.75 11.0001 2.75C9.29827 2.75 7.66609 3.41871 6.46273 4.60885C5.25937 5.79898 4.58333 7.41284 4.58333 9.09595Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.16667 8.25C9.16667 9.26252 9.98748 10.0833 11 10.0833C12.0125 10.0833 12.8333 9.26252 12.8333 8.25C12.8333 7.23748 12.0125 6.41667 11 6.41667C9.98748 6.41667 9.16667 7.23748 9.16667 8.25Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/></svg>
               Location
             </p>
-            <p class="info__value" data-s-address></p>
+            <p class="info__value"><svg fill="none" class="info__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M3.75 7.44214C3.75 11.081 6.93336 14.0902 8.34239 15.2439C8.54405 15.409 8.64608 15.4926 8.79653 15.5349C8.91368 15.5679 9.0861 15.5679 9.20325 15.5349C9.35398 15.4925 9.4553 15.4098 9.65771 15.244C11.0668 14.0903 14.2499 11.0813 14.2499 7.44247C14.2499 6.06539 13.6968 4.74454 12.7123 3.77079C11.7277 2.79705 10.3924 2.25 9.00006 2.25C7.60767 2.25 6.27226 2.79713 5.28769 3.77087C4.30312 4.74462 3.75 6.06505 3.75 7.44214Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 6.75C7.5 7.57843 8.17157 8.25 9 8.25C9.82843 8.25 10.5 7.57843 10.5 6.75C10.5 5.92157 9.82843 5.25 9 5.25C8.17157 5.25 7.5 5.92157 7.5 6.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-s-address></span></p>
             <a class="btn btn--pill" data-s-directions href="#" target="_blank" rel="noopener">
               <img loading="lazy" class="btn__gicon" data-bf-src="assets/google-maps-icon.svg" alt="" aria-hidden="true">
               Get directions
@@ -251,13 +250,8 @@
           </div>
 
           <div class="info">
-            <div class="info__row">
-              <p class="info__label">
-                <svg fill="none" class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M8.71059 3.90245C8.43217 3.20641 7.75804 2.75 7.00838 2.75H4.48684C3.52761 2.75 2.75 3.52742 2.75 4.48665C2.75 12.6401 9.35988 19.25 17.5133 19.25C18.4726 19.25 19.25 18.4723 19.25 17.5131L19.2504 14.9911C19.2504 14.2415 18.7941 13.5675 18.0981 13.289L15.6814 12.3227C15.0561 12.0726 14.3443 12.1852 13.8269 12.6163L13.2032 13.1365C12.4748 13.7435 11.403 13.6952 10.7325 13.0247L8.9762 11.2668C8.30572 10.5963 8.25617 9.52539 8.8632 8.79696L9.3833 8.17327C9.8144 7.65596 9.92795 6.9439 9.67786 6.31867L8.71059 3.90245Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Phone
-              </p>
-              <p class="info__value" data-s-phone></p>
-            </div>
+            <p class="info__label">Phone</p>
+            <p class="info__value"><svg fill="none" class="info__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M7.12685 3.19291C6.89905 2.62343 6.34749 2.25 5.73413 2.25H3.67105C2.88623 2.25 2.25 2.88607 2.25 3.6709C2.25 10.3419 7.65808 15.75 14.3291 15.75C15.1139 15.75 15.75 15.1137 15.75 14.3289L15.7503 12.2655C15.7503 11.6521 15.377 11.1006 14.8075 10.8728L12.8302 10.0822C12.3186 9.87758 11.7362 9.96967 11.313 10.3224L10.8026 10.748C10.2066 11.2447 9.32972 11.2052 8.78115 10.6566L7.34417 9.21829C6.79559 8.66972 6.75505 7.7935 7.25171 7.19751L7.67725 6.68722C8.02996 6.26397 8.12287 5.68137 7.91825 5.16982L7.12685 3.19291Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-s-phone></span></p>
             <a class="btn btn--pill" data-s-call href="#">
               <svg fill="none" class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M9.12685 5.19291C8.89905 4.62343 8.34749 4.25 7.73413 4.25H5.67105C4.88623 4.25 4.25 4.88607 4.25 5.6709C4.25 12.3419 9.65808 17.75 16.3291 17.75C17.1139 17.75 17.75 17.1137 17.75 16.3289L17.7503 14.2655C17.7503 13.6521 17.377 13.1006 16.8075 12.8728L14.8302 12.0822C14.3186 11.8776 13.7362 11.9697 13.313 12.3224L12.8026 12.748C12.2066 13.2447 11.3297 13.2052 10.7811 12.6566L9.34417 11.2183C8.79559 10.6697 8.75505 9.7935 9.25171 9.19751L9.67725 8.68722C10.03 8.26397 10.1229 7.68137 9.91825 7.16982L9.12685 5.19291Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               Call store
@@ -292,15 +286,15 @@
 
       <section class="sheet-sec sheet-about" data-s-about>
         <h3 class="sheet-h sheet-h--icon">
-          <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/clipboard.svg" alt="" aria-hidden="true">
           Store info
+          <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/clipboard-grey.svg" alt="" aria-hidden="true">
         </h3>
         <p class="sheet-copy" data-s-desc></p>
 
         <div class="sheet-review" data-s-review>
           <h4 class="sheet-h sheet-h--sm sheet-h--icon">
-            <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/chef-kiss.svg" alt="" aria-hidden="true">
             Review us
+            <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/chef-kiss-grey.svg" alt="" aria-hidden="true">
           </h4>
           <div class="sheet-review__btns">
             <a class="btn btn--pill" data-s-google href="#" target="_blank" rel="noopener">
@@ -318,8 +312,8 @@
       <section class="sheet-sec sheet-photos" data-s-photos-sec>
         <div class="sheet-photos__head">
           <h3 class="sheet-h sheet-h--icon">
-            <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/camera.svg" alt="" aria-hidden="true">
             Store photos
+            <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/camera-grey.svg" alt="" aria-hidden="true">
           </h3>
           <div class="sheet-photos__nav">
             <button type="button" class="circlebtn" data-photos-prev aria-label="Previous photo">
@@ -353,23 +347,16 @@
       <section class="sheet-sec sheet-more">
         <button type="button" class="jumpcard jumpcard--next" data-s-next-store>
           <img class="jumpcard__bg" data-s-next-img alt="" src="">
-          <span class="jumpcard__tag">
-            <span class="jumpcard__tile" aria-hidden="true">
-              <svg fill="none" viewBox="0 0 24 24"><path d="M6.45697 12.1842L17.9115 12.1842M13.0024 17.0933L17.9115 12.1842L13.0024 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="jumpcard__label">
-              <span class="jumpcard__kicker" data-s-next-name>Ponsonby</span>
-              Next store
-            </span>
+          <span class="jumpcard__label">
+            <span class="jumpcard__kicker" data-s-next-name>Ponsonby</span>
+            <span class="jumpcard__title">Next store <svg class="jumpcard__arrow" fill="none" viewBox="0 0 32 32" aria-hidden="true"><path d="M8.60925 16.2456L23.882 16.2456M17.3365 22.7911L23.882 16.2456L17.3365 9.70017" stroke="currentColor" stroke-width="2.18182" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </span>
         </button>
         <button type="button" class="jumpcard jumpcard--back" data-s-back>
           <img loading="lazy" class="jumpcard__bg" data-bf-src="assets/m/back-map.webp" alt="">
-          <span class="jumpcard__tag">
-            <span class="jumpcard__tile" aria-hidden="true">
-              <svg fill="none" viewBox="0 0 24 24"><path d="M17.543 12.1842L6.08846 12.1842M10.9976 17.0933L6.08846 12.1842L10.9976 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="jumpcard__label">Back to<br>all stores</span>
+          <span class="jumpcard__label">
+            <span class="jumpcard__title"><svg class="jumpcard__arrow jumpcard__arrow--back" fill="none" viewBox="0 0 32 32" aria-hidden="true"><path d="M9 16.4545L24.2727 16.4545M17.7273 23L24.2727 16.4545L17.7273 9.90909" stroke="currentColor" stroke-width="2.18182" stroke-linejoin="round"/></svg> Back to</span>
+            <span class="jumpcard__title">All stores</span>
           </span>
         </button>
       </section>
@@ -456,11 +443,13 @@
   </li>
 </template>
 
-<script src="js/config.js?v=9"></script>
-<script src="js/stores-data.js?v=9"></script>
-<script src="js/hours.js?v=9"></script>
-<script src="js/map.js?v=9"></script>
-<script src="js/lightbox.js?v=9"></script>
-<script src="js/app.js?v=9"></script>
+</div><!-- /#bf-locator -->
+
+<script src="js/config.js?v=10"></script>
+<script src="js/stores-data.js?v=10"></script>
+<script src="js/hours.js?v=10"></script>
+<script src="js/map.js?v=10"></script>
+<script src="js/lightbox.js?v=10"></script>
+<script src="js/app.js?v=10"></script>
 </body>
 </html>

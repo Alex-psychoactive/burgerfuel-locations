@@ -7,8 +7,9 @@
 (function (w) {
   'use strict';
 
-  // Week starts Sunday, matching the grouping in the design
+  // JS order (Sunday = 0), for today's index; lists read Monday → Sunday
   var WEEK  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var LIST_WEEK = WEEK.slice(1).concat(WEEK[0]);
   var SHORT = { Sunday:'Sun', Monday:'Mon', Tuesday:'Tue', Wednesday:'Wed',
                 Thursday:'Thu', Friday:'Fri', Saturday:'Sat' };
 
@@ -94,12 +95,12 @@
   }
 
   /* Collapse consecutive days with identical hours:
-     [{ days:'Sun – Wed', time:'10:00 am - 9:00 pm' }, …] */
+     [{ days:'Mon – Wed', time:'10:00 am - 9:00 pm' }, …] */
   function group(hours) {
     if (!hours) return [];
     var runs = [], i;
-    for (i = 0; i < WEEK.length; i++) {
-      var day = WEEK[i], val = (hours[day] || 'Closed').trim();
+    for (i = 0; i < LIST_WEEK.length; i++) {
+      var day = LIST_WEEK[i], val = (hours[day] || 'Closed').trim();
       var last = runs[runs.length - 1];
       if (last && last.value === val) last.end = day;
       else runs.push({ start: day, end: day, value: val });
