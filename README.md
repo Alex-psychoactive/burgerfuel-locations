@@ -299,6 +299,19 @@ with `#dcdce0` casings · parks `#e1e5e1` · place labels `#2c2e35`.
 
 ## Store data
 
+**On the Webflow site the CMS is the source.** The Stores v2 page carries a
+hidden Collection List of *NZ — Locations* (`<div data-bf-stores hidden>`,
+one `[data-bf-store]` per item, every field in a child tagged
+`data-f="…"`: slug, name, address, postal, lat, lng, phone, gmaps, google,
+facebook, order, region, closed, noorder, image, hours, description,
+started, event-*, a nested *Photo Gallery* list of `data-f="photo"` images,
+and a nested *Blog Posts* list limited to the newest post). app.js reads it
+on load, so publishing a CMS edit updates the locator. Keep the data-f names
+if you restyle or move it; images in it are lazy, so the hidden list costs
+no downloads. Without that list (the GitHub preview) the bundled
+`js/stores-data.js` below is used.
+
+
 `data/stores.json` — **all 62 NZ stores**, scraped from the live page's
 Webflow CMS collection. Every record has:
 
