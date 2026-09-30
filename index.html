@@ -7,14 +7,14 @@
 <meta name="description" content="Find your nearest BurgerFuel store across New Zealand.">
 <link rel="preload" href="fonts/VanguardCF-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body data-view="map">
 
 <!-- ══════════ NAV ══════════ -->
 <header class="nav">
   <a class="nav__logo" href="/" aria-label="BurgerFuel home">
-    <img data-bf-src="assets/logo-nav.png" alt="BurgerFuel">
+    <img data-bf-src="assets/logo-nav.webp" alt="BurgerFuel">
   </a>
   <nav class="nav__links" aria-label="Primary">
     <a href="#">Our Menu</a>
@@ -24,7 +24,7 @@
     </a>
   </nav>
   <a class="nav__order" href="https://eat.burgerfuel.com/order" aria-label="Order now">
-    <img data-bf-src="assets/order-now-nav.png" alt="Order">
+    <img data-bf-src="assets/order-now-nav.webp" alt="Order">
   </a>
   <!-- mobile only; the host site's own nav supplies the real menu -->
   <button type="button" class="nav__menu" aria-label="Menu">
@@ -117,7 +117,7 @@
 
         <div class="listview__head">
           <div>
-            <h1 class="listview__title"><span>IN</span> <em data-list-region>NEW ZEALAND</em></h1>
+            <h2 class="listview__title"><span>IN</span> <em data-list-region>NEW ZEALAND</em></h2>
             <p class="listview__count">Showing: <span data-list-count>0</span> Stores</p>
           </div>
 
@@ -205,7 +205,7 @@
        Mobile: a sheet that slides up over a dimmed page. -->
   <div class="scrim" data-scrim hidden></div>
 
-  <aside class="sidebar" data-sidebar hidden aria-label="Store details" aria-modal="false">
+  <section class="sidebar" data-sidebar hidden aria-label="Store details">
     <!-- floats over the sheet (outside the scroller) so it's always reachable -->
     <button type="button" class="btn-close" data-sidebar-close aria-label="Close">
       <svg fill="none" class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -245,7 +245,7 @@
             </p>
             <p class="info__value" data-s-address></p>
             <a class="btn btn--pill" data-s-directions href="#" target="_blank" rel="noopener">
-              <img class="btn__gicon" data-bf-src="assets/google-maps-icon.svg" alt="" aria-hidden="true">
+              <img loading="lazy" class="btn__gicon" data-bf-src="assets/google-maps-icon.svg" alt="" aria-hidden="true">
               Get directions
             </a>
           </div>
@@ -277,7 +277,7 @@
       <!-- Event: fields on the store's own Webflow CMS item; hidden when empty -->
       <section class="sheet-event" data-s-event hidden>
         <h3 class="sheet-event__title">
-          <img data-bf-src="assets/m/speech-bubble.svg" alt="" aria-hidden="true">
+          <img loading="lazy" data-bf-src="assets/m/speech-bubble.svg" alt="" aria-hidden="true">
           <span>Event: <span data-s-event-title></span></span>
         </h3>
         <img class="sheet-event__img" data-s-event-img alt="" src="">
@@ -292,23 +292,23 @@
 
       <section class="sheet-sec sheet-about" data-s-about>
         <h3 class="sheet-h sheet-h--icon">
-          <img class="sheet-h__icon" data-bf-src="assets/m/clipboard.svg" alt="" aria-hidden="true">
+          <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/clipboard.svg" alt="" aria-hidden="true">
           Store info
         </h3>
         <p class="sheet-copy" data-s-desc></p>
 
         <div class="sheet-review" data-s-review>
           <h4 class="sheet-h sheet-h--sm sheet-h--icon">
-            <img class="sheet-h__icon" data-bf-src="assets/m/chef-kiss.svg" alt="" aria-hidden="true">
+            <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/chef-kiss.svg" alt="" aria-hidden="true">
             Review us
           </h4>
           <div class="sheet-review__btns">
             <a class="btn btn--pill" data-s-google href="#" target="_blank" rel="noopener">
-              <img class="btn__gicon" data-bf-src="assets/m/google.svg" alt="" aria-hidden="true">
+              <img loading="lazy" class="btn__gicon" data-bf-src="assets/m/google.svg" alt="" aria-hidden="true">
               View store on Google
             </a>
             <a class="btn btn--pill" data-s-facebook href="#" target="_blank" rel="noopener">
-              <img class="btn__gicon" data-bf-src="assets/m/facebook.svg" alt="" aria-hidden="true">
+              <img loading="lazy" class="btn__gicon" data-bf-src="assets/m/facebook.svg" alt="" aria-hidden="true">
               View store on Facebook
             </a>
           </div>
@@ -318,7 +318,7 @@
       <section class="sheet-sec sheet-photos" data-s-photos-sec>
         <div class="sheet-photos__head">
           <h3 class="sheet-h sheet-h--icon">
-            <img class="sheet-h__icon" data-bf-src="assets/m/camera.svg" alt="" aria-hidden="true">
+            <img loading="lazy" class="sheet-h__icon" data-bf-src="assets/m/camera.svg" alt="" aria-hidden="true">
             Store photos
           </h3>
           <div class="sheet-photos__nav">
@@ -364,7 +364,7 @@
           </span>
         </button>
         <button type="button" class="jumpcard jumpcard--back" data-s-back>
-          <img class="jumpcard__bg" data-bf-src="assets/m/back-map.webp" alt="">
+          <img loading="lazy" class="jumpcard__bg" data-bf-src="assets/m/back-map.webp" alt="">
           <span class="jumpcard__tag">
             <span class="jumpcard__tile" aria-hidden="true">
               <svg fill="none" viewBox="0 0 24 24"><path d="M17.543 12.1842L6.08846 12.1842M10.9976 17.0933L6.08846 12.1842L10.9976 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
@@ -383,12 +383,12 @@
         <span class="btn--order__label">Order from this store</span>
         <!-- hover flips the bag out to the top-right and the arrow in from the bottom-left -->
         <span class="btn--order__icon" aria-hidden="true">
-          <img class="btn--order__bag" data-bf-src="assets/m/takeaway-bag.svg" alt="">
+          <img loading="lazy" class="btn--order__bag" data-bf-src="assets/m/takeaway-bag.svg" alt="">
           <svg class="btn--order__go" fill="none" viewBox="0 0 18 18"><path d="M5.28775 12.7126L12.7124 5.28793M12.7124 11.6519L12.7124 5.28793L6.34841 5.28793" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </a>
     </div>
-  </aside>
+  </section>
 
 </main>
 
@@ -436,15 +436,15 @@
         <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.45697 12.1842L17.9115 12.1842M13.0024 17.0933L17.9115 12.1842L13.0024 7.27515" stroke="currentColor" stroke-width="1.63636" stroke-linejoin="round"/></svg>
       </button>
     </div>
-    <div class="lightbox__dots" data-lb-dots aria-live="polite"></div>
+    <div class="lightbox__dots" data-lb-dots role="group" aria-live="polite"></div>
   </div>
 </div>
 
 <template data-store-row-tpl>
-  <li class="storerow" role="button" tabindex="0">
+  <li class="storerow">
     <div class="storerow__thumb"><img alt="" loading="lazy"></div>
     <div class="storerow__content">
-      <h3 class="storerow__name"></h3>
+      <h2 class="storerow__name"><button type="button" class="storerow__hit"></button></h2>
       <p class="storerow__addr">
         <svg fill="none" class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M4.583 9.096c0 4.447 3.891 8.125 5.613 9.535.246.202.371.304.555.356.143.04.354.04.497 0 .184-.052.308-.153.556-.356 1.722-1.41 5.612-5.088 5.612-9.535 0-1.683-.676-3.297-1.879-4.487a6.42 6.42 0 0 0-4.537-1.859c-1.702 0-3.334.669-4.537 1.859a6.32 6.32 0 0 0-1.88 4.487Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.166 8.25a1.833 1.833 0 1 0 3.667 0 1.833 1.833 0 0 0-3.667 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span></span>
@@ -456,11 +456,11 @@
   </li>
 </template>
 
-<script src="js/config.js?v=8"></script>
-<script src="js/stores-data.js?v=8"></script>
-<script src="js/hours.js?v=8"></script>
-<script src="js/map.js?v=8"></script>
-<script src="js/lightbox.js?v=8"></script>
-<script src="js/app.js?v=8"></script>
+<script src="js/config.js?v=9"></script>
+<script src="js/stores-data.js?v=9"></script>
+<script src="js/hours.js?v=9"></script>
+<script src="js/map.js?v=9"></script>
+<script src="js/lightbox.js?v=9"></script>
+<script src="js/app.js?v=9"></script>
 </body>
 </html>

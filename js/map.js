@@ -74,6 +74,19 @@
     el.appendChild(img);
     return el;
   }
+  /* a pin is a button to keyboards and screen readers too: Tab reaches
+     it, Enter/Space opens the store, and it reads out the store's name.
+     Called after the map library has had its say on the element. */
+  function labelPin(node, store, onClick) {
+    node.setAttribute('role', 'button');
+    node.setAttribute('tabindex', '0');
+    node.setAttribute('aria-label', 'BurgerFuel ' + store.name);
+    node.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault(); e.stopPropagation();
+      onClick(store);
+    });
+  }
 
   /* ════════════════════════ GOOGLE DRIVER ════════════════════════ */
   function createGoogle(el, opts) {
@@ -127,6 +140,7 @@
             node.addEventListener('click', function (e) { e.stopPropagation(); onClick(store); });
             var ov = new PinOverlay(new google.maps.LatLng(store.lat, store.lng), node);
             ov.setMap(map);
+            labelPin(node, store, onClick);
             return { el: node, overlay: ov, store: store };
           },
           panTo: function (lat, lng, zoom) {
@@ -181,6 +195,7 @@
                 node.addEventListener('click', function (e) { e.stopPropagation(); onClick(store); });
                 var mk = new maplibregl.Marker({ element: node, anchor: 'bottom' })
                   .setLngLat([store.lng, store.lat]).addTo(map);
+                labelPin(node, store, onClick);
                 return { el: node, marker: mk, store: store };
               },
               panTo: function (lat, lng, zoom) {

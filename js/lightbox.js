@@ -172,10 +172,12 @@
     });
   }
 
+  var returnFocus = null;
   function open(o) {
     if (!root && !init()) return;
     if (busy) return;
     opts = o;
+    returnFocus = o.keyboard ? d.activeElement : null;   // back to the photo that opened it
     index = clamp(o.index || 0, 0, o.photos.length - 1);
     build();
     resetZoom(false);
@@ -229,6 +231,8 @@
       if (thumb) thumb.style.visibility = '';
       track.innerHTML = '';
       slides = [];
+      if (returnFocus && returnFocus.focus) returnFocus.focus({ preventScroll: true });
+      returnFocus = null;
     };
     resetZoom(false);
     var to = inView(thumb) && fromThumb(img, thumb);

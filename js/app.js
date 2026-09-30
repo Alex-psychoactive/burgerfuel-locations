@@ -130,15 +130,12 @@
       var img = $('img', li);
       img.src = s.image;
       img.alt = 'BurgerFuel ' + s.name;
-      $('.storerow__name', li).textContent = s.name;
+      $('.storerow__hit', li).textContent = s.name;
       $('.storerow__addr span', li).textContent = s.address;
       li.dataset.slug = s.slug;
       if (state.selected && state.selected.slug === s.slug) li.classList.add('is-active');
 
-      li.addEventListener('click', function () { select(s, 'list', li); });
-      li.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(s, 'list', li); }
-      });
+      li.addEventListener('click', function () { select(s, 'list', li); });   // the name's button bubbles here too
       elList.appendChild(li);
     });
 
@@ -513,7 +510,8 @@
       void elSidebar.offsetHeight;           // commit the off-screen start before sliding
       d.body.classList.add('is-sheet-open', 'is-sidebar-open');
     }
-    elSidebar.setAttribute('aria-modal', 'true');
+    // a dialog while it's a sheet over the page; beside the map on desktop it's just a panel
+    if (sheetMode()) { elSidebar.setAttribute('role', 'dialog'); elSidebar.setAttribute('aria-modal', 'true'); }
     state.sheetOpen = true;
     // keyboard users land on Close; a tap shouldn't leave a focus ring behind
     if (keyNav) $('[data-sidebar-close]').focus({ preventScroll: true });
@@ -537,7 +535,8 @@
       return;
     }
 
-    elSidebar.setAttribute('aria-modal', 'false');
+    elSidebar.removeAttribute('role');
+    elSidebar.removeAttribute('aria-modal');
     var done = function () {
       elSheetScroll.scrollTop = 0;
       elSidebar.hidden = true;
@@ -782,6 +781,7 @@
 
   /* ── view switching ───────────────────────────────────────── */
   function setView(view) {
+    if (view === 'map') bootMap();
     state.view = view;
     d.body.dataset.view = view;
     elListView.hidden = view !== 'list';
@@ -971,6 +971,7 @@
     elRegionMenu.innerHTML = '';
     opts.forEach(function (o, i) {
       var li = d.createElement('li');
+      li.setAttribute('role', 'none');       // the listbox's children are the options
       var b = d.createElement('button');
       b.type = 'button';
       b.className = 'region__opt';
@@ -1193,6 +1194,7 @@
       elMF.classList.remove('is-hidden');
       elFMGo.classList.remove('is-pressed');
       d.documentElement.classList.remove('is-locked');
+      if (keyNav) elMFOpen.focus({ preventScroll: true });
       [elFMCard].concat($$('.fmodal__card > *', elFM), fmChrome())
         .forEach(function (el) { el.getAnimations().forEach(function (an) { an.cancel(); }); });
     };
@@ -1225,6 +1227,7 @@
     elFRList.innerHTML = '';
     opts.forEach(function (o, i) {
       var li = d.createElement('li');
+      li.setAttribute('role', 'none');       // the listbox's children are the options
       var b = d.createElement('button');
       b.type = 'button';
       b.className = 'region__opt';
@@ -1418,6 +1421,23 @@
     d.addEventListener('click', function (e) {
       if (!elRegion.contains(e.target)) closeRegion();
     });
+    /* Tab never wanders out of the modal on top: the lightbox, the
+       search overlay, or (phones and tablets) the store sheet */
+    d.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var lb = $('[data-lightbox]');
+      var box = lb && !lb.hidden ? lb
+              : fm.open ? elFM
+              : (sheetMode() && state.sheetOpen) ? elSidebar : null;
+      if (!box) return;
+      var f = $$('a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])', box)
+        .filter(function (el) { return !el.disabled && el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden'; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (!box.contains(d.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && d.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && d.activeElement === last) { e.preventDefault(); first.focus(); }
+    }, true);
     d.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
       if (fm.open) { if ('open' in elFRegion.dataset) closeFRegion(); else closeFM(false); return; }
@@ -1506,6 +1526,28 @@
     setView(defaultView());
     readHash(linked);
 
+    /* Phones open on the list, where the map isn't on screen: the map
+       library (the heaviest thing on the page) waits until the page has
+       settled, or until someone taps Map, whichever comes first. */
+    if (state.view === 'map') bootMap(); else whenIdle(bootMap);
+    // the store sheet's icons were left lazy so they don't compete with
+    // first paint; fetch them now so the first sheet opens complete
+    whenIdle(function () {
+      $$('.sidebar img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
+    });
+  }
+
+  function whenIdle(fn) {
+    var go = function () {
+      if (w.requestIdleCallback) w.requestIdleCallback(fn, { timeout: 2000 }); else setTimeout(fn, 200);
+    };
+    if (d.readyState === 'complete') go(); else w.addEventListener('load', go, { once: true });
+  }
+
+  var mapBooted = false;
+  function bootMap() {
+    if (mapBooted) return;
+    mapBooted = true;
     w.BFMap.create(elMap, w.BF_CONFIG)
       .then(function (api) {
         state.map = api;

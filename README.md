@@ -103,6 +103,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v6 | Mobile overlay: search and region each get their own clear |
 | v7 | Mobile list: "In <region> · Showing N" heading and empty state when filtered; smaller search clear icon |
 | v8 | Mobile search overlay v2: compact card with close inside, outlined fields, picked-region dot, "Clear all" chips, softer shadows, dropdown kept on screen; white region dropdown on desktop too |
+| v9 | Accessibility + performance audit: store rows and map pins are real buttons, valid listbox, focus trap and focus return in overlay/sheet/lightbox, one h1, contrast fixes, fuller reduced-motion; map loads after the list on phones, lazy sheet icons, lighter nav and texture images |
 
 ### Before this goes on the client site
 

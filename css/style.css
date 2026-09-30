@@ -341,11 +341,12 @@ input{font:inherit}
   transition:padding .25s var(--ease-out-quint),background .25s var(--ease-out-quint),color .25s var(--ease-out-quint);
 }
 .region__opt:hover,.region__opt:focus-visible{padding-left:1.5rem;background:rgba(0,0,0,.06);outline:none}
+.region__opt:focus-visible{box-shadow:inset 0 0 0 .125rem var(--bf-purple)}
 .region__opt[aria-selected="true"]{background:var(--bf-purple);color:var(--bf-white)}
 .region__opt[aria-selected="true"]:hover{background:var(--bf-dark-purple)}
 .region__opt[aria-selected="true"]::before{content:'';width:.375rem;height:.375rem;border-radius:50%;background:currentColor;flex:none}
 .region__opt:active{background:rgba(0,0,0,.12)}
-.region__count{margin-left:auto;font-size:.875rem;font-weight:500;opacity:.45}
+.region__count{margin-left:auto;font-size:.875rem;font-weight:500;opacity:.65}   /* 4.5:1+ on white and on purple */
 .region__panel.is-anim .region__opt{
   animation:sf-in .175s var(--ease-out-quint) both;
   animation-delay:calc(var(--i, 0) * 50ms);
@@ -425,7 +426,15 @@ input{font:inherit}
   transition:background .2s var(--ease),color .2s var(--ease);
 }
 .storerow:hover{background:#ededed}
-.storerow:focus-visible{outline:.1875rem solid var(--bf-purple);outline-offset:.125rem}
+/* the name is the row's button; its hit area stretches over the whole card */
+.storerow{position:relative}
+.storerow__hit{
+  font:inherit;color:inherit;text-transform:inherit;text-align:left;
+  background:none;border:0;padding:0;cursor:pointer;
+}
+.storerow__hit::after{content:'';position:absolute;inset:0;z-index:1}
+.storerow__hit:focus{outline:none}
+.storerow:has(.storerow__hit:focus-visible){outline:.1875rem solid var(--bf-purple);outline-offset:.125rem}
 .storerow__thumb{width:13.5rem;flex:none;overflow:hidden;background:var(--bf-dark-grey)}
 .storerow__thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 .storerow:hover .storerow__thumb img{transform:scale(1.05)}
@@ -840,7 +849,9 @@ input{font:inherit}
 @media (hover:hover){ .btn--more:hover .btn--more__arrow{background:var(--bf-purple)} }
 
 /* mobile-only furniture */
-.stage__title,.nav__menu,.map-hint,.scrim,.mfooter{display:none}
+.nav__menu,.map-hint,.scrim,.mfooter{display:none}
+/* the page's h1: shown on phones in list view, read out everywhere else */
+.stage__title{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .segwrap{display:contents}
 .u-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
@@ -1014,10 +1025,11 @@ input{font:inherit}
   body[data-view="map"]{overflow:hidden}
   .stage__title{
     display:block;order:0;margin-top:8.125rem;       /* clears the floating pill */
+    position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal;
     font-family:var(--font-display);font-weight:700;
     font-size:5.3125rem;line-height:1;text-align:center;text-transform:uppercase;color:#000;
   }
-  body[data-view="map"] .stage__title{display:none}
+  body[data-view="map"] .stage__title{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(0 0 0 0)}
 
   /* the toolbar dissolves; search + region move into the overlay, and
      the switch becomes the floating bottom bar */
@@ -1532,6 +1544,8 @@ input{font:inherit}
 
 @media (prefers-reduced-motion:reduce){
   .ordercta__track{animation:none}
-  .bf-pin.is-wiggle img{animation:none}
+  .bf-pin.is-wiggle img,.bf-pin:hover img{animation:none}
+  .region__panel.is-anim .region__opt,.fregion__panel.is-anim .region__opt{animation:none}
+  .region__panel,.fregion__panel,.fmodal__search{transition-duration:.01s}
   .sidebar,.is-sheet-open .sidebar,.scrim{transition-duration:.01s}
 }
