@@ -714,12 +714,20 @@
     var slot = elHeroImg.parentNode.getBoundingClientRect();
     return { img: img, clipTop: Math.max(0, slot.top - img.top), clipBottom: Math.max(0, img.bottom - slot.bottom) };
   }
+  /* The flying photo lives INSIDE the sheet, just under its close button
+     and grab handle (z 1 < 2 < 4). So the sheet's growing clip reveals those
+     along with the photo — nothing pops in when the copy is removed. Rects
+     are converted to the sheet's own coordinates (it sits untransformed
+     while .is-flip is on). */
+  function inSheet(r, S) {
+    return { top: r.top - S.top, left: r.left - S.left, width: r.width, height: r.height };
+  }
   function makeClone(src, r) {
     var c = d.createElement('img');
     c.className = 'flip-clone';
     c.src = src; c.alt = '';
-    c.style.cssText = 'top:' + r.top + 'px;left:' + r.left + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
-    HOST.appendChild(c);            // inside #bf-locator, where .flip-clone is styled
+    c.style.cssText = 'position:absolute;z-index:1;top:' + r.top + 'px;left:' + r.left + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+    elSidebar.appendChild(c);
     return c;
   }
   function rectFrames(from, to, fromClip, toClip) {
@@ -740,7 +748,7 @@
     var H = heroTarget();
     var radius = getComputedStyle(elSidebar).borderTopLeftRadius;
 
-    var clone = makeClone(thumb.currentSrc || thumb.src, T);
+    var clone = makeClone(thumb.currentSrc || thumb.src, inSheet(T, S));
     elHeroImg.style.visibility = 'hidden';
     elSidebar.style.clipPath = insetFrom(S, R);         // hold the sheet at the card while we wait
     // start once the copy can paint (it's cached, so this is a frame or
@@ -763,7 +771,7 @@
     });
     // top corners soften from the card's square edge to the sheet's radius
     // over the whole flight, so nothing snaps when the real photo takes over
-    var a = clone.animate(rectFrames(T, H.img, 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)',
+    var a = clone.animate(rectFrames(inSheet(T, S), inSheet(H.img, S), 'inset(0px 0px 0px 0px round 0px 0px 0px 0px)',
                                      'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px round ' + radius + ' ' + radius + ' 0px 0px)'), opts);
     whenDone(a, OPEN_MS, function () {
       elHeroImg.style.visibility = '';
@@ -787,7 +795,7 @@
     var H = heroTarget();
     var radius = getComputedStyle(elSidebar).borderTopLeftRadius;
 
-    var clone = makeClone(elHeroImg.currentSrc || elHeroImg.src, H.img);
+    var clone = makeClone(elHeroImg.currentSrc || elHeroImg.src, inSheet(H.img, S));
     elHeroImg.style.visibility = 'hidden';
     thumb.style.visibility = 'hidden';
 
@@ -798,7 +806,7 @@
     ], opts);
     elSheetScroll.animate([{ opacity: 1 }, { opacity: 0 }],
                           { duration: CLOSE_MS * 0.6, easing: EASE_IN_CUBIC, fill: 'forwards' });
-    var a = clone.animate(rectFrames(H.img, T, 'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px round ' + radius + ' ' + radius + ' 0px 0px)',
+    var a = clone.animate(rectFrames(inSheet(H.img, S), inSheet(T, S), 'inset(' + H.clipTop + 'px 0px ' + H.clipBottom + 'px 0px round ' + radius + ' ' + radius + ' 0px 0px)',
                                      'inset(0px 0px 0px 0px round 0px 0px 0px 0px)'), opts);
     whenDone(a, CLOSE_MS, function () {
       thumb.style.visibility = '';

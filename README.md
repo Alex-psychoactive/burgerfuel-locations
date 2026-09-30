@@ -111,6 +111,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v14 | View store page button back on desktop + tablet (links to the store's CMS page); brand fonts preloaded and set to font-display:block so the first store panel no longer snaps from a fallback font |
 | v15 | Desktop: "Previous store" card replaces "Back to all stores"; mobile card-to-sheet photo morph works again (the flying copy lives inside #bf-locator and waits to decode); mobile footer removed |
 | v16 | Previous-store name right-aligned, more bottom padding in the jump-card labels, STORES title closer to the pill, solid white grab handle, nav shadow fades out while the mobile sheet is open |
+| v17 | Mobile morph: the flying photo sits inside the sheet under its close button and grab handle, so they unmask with the sheet instead of popping in |
 
 ### Store pages and store URLs
 
