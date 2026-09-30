@@ -108,6 +108,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v11 | Reads store data from the hidden Webflow CMS list when present (per-store order link, temporarily-closed and disable-order switches, events, latest blog post); falls back to the bundled data elsewhere |
 | v12 | Live-site fixes: swapped lat/lng in the CMS corrected on read and one bad pin can no longer stop the rest; panels scroll under the site's Lenis smooth-scroll; water-coloured placeholder and map fade-in instead of a white flash |
 | v13 | Lenis smooth-scroll switched off on locator pages; page scroll lock beats the site's inline body overflow |
+| v14 | View store page button back on desktop + tablet (links to the store's CMS page); brand fonts preloaded and set to font-display:block so the first store panel no longer snaps from a fallback font |
 
 ### Store pages and store URLs
 

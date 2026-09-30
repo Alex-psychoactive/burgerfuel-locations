@@ -393,6 +393,9 @@
     $('[data-s-next]').textContent = st.next.replace(' at ', ' ');
     $('[data-s-next]').parentNode.hidden = !st.next;
 
+    // desktop + tablet: a link to the store's own page (the CMS template)
+    $('[data-s-view]').href = (ROUTE ? ROUTE.stores : (CFG.storePageBase || '/nz/locations')) + '/' + s.slug;
+
     // the store's own order link; hidden when the CMS switches it off
     var order = $('[data-s-order]');
     order.href = s.order || (CFG.orderUrl || 'https://eat.burgerfuel.com/order');

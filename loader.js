@@ -41,6 +41,18 @@
   function load(version) {
     var q = '?v=' + encodeURIComponent(version);
 
+    /* Fetch the brand fonts now, not when something first uses them —
+       otherwise the first store panel opened draws in a fallback font
+       and then snaps to Vanguard. */
+    [['fonts/VanguardCF-Bold.woff2', 'font/woff2'], ['fonts/VanguardCF-DemiBold.otf', 'font/otf'],
+     ['fonts/Salted-Regular.woff2', 'font/woff2'], ['fonts/InstrumentSans-500.woff2', 'font/woff2'],
+     ['fonts/InstrumentSans-600.woff2', 'font/woff2']].forEach(function (f) {
+      var l = d.createElement('link');
+      l.rel = 'preload'; l.as = 'font'; l.type = f[1]; l.crossOrigin = 'anonymous';
+      l.href = base + f[0];
+      d.head.appendChild(l);
+    });
+
     var css = d.createElement('link');
     css.rel = 'stylesheet';
     css.href = base + 'css/style.css' + q;

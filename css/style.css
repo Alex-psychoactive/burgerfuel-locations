@@ -9,11 +9,11 @@
 @font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'Instrument Sans';src:url('../fonts/InstrumentSans-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-DemiBold.otf') format('opentype');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:'Salted Regular';src:url('../fonts/Salted-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Heavy.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-DemiBold.otf') format('opentype');font-weight:600;font-style:normal;font-display:block}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:'Salted Regular';src:url('../fonts/Salted-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Vanguard CF';src:url('../fonts/VanguardCF-Heavy.woff2') format('woff2');font-weight:900;font-style:normal;font-display:block}
 
 /* ── Tokens ────────────────────────────────────────────── */
 #bf-locator{
@@ -534,6 +534,7 @@ html.bf-app body{
 #bf-locator .btn-close:focus-visible{outline:calc(var(--u) * .1875) solid var(--bf-purple);outline-offset:calc(var(--u) * .1875)}
 
 #bf-locator .sidebar__top{padding:calc(var(--u) * 2.25) var(--sheet-pad) calc(var(--u) * 2)}
+#bf-locator .sidebar__viewstore{margin-top:calc(var(--u) * 1.75);width:100%}
 #bf-locator .sidebar__name{
   font-family:var(--font-display);font-weight:700;
   font-size:calc(var(--u) * 4.25);line-height:.92;letter-spacing:-.005em;
@@ -1131,6 +1132,9 @@ html.bf-app body{
   }
   #bf-locator .lightbox{z-index:49}
   #bf-locator .flip-clone{z-index:49}
+
+  /* phones browse inside the sheet; the store-page link is desktop/tablet only */
+  #bf-locator .sidebar__viewstore{display:none}
 
   /* the gesture hint sits above the bottom bar now */
   #bf-locator .map-hint{bottom:calc(var(--u) * 7)}
