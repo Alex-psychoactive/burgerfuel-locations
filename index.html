@@ -7,7 +7,7 @@
 <meta name="description" content="Find your nearest BurgerFuel store across New Zealand.">
 <link rel="preload" href="fonts/VanguardCF-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/InstrumentSans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css?v=8">
 </head>
 <body data-view="map">
 
@@ -43,29 +43,24 @@
       <svg fill="none" viewBox="0 0 24 24" class="mfilter__caret" aria-hidden="true"><path d="M15 11L12 14L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </span>
   </button>
-  <button type="button" class="mfilter__clear" data-mfilter-clear hidden>
-    Clear <svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <button type="button" class="mfilter__clear u-chip" data-mfilter-clear hidden>
+    <svg fill="none" viewBox="0 0 18 18" class="u-clearall" aria-hidden="true"><path d="M9.74985 3.05273C12.7124 3.42023 14.9999 5.94 14.9999 9C14.9999 10.3662 14.543 11.6239 13.7745 12.6313C13.7586 12.6523 13.7424 12.6729 13.7262 12.6936C13.6842 12.7472 13.641 12.7997 13.5973 12.8518C13.5742 12.8793 13.5512 12.9068 13.5277 12.9338C13.4895 12.9777 13.4506 13.0208 13.4112 13.0635C13.3802 13.0971 13.3493 13.1309 13.3175 13.1638C13.1873 13.2985 13.051 13.427 12.9088 13.5491C12.8769 13.5764 12.8438 13.6022 12.8114 13.6289C12.7678 13.6647 12.7242 13.7005 12.6795 13.7351C12.6401 13.7657 12.6003 13.7956 12.5602 13.8252C12.5268 13.8498 12.493 13.8738 12.4591 13.8977C12.4135 13.9299 12.3679 13.962 12.3214 13.9929C12.2861 14.0164 12.2503 14.039 12.2145 14.0618C12.1697 14.0902 12.1252 14.1188 12.0797 14.146C12.0403 14.1696 12.0003 14.1922 11.9603 14.2148C11.7961 14.3079 11.6275 14.3931 11.4549 14.4705C11.4083 14.4913 11.3616 14.5123 11.3143 14.532C11.2632 14.5533 11.2115 14.5728 11.1598 14.5928C11.1245 14.6064 11.0892 14.6201 11.0536 14.6331C11.0315 14.6411 11.0098 14.6509 10.9876 14.6587C10.9564 14.6696 10.9245 14.6783 10.8932 14.6887C10.8525 14.7022 10.8119 14.7157 10.7709 14.7283C10.7154 14.7454 10.6597 14.7611 10.6039 14.7766C10.5741 14.7848 10.5444 14.793 10.5145 14.8008C9.86067 14.9711 9.18186 15.0321 8.5062 14.9758C8.3709 14.9646 8.23647 14.9471 8.10264 14.9268C8.05345 14.9195 8.00444 14.9111 7.95542 14.9026C7.92443 14.8971 7.89329 14.8925 7.8624 14.8865C6.95787 14.7145 6.08691 14.3311 5.32529 13.7402L5.32749 13.7373C4.91177 13.4145 4.53909 13.0373 4.22007 12.6152C3.99317 12.315 3.79727 11.9941 3.6312 11.6587C3.62499 11.6463 3.61902 11.6338 3.61289 11.6213C3.5912 11.5767 3.56902 11.5324 3.54844 11.4873C3.29234 10.9328 3.12567 10.3475 3.05259 9.75H3.05479C2.99209 9.25217 2.99337 8.74834 3.05625 8.25H3.05259C3.10382 7.83111 3.20304 7.41853 3.34629 7.01807C3.52893 6.49645 3.78166 6.00061 4.10142 5.54663L4.11094 5.55322C4.16372 5.47875 4.21864 5.40541 4.275 5.33276L5.33262 6.39771C5.33 6.40141 5.32717 6.40498 5.32456 6.40869L5.32749 6.41089C4.96352 6.92768 4.71216 7.51543 4.59068 8.13574C4.46919 8.75614 4.47997 9.39549 4.62217 10.0115C4.76439 10.6275 5.03494 11.2071 5.41612 11.7114C5.69249 12.0771 6.02358 12.3966 6.39536 12.6614L6.40488 12.6526C6.96732 13.0575 7.59743 13.3128 8.24986 13.4253V13.4312C8.37593 13.4526 8.50282 13.4703 8.63071 13.481C9.0053 13.5121 9.38117 13.494 9.74985 13.4319C11.1395 13.197 12.3114 12.3301 12.9586 11.1372C13.0315 11.0024 13.0982 10.8641 13.1571 10.7219C13.3775 10.1917 13.4999 9.61039 13.4999 9C13.4999 6.7725 11.8799 4.92738 9.74985 4.56738V7.5L6.3375 4.16235L9.74985 0.75V3.05273Z" fill="currentColor"/></svg> Clear all
   </button>
 </div>
 
 <div class="fmodal" data-fmodal hidden role="dialog" aria-modal="true" aria-label="Search stores">
   <div class="fmodal__overlay" data-fmodal-dismiss></div>
-  <button type="button" class="fmodal__close" data-fmodal-dismiss aria-label="Close search"><svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <form class="fmodal__form" data-fmodal-form role="search" autocomplete="off">
     <div class="fmodal__card" data-fmodal-card>
-      <h2 class="fmodal__title">
-        <img data-bf-src="assets/m/wing.svg" alt="" aria-hidden="true">
-        <span>Search stores</span>
-        <img class="is-flipped" data-bf-src="assets/m/wing.svg" alt="" aria-hidden="true">
-      </h2>
+      <h2 class="fmodal__title">Search stores</h2>
+      <button type="button" class="fmodal__close" data-fmodal-dismiss aria-label="Close search"><svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="fmodal__search">
         <svg fill="none" viewBox="0 0 22 22" class="fmodal__icon" aria-hidden="true"><path d="M13.75 13.75L19.25 19.25M9.16667 15.5833C5.62284 15.5833 2.75 12.7105 2.75 9.16667C2.75 5.62284 5.62284 2.75 9.16667 2.75C12.7105 2.75 15.5833 5.62284 15.5833 9.16667C15.5833 12.7105 12.7105 15.5833 9.16667 15.5833Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <input type="search" class="fmodal__input" data-fmodal-input enterkeyhint="search"
                placeholder="Search Regions, Cities, Suburbs" aria-label="Search regions, cities, suburbs">
         <button type="button" class="fmodal__x" data-fmodal-x aria-label="Clear search"><svg fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <hr class="fmodal__rule">
-      <p class="fmodal__label" id="fmodal-region-label">Select a region</p>
+      <p class="u-sr" id="fmodal-region-label">Select a region</p>
       <div class="fregion" data-fregion>
         <button type="button" class="fregion__btn" data-fregion-btn aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fmodal-region-label">
           <span data-fregion-label>All regions</span>
@@ -81,6 +76,10 @@
     <button type="submit" class="fmodal__go" data-fmodal-go>
       <svg fill="none" viewBox="0 0 22 22" class="fmodal__go-icon" aria-hidden="true"><path d="M13.75 13.75L19.25 19.25M9.16667 15.5833C5.62284 15.5833 2.75 12.7105 2.75 9.16667C2.75 5.62284 5.62284 2.75 9.16667 2.75C12.7105 2.75 15.5833 5.62284 15.5833 9.16667C15.5833 12.7105 12.7105 15.5833 9.16667 15.5833Z" stroke="currentColor" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Search
+    </button>
+    <!-- only once both a search and a region are set -->
+    <button type="button" class="fmodal__clearall u-chip" data-fmodal-clearall hidden>
+      <svg fill="none" viewBox="0 0 18 18" class="u-clearall" aria-hidden="true"><path d="M9.74985 3.05273C12.7124 3.42023 14.9999 5.94 14.9999 9C14.9999 10.3662 14.543 11.6239 13.7745 12.6313C13.7586 12.6523 13.7424 12.6729 13.7262 12.6936C13.6842 12.7472 13.641 12.7997 13.5973 12.8518C13.5742 12.8793 13.5512 12.9068 13.5277 12.9338C13.4895 12.9777 13.4506 13.0208 13.4112 13.0635C13.3802 13.0971 13.3493 13.1309 13.3175 13.1638C13.1873 13.2985 13.051 13.427 12.9088 13.5491C12.8769 13.5764 12.8438 13.6022 12.8114 13.6289C12.7678 13.6647 12.7242 13.7005 12.6795 13.7351C12.6401 13.7657 12.6003 13.7956 12.5602 13.8252C12.5268 13.8498 12.493 13.8738 12.4591 13.8977C12.4135 13.9299 12.3679 13.962 12.3214 13.9929C12.2861 14.0164 12.2503 14.039 12.2145 14.0618C12.1697 14.0902 12.1252 14.1188 12.0797 14.146C12.0403 14.1696 12.0003 14.1922 11.9603 14.2148C11.7961 14.3079 11.6275 14.3931 11.4549 14.4705C11.4083 14.4913 11.3616 14.5123 11.3143 14.532C11.2632 14.5533 11.2115 14.5728 11.1598 14.5928C11.1245 14.6064 11.0892 14.6201 11.0536 14.6331C11.0315 14.6411 11.0098 14.6509 10.9876 14.6587C10.9564 14.6696 10.9245 14.6783 10.8932 14.6887C10.8525 14.7022 10.8119 14.7157 10.7709 14.7283C10.7154 14.7454 10.6597 14.7611 10.6039 14.7766C10.5741 14.7848 10.5444 14.793 10.5145 14.8008C9.86067 14.9711 9.18186 15.0321 8.5062 14.9758C8.3709 14.9646 8.23647 14.9471 8.10264 14.9268C8.05345 14.9195 8.00444 14.9111 7.95542 14.9026C7.92443 14.8971 7.89329 14.8925 7.8624 14.8865C6.95787 14.7145 6.08691 14.3311 5.32529 13.7402L5.32749 13.7373C4.91177 13.4145 4.53909 13.0373 4.22007 12.6152C3.99317 12.315 3.79727 11.9941 3.6312 11.6587C3.62499 11.6463 3.61902 11.6338 3.61289 11.6213C3.5912 11.5767 3.56902 11.5324 3.54844 11.4873C3.29234 10.9328 3.12567 10.3475 3.05259 9.75H3.05479C2.99209 9.25217 2.99337 8.74834 3.05625 8.25H3.05259C3.10382 7.83111 3.20304 7.41853 3.34629 7.01807C3.52893 6.49645 3.78166 6.00061 4.10142 5.54663L4.11094 5.55322C4.16372 5.47875 4.21864 5.40541 4.275 5.33276L5.33262 6.39771C5.33 6.40141 5.32717 6.40498 5.32456 6.40869L5.32749 6.41089C4.96352 6.92768 4.71216 7.51543 4.59068 8.13574C4.46919 8.75614 4.47997 9.39549 4.62217 10.0115C4.76439 10.6275 5.03494 11.2071 5.41612 11.7114C5.69249 12.0771 6.02358 12.3966 6.39536 12.6614L6.40488 12.6526C6.96732 13.0575 7.59743 13.3128 8.24986 13.4253V13.4312C8.37593 13.4526 8.50282 13.4703 8.63071 13.481C9.0053 13.5121 9.38117 13.494 9.74985 13.4319C11.1395 13.197 12.3114 12.3301 12.9586 11.1372C13.0315 11.0024 13.0982 10.8641 13.1571 10.7219C13.3775 10.1917 13.4999 9.61039 13.4999 9C13.4999 6.7725 11.8799 4.92738 9.74985 4.56738V7.5L6.3375 4.16235L9.74985 0.75V3.05273Z" fill="currentColor"/></svg> Clear all
     </button>
   </form>
 </div>
@@ -457,11 +456,11 @@
   </li>
 </template>
 
-<script src="js/config.js?v=7"></script>
-<script src="js/stores-data.js?v=7"></script>
-<script src="js/hours.js?v=7"></script>
-<script src="js/map.js?v=7"></script>
-<script src="js/lightbox.js?v=7"></script>
-<script src="js/app.js?v=7"></script>
+<script src="js/config.js?v=8"></script>
+<script src="js/stores-data.js?v=8"></script>
+<script src="js/hours.js?v=8"></script>
+<script src="js/map.js?v=8"></script>
+<script src="js/lightbox.js?v=8"></script>
+<script src="js/app.js?v=8"></script>
 </body>
 </html>

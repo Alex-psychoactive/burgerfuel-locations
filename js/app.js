@@ -1111,6 +1111,7 @@
   var elFRBtn   = $('[data-fregion-btn]');
   var elFRPanel = $('[data-fregion-panel]');
   var elFRList  = $('[data-fregion-list]');
+  var elFMClearAll = $('[data-fmodal-clearall]');
   var fm = { open: false, region: null, busy: false, frTimer: 0, frAnim: 0 };
 
   function syncFilterChip() {
@@ -1124,6 +1125,8 @@
   function syncFMClear() {
     $('[data-fmodal-x]', elFM).hidden = !elFMInput.value.trim();
     $('[data-fregion-clear]', elFM).hidden = !fm.region;
+    // and once both are set, one chip under Search clears the lot
+    elFMClearAll.hidden = !(elFMInput.value.trim() && fm.region);
   }
 
   function roundInset(outer, inner, r) {
@@ -1132,7 +1135,7 @@
                       Math.max(0, outer.bottom - inner.bottom) + 'px ' +
                       Math.max(0, inner.left - outer.left) + 'px round ' + r + ')';
   }
-  function fmChrome() { return [$('.fmodal__overlay', elFM), $('.fmodal__close', elFM), elFMGo]; }
+  function fmChrome() { return [$('.fmodal__overlay', elFM), elFMGo, elFMClearAll]; }
 
   function openFM() {
     if (fm.open || fm.busy) return;
@@ -1248,6 +1251,7 @@
     elFMInput.blur();                         // drop the keyboard so the list has room
     elFRPanel.hidden = false;
     elFMForm.classList.add('is-fregion-open');
+    fitFRegion();
     void elFRPanel.offsetHeight;
     elFRegion.dataset.open = '';
     elFRBtn.setAttribute('aria-expanded', 'true');
@@ -1261,6 +1265,15 @@
       fm.frAnim = setTimeout(function () { elFRPanel.classList.remove('is-anim'); },
                              175 + elFRList.children.length * 50 + 50);
     }
+  }
+  // the list may never run off the bottom of the screen (the page is
+  // locked, so nothing below it could be scrolled to): cap it to the
+  // visible viewport, re-measuring as the keyboard slides away
+  function fitFRegion() {
+    var vv = w.visualViewport;
+    var bottom = vv ? vv.offsetTop + vv.height : w.innerHeight;
+    var room = bottom - elFRList.getBoundingClientRect().top - 16;
+    elFRList.style.setProperty('--fr-max', Math.max(156, Math.floor(room)) + 'px');
   }
   function closeFRegion(now) {
     if (!('open' in elFRegion.dataset)) return;
@@ -1320,6 +1333,16 @@
       if (!elFRegion.contains(e.target)) closeFRegion();
     });
     elFMInput.addEventListener('focus', function () { closeFRegion(); });
+    elFMClearAll.addEventListener('click', function () {
+      elFMInput.value = '';
+      fm.region = null;
+      syncFRegion();
+      buildFRegion();
+      closeFRegion();
+    });
+    if (w.visualViewport) w.visualViewport.addEventListener('resize', function () {
+      if ('open' in elFRegion.dataset) fitFRegion();
+    });
   }
 
   /* ── refresh ──────────────────────────────────────────────── */

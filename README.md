@@ -102,6 +102,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v5 | Mobile filter pill + search overlay, list-first mobile, loader.js |
 | v6 | Mobile overlay: search and region each get their own clear |
 | v7 | Mobile list: "In <region> · Showing N" heading and empty state when filtered; smaller search clear icon |
+| v8 | Mobile search overlay v2: compact card with close inside, outlined fields, picked-region dot, "Clear all" chips, softer shadows, dropdown kept on screen; white region dropdown on desktop too |
 
 ### Before this goes on the client site
 
