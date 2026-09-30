@@ -11,8 +11,67 @@
   var $  = function (s, r) { return (r || d).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); };
 
-  var STORES  = (w.BF_DATA && w.BF_DATA.stores)  || [];
-  var REGIONS = (w.BF_DATA && w.BF_DATA.regions) || [];
+  /* ── store data ───────────────────────────────────────────────
+     On the Webflow site the page carries a hidden Collection List of the
+     "NZ — Locations" collection ([data-bf-stores], one [data-bf-store]
+     per item, each field in an element tagged data-f="…"). When it's
+     there it is the source of truth, so CMS edits show up on publish.
+     Anywhere else (the GitHub preview) the bundled stores-data.js copy
+     is used. */
+  var CMS = readCms();
+  var STORES  = CMS ? CMS.stores  : (w.BF_DATA && w.BF_DATA.stores)  || [];
+  var REGIONS = CMS ? CMS.regions : (w.BF_DATA && w.BF_DATA.regions) || [];
+
+  function readCms() {
+    var root = d.querySelector('[data-bf-stores]');
+    if (!root) return null;
+    var BLOG = (w.BF_CONFIG && w.BF_CONFIG.blogBase) || '/nz/world-of-burgerfuel/articles/';
+    function el(scope, f) { return scope.querySelector('[data-f="' + f + '"]'); }
+    function empty(n) { return !n || n.classList.contains('w-dyn-bind-empty') || n.classList.contains('w-condition-invisible'); }
+    function txt(scope, f) { var n = el(scope, f); return empty(n) ? '' : n.textContent.trim(); }
+    function src(n) { return empty(n) ? '' : (n.getAttribute('src') || ''); }
+    function on(scope, f) { var n = el(scope, f); return !!n && !n.classList.contains('w-condition-invisible'); }
+    var stores = [];
+    Array.prototype.forEach.call(root.querySelectorAll('[data-bf-store]'), function (it) {
+      var lat = parseFloat(txt(it, 'lat')), lng = parseFloat(txt(it, 'lng'));
+      var slug = txt(it, 'slug');
+      if (!slug || isNaN(lat) || isNaN(lng)) return;          // can't place it on the map
+      // "Monday 10 am–11 pm" per paragraph → { Monday: '10 am–11 pm' }
+      var hours = {};
+      var hn = el(it, 'hours');
+      if (hn) Array.prototype.forEach.call(hn.querySelectorAll('p, li'), function (p) {
+        var m = /^\s*(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s*:?\s*(.+)$/i.exec(p.textContent);
+        if (m) hours[m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase()] = m[2].trim();
+      });
+      var image = src(el(it, 'image'));
+      var photos = Array.prototype.map.call(it.querySelectorAll('[data-f="photo"]'), src).filter(Boolean);
+      var ev = txt(it, 'event-title') ? {
+        title: txt(it, 'event-title'), body: txt(it, 'event-body'),
+        image: src(el(it, 'event-image')), link: txt(it, 'event-link')
+      } : null;
+      var blog = txt(it, 'blog-title') ? {
+        title: txt(it, 'blog-title'), image: src(el(it, 'blog-image')),
+        tag: txt(it, 'blog-tag'), url: BLOG + txt(it, 'blog-slug')
+      } : null;
+      stores.push({
+        name: txt(it, 'name'), slug: slug,
+        address: txt(it, 'address'), region: txt(it, 'region'), postal: txt(it, 'postal'),
+        lat: lat, lng: lng, image: image || photos[0] || '',
+        description: txt(it, 'description'), started: txt(it, 'started'),
+        phone: txt(it, 'phone'), gmaps: txt(it, 'gmaps'),
+        google: txt(it, 'google'), facebook: txt(it, 'facebook'),
+        order: txt(it, 'order'),
+        tempClosed: on(it, 'closed'), noOrder: on(it, 'noorder'),
+        hours: hours, photos: photos.length ? photos : (image ? [image] : []),
+        event: ev, blog: blog
+      });
+    });
+    if (!stores.length) return null;
+    var regions = stores.map(function (s) { return s.region; })
+      .filter(function (r, i, a) { return r && a.indexOf(r) === i; })
+      .sort(function (a, b) { return a.localeCompare(b, 'en'); });
+    return { stores: stores, regions: regions };
+  }
   var BASE    = (w.BF_CONFIG && w.BF_CONFIG.assetBase) || '';
 
   /* Three modes, same breakpoints as the CSS (rem in a media query is
@@ -321,11 +380,17 @@
     elHeroImg.style.transform = '';
     $('[data-s-name]').textContent = s.name;
 
+    if (s.tempClosed) st = { open: false, next: '' };           // CMS "Is Temporary Closed"
     $('[data-s-status]').classList.toggle('is-closed', !st.open);
-    $('[data-s-status-text]').textContent = st.open ? 'Open now' : 'Closed';
+    $('[data-s-status-text]').textContent = st.open ? 'Open now' : s.tempClosed ? 'Temporarily closed' : 'Closed';
     // "Closes at 9pm" → "Closes 9pm", as in the new design
     $('[data-s-next]').textContent = st.next.replace(' at ', ' ');
     $('[data-s-next]').parentNode.hidden = !st.next;
+
+    // the store's own order link; hidden when the CMS switches it off
+    var order = $('[data-s-order]');
+    order.href = s.order || (CFG.orderUrl || 'https://eat.burgerfuel.com/order');
+    order.closest('.sidebar__orderbar').hidden = !!s.noOrder;
 
     $('[data-s-address]').textContent = s.address;
     $('[data-s-directions]').href = s.gmaps ||

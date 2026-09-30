@@ -1565,3 +1565,5 @@ html.bf-app body{
   #bf-locator .region__panel,#bf-locator .fregion__panel,#bf-locator .fmodal__search{transition-duration:.01s}
   #bf-locator .sidebar,.is-sheet-open #bf-locator .sidebar,#bf-locator .scrim{transition-duration:.01s}
 }
+
+#bf-locator .sidebar__orderbar[hidden]{display:none}
