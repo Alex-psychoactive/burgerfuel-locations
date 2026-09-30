@@ -516,8 +516,8 @@ html.bf-app body{
 @media (max-width:74.99rem){
   #bf-locator .sidebar__handle{
     display:block;position:absolute;z-index:2;top:calc(var(--u) * .3125);left:50%;transform:translateX(-50%);
-    width:calc(var(--u) * 1.9375);height:calc(var(--u) * .25);border-radius:calc(var(--u) * 2.375);background:var(--bf-white);
-    box-shadow:0 0 calc(var(--u) * .375) rgba(0,0,0,.25);
+    width:calc(var(--u) * 2.25);height:calc(var(--u) * .3125);border-radius:calc(var(--u) * 2.375);background:#fff;opacity:1;
+    box-shadow:0 0 calc(var(--u) * .5) rgba(0,0,0,.45),0 0 0 calc(var(--u) * .03125) rgba(0,0,0,.08);
   }
 }
 #bf-locator .btn-close{
@@ -757,7 +757,7 @@ html.bf-app body{
 #bf-locator .jumpcard__arrow{width:8.864cqw;height:8.864cqw;flex:none;transition:transform .3s var(--ease)}
 #bf-locator .jumpcard__arrow--back{transform:scaleX(-1)}
 #bf-locator .jumpcard__kicker{font-family:'Salted Regular','Instrument Sans',cursive;font-weight:400;font-size:3.886cqw;line-height:1;letter-spacing:0;margin-bottom:1.136cqw}
-#bf-locator .jumpcard__label{padding:3.324cqw 3.324cqw 2.216cqw}
+#bf-locator .jumpcard__label{padding:3.324cqw 3.324cqw 3.1cqw}
 #bf-locator .jumpcard--next .jumpcard__label{right:1.939cqw;bottom:1.939cqw;padding-right:1.4cqw}   /* the arrow's own whitespace makes up the rest */
 #bf-locator .jumpcard--next .jumpcard__arrow{margin-left:1.247cqw}
 #bf-locator .jumpcard--next:hover .jumpcard__arrow{transform:translateX(1.108cqw)}
@@ -767,6 +767,7 @@ html.bf-app body{
 /* previous store (desktop only): same card as next, label bottom-left */
 #bf-locator .jumpcard--prev{display:none}
 #bf-locator .jumpcard--prev .jumpcard__label{left:1.939cqw;bottom:1.939cqw}
+#bf-locator .jumpcard--prev .jumpcard__kicker{align-self:flex-end}
 #bf-locator .jumpcard--prev .jumpcard__arrow{margin-right:-.831cqw}
 #bf-locator .jumpcard--prev:hover .jumpcard__arrow{transform:scaleX(-1) translateX(1.108cqw)}
 @media (min-width:75rem){
@@ -1044,7 +1045,7 @@ html.bf-app body{
   }
   body[data-view="map"]{overflow:hidden}
   #bf-locator .stage__title{
-    display:block;order:0;margin-top:calc(var(--u) * 8.125);       /* clears the floating pill */
+    display:block;order:0;margin-top:calc(var(--u) * 7.25);        /* clears the floating pill */
     position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal;
     font-family:var(--font-display);font-weight:700;
     font-size:calc(var(--u) * 5.3125);line-height:1;text-align:center;text-transform:uppercase;color:#000;
@@ -1128,17 +1129,11 @@ html.bf-app body{
 
   /* the store sheet sits flush under the nav, and the page behind fades
      to white rather than dark, so it reads as the next page sliding up */
-  /* The sheet and its white scrim sit above the nav's drop shadow (the
-     nav itself stays on top), so the sheet's rounded corners meet plain
-     white. The sheet draws the same shadow along its own top edge, so the
-     nav keeps its separation line. */
+  /* The sheet and its white scrim sit above the page; the nav's drop
+     shadow fades out as the sheet rises (see below) so the sheet's
+     rounded corners meet plain white, and fades back as it closes. */
   #bf-locator .sidebar{top:var(--nav-h);z-index:48}
   #bf-locator .scrim{top:var(--nav-h);z-index:47;background:var(--bf-white)}
-  #bf-locator .sidebar::after{
-    content:'';position:absolute;z-index:3;top:0;left:0;right:0;height:calc(var(--u) * 1.25);
-    background:linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,0));
-    pointer-events:none;
-  }
   #bf-locator .lightbox{z-index:49}
   #bf-locator .flip-clone{z-index:49}
 
@@ -1582,3 +1577,20 @@ html.bf-app body{
 }
 
 #bf-locator .sidebar__orderbar[hidden]{display:none}
+
+/* ── page-level: the nav's shadow while the mobile store sheet is open ──
+   Written outside the #bf-locator scope on purpose: on the site the nav is
+   the Webflow component (nav.nav), not ours. The shadow is animated to a
+   transparent copy of itself (so it can interpolate): out with the sheet's
+   rise (450ms ease-out-quint), back with its fall (400ms ease-in-cubic). */
+@media (max-width:47.99rem){
+  html.bf-app nav.nav,html.bf-app #bf-locator .nav{
+    box-shadow:0 .25rem 2.1125rem rgba(0,0,0,.25);
+    transition:box-shadow .4s cubic-bezier(.32,0,.67,0);
+  }
+  html.bf-app .is-sheet-open nav.nav,html.bf-app .is-sheet-open #bf-locator .nav,
+  html.bf-app body.is-sheet-open nav.nav{
+    box-shadow:0 .25rem 2.1125rem rgba(0,0,0,0);
+    transition:box-shadow .45s cubic-bezier(.22,1,.36,1);
+  }
+}
