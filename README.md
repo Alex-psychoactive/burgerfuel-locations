@@ -112,6 +112,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v15 | Desktop: "Previous store" card replaces "Back to all stores"; mobile card-to-sheet photo morph works again (the flying copy lives inside #bf-locator and waits to decode); mobile footer removed |
 | v16 | Previous-store name right-aligned, more bottom padding in the jump-card labels, STORES title closer to the pill, solid white grab handle, nav shadow fades out while the mobile sheet is open |
 | v17 | Mobile morph: the flying photo sits inside the sheet under its close button and grab handle, so they unmask with the sheet instead of popping in |
+| v18 | View store button removed (the store panel is the store page on every breakpoint); schema.org Restaurant structured data for the open store, for search results |
 
 ### Store pages and store URLs
 

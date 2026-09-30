@@ -534,7 +534,6 @@ html.bf-app body{
 #bf-locator .btn-close:focus-visible{outline:calc(var(--u) * .1875) solid var(--bf-purple);outline-offset:calc(var(--u) * .1875)}
 
 #bf-locator .sidebar__top{padding:calc(var(--u) * 2.25) var(--sheet-pad) calc(var(--u) * 2)}
-#bf-locator .sidebar__viewstore{margin-top:calc(var(--u) * 1.75);width:100%}
 #bf-locator .sidebar__name{
   font-family:var(--font-display);font-weight:700;
   font-size:calc(var(--u) * 4.25);line-height:.92;letter-spacing:-.005em;
@@ -1136,9 +1135,6 @@ html.bf-app body{
   #bf-locator .scrim{top:var(--nav-h);z-index:47;background:var(--bf-white)}
   #bf-locator .lightbox{z-index:49}
   #bf-locator .flip-clone{z-index:49}
-
-  /* phones browse inside the sheet; the store-page link is desktop/tablet only */
-  #bf-locator .sidebar__viewstore{display:none}
 
   /* the gesture hint sits above the bottom bar now */
   #bf-locator .map-hint{bottom:calc(var(--u) * 7)}

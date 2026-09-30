@@ -378,8 +378,56 @@
   /* ── store sheet: content ─────────────────────────────────── */
   function show(el, on) { el.hidden = !on; }
 
+  /* ── structured data for search engines ──────────────────────
+     While a store is open (and so on its own address, e.g. a Google
+     visitor landing on /nz/locations/albany) the page carries a
+     schema.org Restaurant description of it: address, coordinates,
+     phone, opening hours, photos. Google reads this to show hours and
+     directions in results. Removed again when the sheet closes. */
+  var DAYS_LD = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  function hhmm(mins) {
+    var m = ((mins % 1440) + 1440) % 1440;
+    return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  }
+  function writeStoreSchema(s) {
+    var el = d.getElementById('bf-store-ld');
+    if (!s) { if (el) el.remove(); return; }
+    var url = ROUTE ? w.location.origin + ROUTE.stores + '/' + s.slug : w.location.href;
+    var hours = [];
+    DAYS_LD.forEach(function (day) {
+      var r = w.BFHours.parseRange(s.hours && s.hours[day]);
+      if (r) hours.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: day, opens: hhmm(r.open), closes: hhmm(r.close) });
+    });
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'Restaurant',
+      name: 'BurgerFuel ' + s.name,
+      brand: { '@type': 'Brand', name: 'BurgerFuel' },
+      servesCuisine: 'Burgers',
+      url: url,
+      image: (s.photos && s.photos.length ? s.photos : [s.image]).filter(Boolean),
+      telephone: s.phone || undefined,
+      address: {
+        '@type': 'PostalAddress', streetAddress: s.address,
+        addressRegion: s.region || undefined, postalCode: s.postal || undefined, addressCountry: 'NZ'
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: s.lat, longitude: s.lng },
+      hasMap: s.gmaps || undefined,
+      openingHoursSpecification: hours.length ? hours : undefined,
+      sameAs: [s.facebook, s.google].filter(Boolean)
+    };
+    if (!el) {
+      el = d.createElement('script');
+      el.type = 'application/ld+json';
+      el.id = 'bf-store-ld';
+      d.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify(ld);
+  }
+
   function fillSidebar(s) {
     var st = w.BFHours.status(s.hours);
+    writeStoreSchema(s);
 
     elHeroImg.src = s.image;
     elHeroImg.alt = 'BurgerFuel ' + s.name;
@@ -392,9 +440,6 @@
     // "Closes at 9pm" → "Closes 9pm", as in the new design
     $('[data-s-next]').textContent = st.next.replace(' at ', ' ');
     $('[data-s-next]').parentNode.hidden = !st.next;
-
-    // desktop + tablet: a link to the store's own page (the CMS template)
-    $('[data-s-view]').href = (ROUTE ? ROUTE.stores : (CFG.storePageBase || '/nz/locations')) + '/' + s.slug;
 
     // the store's own order link; hidden when the CMS switches it off
     var order = $('[data-s-order]');
@@ -638,6 +683,7 @@
     var curSlug = state.selected && state.selected.slug;
     state.selected = null;
     writeHash(null);
+    writeStoreSchema(null);
     state.sheetOpen = false;
     syncListSelection();
     syncMarkerSelection();
