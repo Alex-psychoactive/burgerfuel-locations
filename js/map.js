@@ -188,6 +188,11 @@
              tab. The style is all we need to recolour and place pins. */
           map.once('style.load', function () {
             recolour(map);
+            /* the map fades in over the water colour once the first
+               tiles have drawn, instead of flashing light grey first */
+            var shown = function () { el.classList.add('is-ready'); };
+            map.once('idle', shown);
+            setTimeout(shown, 2500);
             res({
               driver: 'maplibre',
               map: map,

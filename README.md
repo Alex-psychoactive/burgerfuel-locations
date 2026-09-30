@@ -106,6 +106,7 @@ git commit -am "Roll back to v4" && git tag v7 && git push origin main --tags
 | v9 | Accessibility + performance audit: store rows and map pins are real buttons, valid listbox, focus trap and focus return in overlay/sheet/lightbox, one h1, contrast fixes, fuller reduced-motion; map loads after the list on phones, lazy sheet icons, lighter nav and texture images |
 | v10 | Store sheet redesign (outlined status tags, grey section icons on the right, new jump cards, 1/2/3+ photo layouts), Mon→Sun hours, smooth wheel zoom (pins keep up), region field grows into its dropdown, desktop region dot, store URLs with Back/Forward, locator fully scoped for the Webflow site (uses the site nav), tablet list = desktop rows, darkened lightbox neighbours |
 | v11 | Reads store data from the hidden Webflow CMS list when present (per-store order link, temporarily-closed and disable-order switches, events, latest blog post); falls back to the bundled data elsewhere |
+| v12 | Live-site fixes: swapped lat/lng in the CMS corrected on read and one bad pin can no longer stop the rest; panels scroll under the site's Lenis smooth-scroll; water-coloured placeholder and map fade-in instead of a white flash |
 
 ### Store pages and store URLs
 

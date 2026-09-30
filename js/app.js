@@ -36,6 +36,12 @@
       var lat = parseFloat(txt(it, 'lat')), lng = parseFloat(txt(it, 'lng'));
       var slug = txt(it, 'slug');
       if (!slug || isNaN(lat) || isNaN(lng)) return;          // can't place it on the map
+      // latitude and longitude typed into each other's fields (NZ: lat ≈ -34…-47,
+      // lng ≈ 166…179): swap them back rather than lose the store
+      if (Math.abs(lat) > 90 && Math.abs(lng) <= 90) {
+        var t = lat; lat = lng; lng = t;
+        if (w.console) console.warn('[BF] ' + slug + ': latitude/longitude are swapped in the CMS');
+      }
       // "Monday 10 am–11 pm" per paragraph → { Monday: '10 am–11 pm' }
       var hours = {};
       var hn = el(it, 'hours');
@@ -1727,6 +1733,12 @@
   /* ── boot ─────────────────────────────────────────────────── */
   function init() {
     d.documentElement.classList.add('bf-app');
+    // the site smooth-scrolls with Lenis, which swallows the wheel; inside
+    // the locator the panels and lists scroll natively
+    HOST.setAttribute('data-lenis-prevent', '');
+    // the loader's placeholder has done its job once the real layout is here
+    var ph = d.getElementById('bf-placeholder');
+    if (ph) ph.remove();
     syncSiteNav();
     w.addEventListener('resize', syncSiteNav);
     if (w.ResizeObserver) {
@@ -1769,7 +1781,9 @@
       .then(function (api) {
         state.map = api;
         STORES.forEach(function (s) {
-          state.markers.set(s.slug, api.addMarker(s, function (store) { select(store, 'map'); }));
+          // one bad record must never stop the rest of the pins
+          try { state.markers.set(s.slug, api.addMarker(s, function (store) { select(store, 'map'); })); }
+          catch (e) { if (w.console) console.warn('[BF] no pin for ' + s.slug, e); }
         });
         api.onClick(function () { if (state.sheetOpen && !sheetMode()) closeSidebar(); });
 

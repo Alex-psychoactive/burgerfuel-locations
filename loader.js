@@ -30,6 +30,14 @@
     'js/app.js'
   ];
 
+  /* Until the stylesheet and markup arrive, hold the space on tablet and
+     desktop with the map's water colour, so the page doesn't flash white
+     under the site nav. app.js removes this once the locator is up. */
+  var ph = d.createElement('style');
+  ph.id = 'bf-placeholder';
+  ph.textContent = '@media (min-width:48rem){#bf-locator{position:fixed;inset:0;z-index:0;background:#6f7176}}';
+  d.head.appendChild(ph);
+
   function load(version) {
     var q = '?v=' + encodeURIComponent(version);
 

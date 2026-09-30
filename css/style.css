@@ -170,7 +170,9 @@ html.bf-app body{
   isolation:isolate;
 }
 /* id selector so the renderer's own stylesheet can't unseat the layout */
-#bf-locator #map.map{position:absolute;inset:0;z-index:0;background:var(--bf-grey)}
+#bf-locator #map.map{position:absolute;inset:0;z-index:0;background:#6f7176}   /* the basemap's water, so loading never flashes light */
+#bf-locator #map .maplibregl-canvas{opacity:0;transition:opacity .4s var(--ease)}
+#bf-locator #map.is-ready .maplibregl-canvas{opacity:1}
 #bf-locator .map canvas{outline:none}
 
 /* Google / MapLibre chrome trimmed back to a Google-Maps-like base */
